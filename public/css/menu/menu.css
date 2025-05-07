@@ -1,0 +1,123 @@
+body {
+    font-family: 'Public Sans', sans-serif;
+    background: #f9fafb;
+}
+
+.sidebar {
+    width: 280px;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    border-right: 1px solid #e0e0e0;
+    padding: 2rem 1.5rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1040;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.sidebar .profile-img {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #00c6ab;
+}
+
+.sidebar h6 {
+    font-weight: 600;
+    margin-top: 1rem;
+    margin-bottom: 0;
+}
+
+.sidebar .text-muted {
+    font-size: 0.9rem;
+}
+
+.avatar-group img {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid white;
+}
+
+.avatar-group button {
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.divider {
+    border-top: 1px solid #e5e5e5;
+    margin: 1.5rem 0;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.6rem 0.8rem;
+    font-size: 15px;
+    color: #4a4a4a;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.2s ease;
+}
+
+.menu-item i {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #6c757d;
+}
+
+.menu-item:hover {
+    background-color: #f0f0f0;
+}
+
+.badge-notif {
+    background-color: #ffe2e0;
+    color: #d32f2f;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.promo-card {
+    background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+    color: white;
+    border-radius: 16px;
+    padding: 1rem;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: 1.5rem;
+}
+
+.promo-card .btn {
+    background-color: #ff8a00;
+    color: white;
+    font-size: 14px;
+    border-radius: 20px;
+    padding: 4px 14px;
+    margin-top: 0.5rem;
+}
+
+.logout-btn {
+    background-color: #ffecec;
+    color: #d32f2f;
+    border: none;
+    padding: 0.6rem;
+    border-radius: 10px;
+    width: 100%;
+    font-weight: 500;
+}
+
+.logout-btn:hover {
+    background-color: #f5d7d7;
+}

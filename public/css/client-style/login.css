@@ -1,0 +1,141 @@
+:root {
+    --font-family-base: 'Public Sans', sans-serif;
+    --color-bg: #fff;
+    --color-input-bg: #fff;
+    --color-input-border: #dee2e6;
+    --color-input-border-focus: #000;
+    --color-info-bg: #d1f5f0;
+    --color-btn-dark: #212529;
+    --color-border-hover: #00000088;
+    /* negro semi-transparente */
+    --color-border-focus: #000000;
+    --color-shadow-eyes: #d8d8d88a;
+    /* negro sólido */
+    --radius-md: 10px;
+    --radius-sm: 8px;
+    --font-size-base: 1rem;
+    --font-size-sm: 0.9rem;
+    --font-size-xs: 0.85rem;
+}
+
+body {
+    font-family: var(--font-family-base);
+    background-color: var(--color-bg);
+
+}
+
+
+
+.login-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 90vh;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.form-control {
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    font-size: var(--font-size-base);
+    background-color: var(--color-input-bg);
+    border: 1px solid var(--color-input-border);
+    transition: 0.3s ease, color 0.5s ease;
+    box-sizing: border-box;
+}
+
+
+.form-label {
+    font-weight: 500;
+    font-size: var(--font-size-sm);
+    margin-bottom: 0.2rem;
+}
+
+.info-box {
+    background-color: var(--color-info-bg);
+    border-radius: var(--radius-sm);
+    padding: 0.75rem;
+    font-size: var(--font-size-sm);
+    margin-bottom: 1.2rem;
+}
+
+.btn-dark {
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    font-weight: 500;
+    background-color: var(--color-btn-dark);
+    color: #fff;
+    transition: 0.3s ease, color 0.5s ease;
+    font-weight: bold
+}
+
+.text-muted {
+    font-size: var(--font-size-sm);
+}
+
+.forgot-link {
+    font-size: var(--font-size-xs);
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 30px;
+    /* Espacio para el icono */
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #007bff;
+    font-size: 18px;
+}
+
+a {
+    text-decoration: none;
+}
+
+#togglePassword {
+    padding: 4px 9px;
+    transition: 0.3s ease, color 0.5s ease;
+    border-radius: 100%;
+
+}
+
+#togglePassword:hover,
+#togglePassword:focus {
+    background: var(--color-shadow-eyes);
+}
+
+
+
+a:hover {
+    text-decoration: underline;
+}
+
+.btn-dark:hover {
+    transition: 0.3s ease, color 0.5s ease;
+}
+
+.form-control:hover {
+    border-color: var(--color-border-hover);
+    transition: border 0.4s ease;
+    transition: 0.3s ease, color 0.5s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    box-shadow: none;
+    border-color: var(--color-border-focus);
+    border: 1px solid var(--color-border-focus);
+}

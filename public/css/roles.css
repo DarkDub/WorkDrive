@@ -1,0 +1,59 @@
+html,
+body {
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+}
+
+.modal.fade .modal-dialog {
+    transform: scale(0.8);
+    opacity: 0;
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.modal.show .modal-dialog {
+    transform: scale(1);
+    opacity: 1;
+}
+
+.container-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.table-container {
+    width: 80%;
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.bi-pencil,
+.bi-trash {
+    color: white;
+}
+
+#modalAgregar {
+    transition: 0.2s;
+}
+
+.formEdit {
+    width: 50%;
+    margin: auto;
+    border: 2px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    height: auto;
+}

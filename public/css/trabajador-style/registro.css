@@ -1,0 +1,199 @@
+:root {
+    --font-family-base: 'Public Sans', sans-serif;
+    --color-bg: #fff;
+    --color-input-bg: #fff;
+    --color-input-border: #dee2e6;
+    --color-input-border-focus: #000;
+    --color-info-bg: #d1f5f0;
+    --color-btn-dark: #212529;
+    --color-border-hover: #00000088;
+    /* negro semi-transparente */
+    --color-border-focus: #000000;
+    --color-shadow-eyes: #d8d8d88a;
+    /* negro sólido */
+    --radius-md: 10px;
+    --radius-sm: 8px;
+    --font-size-base: 1rem;
+    --font-size-sm: 0.9rem;
+    --font-size-xs: 0.85rem;
+}
+
+body {
+    background: linear-gradient(to right, #f0f4f8, #fdeeea);
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Public Sans', sans-serif;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+}
+
+.card {
+    border: none;
+    border-radius: 1rem;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    width: 100%;
+    max-width: 420px;
+}
+
+.logo {
+    width: 50px;
+    margin: 0 auto 1rem;
+    display: block;
+}
+
+.form-control {
+    width: 100%;
+    height: 55px;
+    padding: 0.6rem;
+    font-size: 1rem;
+    border-radius: 0.5rem;
+    transition: 0.5s;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: var(--color-border-focus);
+}
+
+.form-control:hover {
+    box-shadow: none;
+    border-color: var(--color-border-hover);
+}
+
+.btn-dark {
+    border-radius: var(--radius-md);
+    padding: 0.75rem;
+    font-weight: 500;
+    background-color: var(--color-btn-dark);
+    color: #fff;
+    transition: 0.3s ease, color 0.5s ease;
+    font-weight: bold
+}
+
+.btn-dark:hover {
+    background-color: var();
+}
+
+.or-divider {
+    text-align: center;
+    margin: 1.5rem 0;
+    position: relative;
+}
+
+
+.or-divider::before,
+.or-divider::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #dee2e6;
+}
+
+.or-divider::before {
+    left: 0;
+}
+
+.or-divider::after {
+    right: 0;
+}
+
+
+
+.btn-radius {
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    border: 1px solid #111827;
+    background-color: transparent;
+    color: #111827;
+}
+
+.btn-radius:hover {
+    background-color: #111827;
+    color: #fff;
+}
+
+.btn-radius:focus {
+    box-shadow: none;
+}
+
+.role-option {
+    border: 2px solid #e5e7eb;
+    border-radius: 0.75rem;
+    padding: 1rem;
+    cursor: pointer;
+    text-align: center;
+    transition: 0.3s;
+}
+
+.role-option:hover {
+    background-color: #f3f4f6;
+}
+
+.role-option.selected {
+    border-color: #4ade80;
+    background-color: #ecfdf5;
+}
+
+.role-option input {
+    display: none;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #007bff;
+    font-size: 18px;
+}
+
+.password-container {
+    position: relative;
+}
+
+.password-container input {
+    width: 100%;
+    padding-right: 30px;
+
+}
+
+.password-container {
+    position: relative;
+    color: #6c757d;
+}
+
+
+
+button:hover {
+    background-color: #222;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+button:active {
+    transform: scale(0.97);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+input::placeholder {
+    font-size: 0.9rem;
+}
+
+#togglePassword {
+    padding: 4px 9px;
+    transition: 0.3s ease, color 0.5s ease;
+    border-radius: 100%;
+
+}
+
+#togglePassword:hover,
+#togglePassword:focus {
+    background: var(--color-shadow-eyes);
+}
