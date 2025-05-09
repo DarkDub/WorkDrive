@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(Clientes::class);
         $this->call(AdminUserSeeder::class);
         $this->call(profesiones::class);
+        $this->call(metodos_pago::class);
     }
 }

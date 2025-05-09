@@ -7,6 +7,61 @@
         transform: translateY(-2px);
         box-shadow: 0 6px 16px rgba(211, 47, 47, 0.25);
     }
+
+    .scroll-area {
+    overflow-y: auto;
+    flex: 1;
+    padding-bottom: 10px; /* evita que el contenido choque con el botón */
+}
+.scroll-area::-webkit-scrollbar {
+    width: 8px;
+    background-color: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.scroll-area::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #ccc, #999);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+    transition: background 0.3s ease;
+}
+
+.scroll-area:hover::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #bbb, #888);
+}
+.scroll-area {
+    overflow-y: auto;
+    max-height: 100%;
+    direction: rtl; /* mueve la scrollbar a la izquierda */
+    scrollbar-width: none; /* para Firefox */
+    -ms-overflow-style: none; /* para IE/Edge */
+}
+
+.scroll-area * {
+    direction: ltr; /* contenido normal, no invertido */
+}
+
+/* Oculta scrollbar en Chrome, Safari y Edge */
+.scroll-area::-webkit-scrollbar {
+    width: 8px;
+    background: transparent;
+}
+
+/* Solo aparece con hover */
+.scroll-area::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 4px;
+    transition: background 0.3s ease;
+}
+
+/* Al hacer hover, aparece con color bonito */
+.scroll-area:hover::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #5a5a5a, #888);
+}
 </style>
 
 <nav class="menu" id="menu">
@@ -16,6 +71,8 @@
             <i class="iconify" data-icon="mdi:close"></i>
         </div>
     </div>
+    <div class="scroll-area">
+
     <div class="avatar-wrapper">
         <div class="rotating-border"></div>
         <img src="{{ asset('image/avatar.jpg') }}" alt="Avatar" class="avatar-img">
@@ -47,6 +104,7 @@
 
 
     <hr />
+    
     <!-- Navegación -->
     <ul class="nav-links-trabajador">
 
@@ -112,7 +170,7 @@
         </div>
     </div>
 
-
+</div>
     <!-- Cerrar sesión y modo trabajador-->
     <div class="menu-footer">
         <a href="/Login.html" class="logout-beauty"

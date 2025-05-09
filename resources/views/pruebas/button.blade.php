@@ -27,7 +27,7 @@
 </head>
 
 <body>
-    <a class="ripple-button" href="{{ route('profesiones.index') }}">Haz clic</a>
+    <a class="ripple-button" href="{{ route('servicios.index') }}">Haz clic</a>
 
 </body>
 <script>

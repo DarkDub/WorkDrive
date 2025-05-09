@@ -6,6 +6,8 @@ use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\profesion;
+use App\Http\Controllers\ServiciosController;
+use App\Models\servicios;
 
 // Página principal
 Route::get('/r', function () {
@@ -48,3 +50,5 @@ Route::put('/clientecambiarEstado/{cliente}/{estado}', [ClientesController::clas
 
 Route::resource('admin_user', AdminUserController::class);
 Route::resource('profesiones', profesion::class);
+Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
+Route::resource('servicios', ServiciosController::class);

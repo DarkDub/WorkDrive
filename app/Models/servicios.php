@@ -1,0 +1,39 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\profesiones;
+use App\Models\metodoPago;
+
+class servicios extends Model
+{
+ 
+    use HasFactory;
+
+    // Definir los campos que pueden ser asignados masivamente
+    protected $fillable = [
+        'nombre',
+        'telefono',
+        'descripcion',
+        'tarifa',
+        'estado',
+        'labor_id',
+        'pago_id',
+    ];
+
+    // Definir las relaciones con otros modelos
+
+    // Relación con la tabla 'labores' a través de 'labor_id'
+    public function profesion()
+    {
+        return $this->belongsTo(profesion::class, 'labor_id');
+    }
+
+    // Relación con la tabla 'metodo_pago' a través de 'pago_id'
+    public function metodoPago()
+    {
+        return $this->belongsTo(MetodoPago::class, 'pago_id');
+    }
+}

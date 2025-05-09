@@ -13,8 +13,121 @@
     <!-- En tu layout o directamente en el archivo -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <style>
-        /* Estilos generales */
+.toastify {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff; /* Verde de éxito */
+    color: #212b36;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+    padding: 10px 10px;
+    max-width: 300px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    animation: slide-in 0.3s ease-in-out; /* Animación de entrada */
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.toastify .toastify-icon {
+  background-color: white; /* Fondo blanco */
+  color: #4caf50; /* Verde de éxito */
+  border-radius: 50%;
+  width: 35px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.toastify .toastify-text {
+  flex-grow: 1;
+  color: #fff;
+}
+
+.toastify .toastify-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  padding: 0px 1px;
+  margin-left: 10px;
+}
+
+.toastify .toast-close {
+    padding: 0px 1px;
+    margin-left: 40px;
+    color: #c3c3c3;
+    padding: 0px 0px 20px 0px;
+}
+
+.toastify .toastify-close:hover {
+  opacity: 1;
+}
+
+.toastify .toastify-icon {
+    background-color: white;
+    color: #4caf50; 
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    content: "";
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.toastify .toastify-avatar{
+    width: 40px;
+    height: 40px;
+    margin: 1px 10px;
+    padding: 10px;
+    background-color: #e6f8f1;
+    border-radius: 10px;
+}
+.toastify .toastify-icon {
+    background-color: white;
+    /* color: #4caf50;  */
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    content: "";
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Check_circle.svg/800px-Check_circle.svg.png'); /* URL del icono */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
     </style>
 </head>
 
@@ -120,21 +233,30 @@
                 <i class="fas fa-map-marker-alt"></i>
                 <span>Dirección: Dg. 18 161</span>
             </div>
-            <form id="work-form">
-                <form id="work-form" method="POST" action="">
-                    <input type="text" name="nombre_cliente" placeholder="Tu nombre" required>
 
-                    <input type="date" name="fecha" required>
-                    <input type="time" name="hora" required>
-                    <textarea id="auto-resize-textarea" placeholder="Descripción" rows="3" required></textarea>
-                    <input type="text" placeholder="Tarifa" required>
-                    <div class="payment-method" id="payment-method">
-                        <i class="fas fa-credit-card"></i> Método de Pago
-                    </div>
-                    <button type="submit" class="submit-btn">Solicitar</button>
-                </form>
+            <form id="work-form" method="POST" action="{{ route('servicios.store') }}">
+                @csrf
+                <input type="text" name="nombre" placeholder="Tu nombre" required>
+                <input type="date" name="fecha" required>
+                <input type="time" name="hora" required>
+                <textarea name="descripcion" placeholder="Descripción" rows="3" required></textarea>
+                <input type="text" name="tarifa" placeholder="Tarifa" required>
 
-                {{-- <div class="promo-card">
+                <!-- Campo oculto para guardar el método de pago -->
+                <input type="hidden" name="pago_id" id="pago_id_hidden" required>
+                <input type="hidden" name="labor_id" id="labor_id" value="1" required>
+                <input type="hidden" name="estado" id="labor_id" value="A" required>
+
+                <div class="payment-method" id="payment-method">
+                    <i class="fas fa-credit-card"></i> Seleccionar método de pago
+                </div>
+
+
+                <button type="submit" class="submit-btn">Solicitar</button>
+            </form>
+
+
+            {{-- <div class="promo-card">
                     <div class="promo-content">
                         <h3>¡35% de Descuento!</h3>
                         <p>Aprovecha esta oferta para pedir tu servicio hoy mismo.</p>
@@ -150,9 +272,15 @@
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Métodos de Pago</h2>
-                <ul>
-                    <li><i class="fas fa-credit-card"></i> Transferencia</li>
-                    <li><i class="fas fa-money-bill-wave"></i> Efectivo</li>
+                <ul class="metodos_pagos">
+                    @foreach ($metodosPago as $metodo)
+                        <li data-id="{{ $metodo->id }}">
+                            <span class="iconify" data-icon="{{ $metodo->icono }}"
+                                style="width: 24px; height: 24px; margin-right: 10px;"></span>
+                            {{ $metodo->nombre }}
+                        </li>
+                    @endforeach
+
                 </ul>
             </div>
         </div>
@@ -161,6 +289,22 @@
     </main>
     <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
     <script src="{{ asset('js/principal-page/modal-page.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    
+    @if (session('success'))
+    <script>
+        Toastify({
+            text: "{{ session('success') }}",
+            duration: 4000,
+            gravity: "top",
+            position: "right",
+            backgroundColor: "#ffffff", // verde
+            close: true,
+            avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
+        }).showToast();
+    </script>
+@endif
 </body>
 
 </html>

@@ -11,15 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('servicios', function (Blueprint $table) {
+        Schema::create('metodo_pago', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre')->nullable();
-            $table->string('telefono', 20)->nullable();
-            $table->string('descripcion');
-            $table->string('tarifa')->nullable();
-
-            // $table->foreignId('pago_id')->references('id')->on('metodo_pago')->onDelete('cascade');
+            $table->string('nombre');
+            $table->string('icono')->nullable();
+            $table->timestamps();
         });
+        
     }
 
     /**

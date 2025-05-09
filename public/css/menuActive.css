@@ -40,6 +40,8 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
+    max-height: 100vh; /* Ocupa el alto total de la ventana */
+    overflow-y: auto;
 }
 
 .menu hr {
@@ -241,7 +243,7 @@ body {
     font-size: 16px;
 }
 
-.worker-mode {
+/* .worker-mode {
     color: white;
     border: none;
     padding: 12px;
@@ -266,7 +268,7 @@ body {
 
 .worker-mode:hover {
     background-position: right;
-}
+} */
 
 /* Otros estilos opcionales */
 .text-logo {
