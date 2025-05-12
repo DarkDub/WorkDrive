@@ -1,0 +1,112 @@
+.toastify {
+    display: flex;
+    align-items: center;
+    background-color: #ffffff; /* Verde de éxito */
+    color: #212b36;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
+    padding: 10px 10px;
+    max-width: 300px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    animation: slide-in 0.3s ease-in-out; /* Animación de entrada */
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.toastify .toastify-icon {
+  background-color: white; /* Fondo blanco */
+  color: #4caf50; /* Verde de éxito */
+  border-radius: 50%;
+  width: 35px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.toastify .toastify-text {
+  flex-grow: 1;
+  color: #fff;
+}
+
+.toastify .toastify-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: white;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  opacity: 0.7;
+  transition: opacity 0.3s;
+  padding: 0px 1px;
+  margin-left: 10px;
+}
+
+.toastify .toast-close {
+    padding: 0px 1px;
+    margin-left: 40px;
+    color: #c3c3c3;
+    padding: 0px 0px 20px 0px;
+}
+
+.toastify .toastify-close:hover {
+  opacity: 1;
+}
+
+.toastify .toastify-icon {
+    background-color: white;
+    color: #4caf50; 
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    content: "";
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+.toastify .toastify-avatar{
+    width: 40px;
+    height: 40px;
+    margin: 1px 10px;
+    padding: 10px;
+    background-color: #e6f8f1;
+    border-radius: 10px;
+}
+.toastify .toastify-icon {
+    background-color: white;
+    /* color: #4caf50;  */
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 16px;
+    content: "";
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Check_circle.svg/800px-Check_circle.svg.png'); /* URL del icono */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}

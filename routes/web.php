@@ -17,7 +17,7 @@ Route::get('/r', function () {
 //     return view('pruebas.prueba2');
 // });
 Route::get('/p', function () {
-    return view('pruebas.prueba');
+    return view('pruebas.demos');
 });
 // Route::get('/', function () {
 //     return view('auth.login');

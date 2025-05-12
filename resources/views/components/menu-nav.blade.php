@@ -1,6 +1,9 @@
 @props(['name' => 'luis fernando', 'id' => 'menu', 'email' => 'luis@gmail.com'])
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <style>
     .logout-beauty:hover {
         background: linear-gradient(135deg, #ffcccc, #ffb3b3);
@@ -75,7 +78,7 @@
 
     <div class="avatar-wrapper">
         <div class="rotating-border"></div>
-        <img src="{{ asset('image/avatar.jpg') }}" alt="Avatar" class="avatar-img">
+        <img src="{{ asset('image/avataar.jpeg') }}" alt="Avatar" class="avatar-img">
     </div>
     <!-- Usuario -->
 

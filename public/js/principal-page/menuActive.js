@@ -7,7 +7,7 @@ const textarea = document.getElementById('auto-resize-textarea');
 // Función para abrir el menú
 menuIcon.addEventListener('click', () => {
     menu.classList.add('active');
-    menuIcon.style.display = 'none';  // Ocultar el icono de abrir
+    // menuIcon.style.display = 'none';  // Ocultar el icono de abrir
 });
 
 // Función para cerrar el menú
