@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Rol;
 
 class User extends Authenticatable
 {
@@ -21,7 +22,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol_id',
+        'registro_id',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -44,5 +48,15 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function registro()
+    {
+        return $this->belongsTo(Registro::class, 'registro_id');
+    }
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'rol_id'); // corregido: relación con Rol, usando la clave foránea 'rol_id'
     }
 }

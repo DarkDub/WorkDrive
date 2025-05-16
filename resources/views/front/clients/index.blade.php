@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/tarjeta.css') }}">
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -94,7 +94,7 @@
 
             <ul class="list-group">
                 @foreach ($profesiones as $profesion)
-                    <li class="list-group-item" id="list-group-item">
+                    <li class="list-group-item" id="list-group-item" data-id="{{$profesion->id}}">
                         <div class="icon-circle">
                             <span class="iconify icono-profesion" data-icon="{{ $profesion->icono }}" data-width="22"
                                 data-height="22"></span>
@@ -134,11 +134,11 @@
 
                 <!-- Campo oculto para guardar el método de pago -->
                 <input type="hidden" name="pago_id" id="pago_id_hidden" required>
-                <input type="hidden" name="labor_id" id="labor_id" value="1" required>
+                <input type="hidden" name="labor_id" id="profesion_id" value="" required>
                 <input type="hidden" name="estado" id="labor_id" value="A" required>
 
                 <div class="payment-method" id="payment-method">
-                    <i class="fas fa-credit-card"></i> Seleccionar método de pago
+                    <i class="fas fa-credit-card"></i> <span class="method-text">Seleccionar método de pago</span>
                 </div>
 
 
@@ -186,7 +186,7 @@
     <script>
         Toastify({
             text: "{{ session('success') }}",
-            duration: 4000,
+            duration: 3000,
             gravity: "top",
             position: "right",
             backgroundColor: "#ffffff", // verde

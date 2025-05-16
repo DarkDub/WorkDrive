@@ -30,5 +30,15 @@ class RolSeeder extends Seeder
             'descripcion' => 'Restringido',
             'padre' => 3,
         ]);
+        DB::table('rols')->insert([
+            'nombre' => 'trabajador',
+            'descripcion' => 'Restringido',
+            'padre' => 4,
+        ]);
+        DB::table('rols')->insert([
+            'nombre' => 'cliente',
+            'descripcion' => 'Restringido',
+            'padre' => 5,
+        ]);
     }
 }

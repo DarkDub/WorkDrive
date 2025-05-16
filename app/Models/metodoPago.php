@@ -13,7 +13,7 @@ class MetodoPago extends Model
     protected $fillable = [
         'nombre', // El nombre del método de pago (por ejemplo, "Tarjeta de crédito")
     ];
-
+ protected $table = 'metodo_pago';
     // Relación con los servicios
     public function servicios()
     {

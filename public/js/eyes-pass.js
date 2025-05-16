@@ -11,3 +11,4 @@ togglePassword.addEventListener('click', function () {
     this.classList.toggle('bi-eye');
     this.classList.toggle('bi-eye-slash');
 });
+

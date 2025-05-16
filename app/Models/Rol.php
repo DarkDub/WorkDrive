@@ -27,4 +27,8 @@ class Rol extends Model
 //     {
 //         return $this->hasMany(AdminUser::class, 'role_id');
 //     }
+  public function users()
+    {
+        return $this->hasMany(User::class, 'rol_id');
+    }
 }

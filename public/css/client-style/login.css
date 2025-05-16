@@ -1,5 +1,5 @@
 :root {
-    --font-family-base: 'Public Sans', sans-serif;
+    --font-family-base: "Public Sans", sans-serif;
     --color-bg: #fff;
     --color-input-bg: #fff;
     --color-input-border: #dee2e6;
@@ -16,26 +16,74 @@
     --font-size-base: 1rem;
     --font-size-sm: 0.9rem;
     --font-size-xs: 0.85rem;
+    --spacing: 8px;
+    --layout-auth-content-width: 420px;
 }
 
 body {
     font-family: var(--font-family-base);
     background-color: var(--color-bg);
-
+    background: linear-gradient(to right, #f0f4f8, #fdeeea);
 }
-
-
 
 .login-content {
-    display: flex;
+    -webkit-box-pack: center;
     justify-content: center;
-    align-items: center;
-    min-height: 90vh;
+    padding: calc(17 * var(--spacing)) 0px calc(10 * var(--spacing)) 0px;
+    display: flex;
 }
 
+/* Contenedor del login con sombra y bordes redondeados */
 .login-container {
+    padding-top: calc(5 * var(--spacing));
+    padding-bottom: calc(5 * var(--spacing));
+    padding-left: calc(3 * var(--spacing));
+    padding-right: calc(3 * var(--spacing));
     width: 100%;
-    max-width: 420px;
+    z-index: 2;
+    border-radius: calc(2 * var(--spacing));
+    display: flex;
+    flex-direction: column;
+    max-width: var(--layout-auth-content-width);
+    background-color: var(--color-bg);
+}
+.login-container .header-login {
+    text-align: center;
+}
+.login-container .header-login h4 {
+    font-size: 19px;
+}
+.login-container .header-login .logo {
+    width: 96px;
+    height: 96px;
+    align-items: center;
+    position: relative;
+    display: inline-flex;
+    justify-content: center;
+    margin-bottom: calc(1 * var(--spacing));
+    margin-left: auto;
+    margin-right: auto;
+}
+/* Contenedor del input para posicionar el icono */
+.input-icon-container {
+    position: relative;
+}
+
+/* El icono SVG dentro del input */
+.input-icon-container svg {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    fill: #6c757d; /* gris medio */
+    pointer-events: none;
+}
+
+/* Ajustar padding-left para que el texto no tape el icono */
+.input-icon-container input.form-control {
+    padding-left: 40px; /* espacio para icono */
 }
 
 .form-control {
@@ -47,7 +95,6 @@ body {
     transition: 0.3s ease, color 0.5s ease;
     box-sizing: border-box;
 }
-
 
 .form-label {
     font-weight: 500;
@@ -70,7 +117,7 @@ body {
     background-color: var(--color-btn-dark);
     color: #fff;
     transition: 0.3s ease, color 0.5s ease;
-    font-weight: bold
+    font-weight: bold;
 }
 
 .text-muted {
@@ -109,15 +156,12 @@ a {
     padding: 4px 9px;
     transition: 0.3s ease, color 0.5s ease;
     border-radius: 100%;
-
 }
 
 #togglePassword:hover,
 #togglePassword:focus {
     background: var(--color-shadow-eyes);
 }
-
-
 
 a:hover {
     text-decoration: underline;

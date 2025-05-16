@@ -5,8 +5,13 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\ProveedorController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\AdminUserController;
+use App\Http\Controllers\backend\TrabajadorController;
+use App\Http\Controllers\backend\ClienteController;
 use App\Http\Controllers\profesion;
 use App\Http\Controllers\ServiciosController;
+use App\Http\Controllers\auth\RegisterController;
+use App\Http\Controllers\auth\AutenticacionController;
+
 use App\Models\servicios;
 
 // Página principal
@@ -23,7 +28,7 @@ Route::get('/p', function () {
 //     return view('auth.login');
 // });
 Route::get('/', function () {
-    return view('pruebas.button');
+    return view('auth.login');
 });
 Route::get('/b', function () {
     return view('pruebas.prueba2');
@@ -32,23 +37,63 @@ Route::get('/b', function () {
 // Route::get('/prin', function () {
 //     return view('components.principal');
 // });
+Route::middleware(['auth'])->group(function () {
 
-// Rutas de Roles
-Route::resource('rol', RolController::class);
-Route::get('/rolesEliminados', [RolController::class, 'show'])->name('roles.Eliminados');
-Route::put('/rolcambiarEstado/{rol}/{estado}', [RolController::class, 'CambiarEstado'])->name('rol.estado');
+    // todas tus rutas protegidas van aquí
 
-// Rutas de Proveedores
-Route::resource('prove', ProveedorController::class);
-Route::get('/prove/eliminados', [ProveedorController::class, 'Eliminados'])->name('proveedores.eliminados');
-Route::put('/provecambiarEstado/{prove}/{estado}', [ProveedorController::class, 'cambiarEstado'])->name('proveedores.cambiarEstado');
+    // Rutas de Roles
+    Route::resource('rol', RolController::class);
+    Route::get('/rolesEliminados', [RolController::class, 'show'])->name('roles.Eliminados');
+    Route::put('/rolcambiarEstado/{rol}/{estado}', [RolController::class, 'CambiarEstado'])->name('rol.estado');
 
-// Rutas de Clientes
-Route::resource('clientes', ClientesController::class);
-Route::get('/eliminados', [ClientesController::class, 'Eliminados'])->name('clientes.eliminados');
-Route::put('/clientecambiarEstado/{cliente}/{estado}', [ClientesController::class, 'cambiarEstado'])->name('clientes.cambiarEstado');
+    // Rutas de Proveedores
+    Route::resource('prove', ProveedorController::class);
+    Route::get('/prove/eliminados', [ProveedorController::class, 'Eliminados'])->name('proveedores.eliminados');
+    Route::put('/provecambiarEstado/{prove}/{estado}', [ProveedorController::class, 'cambiarEstado'])->name('proveedores.cambiarEstado');
 
-Route::resource('admin_user', AdminUserController::class);
-Route::resource('profesiones', profesion::class);
-Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
-Route::resource('servicios', ServiciosController::class);
+    // Rutas de Clientes
+    Route::resource('clientes', ClientesController::class);
+    Route::get('/eliminados', [ClientesController::class, 'Eliminados'])->name('clientes.eliminados');
+    Route::put('/clientecambiarEstado/{cliente}/{estado}', [ClientesController::class, 'cambiarEstado'])->name('clientes.cambiarEstado');
+
+    Route::resource('admin_user', AdminUserController::class);
+    Route::resource('profesiones', profesion::class);
+    Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
+    Route::resource('servicios', ServiciosController::class);
+
+    Route::post('/logout', [AutenticacionController::class, 'logout'])->name('logout');
+
+    // Rutas para el registro
+    Route::get('/registro', [RegisterController::class, 'create'])->name('register');
+    Route::post('/registro', [RegisterController::class, 'registro'])->name('registro');
+
+    // RUTA GENERAL DEL DASHBOARD (redirecciona según el rol si quieres)
+    Route::middleware('auth')->get('/dashboard', function () {
+        return view('dashboard');
+    })->name('dashboard');
+
+    // RUTAS CON ROLES
+    Route::middleware(['auth', 'Rol:cliente'])->group(function () {
+        Route::get('/principal', [ClienteController::class, 'dashboard'])->middleware('Rol:cliente');
+    });
+
+    Route::get('/principal', [ClienteController::class, 'dashboard'])->name('cliente.index');
+
+
+  Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->middleware('Rol:trabajador');
+
+        Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->name('trabajador.index');
+    });
+
+Route::get('/login', [AutenticacionController::class, 'create'])->name('login');
+Route::post('/login', [AutenticacionController::class, 'store'])->name('login.store');
+
+// RUTAS DE PERFIL
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
+// Auth scaffolding
+// require __DIR__ . '/auth.php';

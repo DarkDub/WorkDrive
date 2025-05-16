@@ -1,105 +1,125 @@
-<style>
-    .customer-info-card {
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  max-width: 600px;
-  margin: auto;
-}
 
-.info-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-}
 
-.profile-img {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-right: 20px;
-}
 
-.customer-details {
-  flex-grow: 1;
-}
 
-.customer-name {
-  font-size: 20px;
-  font-weight: 600;
-  color: #333;
-}
 
-.customer-email, .customer-ip {
-  font-size: 14px;
-  color: #777;
-}
+@extends('layout.guest')
 
-.blacklist-btn {
-  padding: 10px 20px;
-  background-color: #e53e3e;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 14px;
-}
+@section('title', 'Registro')
 
-.blacklist-btn:hover {
-  background-color: #c53030;
-}
+@section('styles')
+    <link rel="stylesheet" href="{{ asset('css/trabajador-style/registro2.css') }}" />
+@endsection
 
-.delivery-section, .shipping-section, .payment-section {
-  margin-top: 20px;
-  padding: 10px;
-  background-color: #f7fafc;
-  border-radius: 8px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-}
+@section('content')
+    <div class="login-content">
+        <div class="login-container">
+            <iconify-icon icon="carbon:user-avatar" class="logo" style="font-size: 50px;"></iconify-icon>
+            <h5 class="text-center fw-bold mb-3">Crear cuenta</h5>
+            <p class="text-center small mb-4">
+                ¿Tienes cuenta? <a href="{{ route('login') }}">Iniciar sesión</a>
+            </p>
 
-h3 {
-  font-size: 16px;
-  color: #333;
-  margin-bottom: 10px;
-}
+            <form method="POST" action="{{ route('registro') }}">
+                @csrf
 
-.card-icon {
-  width: 30px;
-  height: 30px;
-  margin-top: 10px;
-}
+                <!-- Nombre -->
+                <div class="mt-3 mb-3">
+                    <label for="name" class="form-label">Nombre</label>
+                    <input id="name" type="text" name="nombre"
+                        class="form-control"
+                        required autofocus autocomplete="name" />
+                    <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                </div>
 
-</style>
+                <!-- Apellido -->
+                <div class="mt-3 mb-3">
+                    <label for="apellido" class="form-label">Apellido</label>
+                    <input id="apellido" type="text" name="apellido"
+                        class="form-control"
+                        required autocomplete="apellido" />
+                    <x-input-error :messages="$errors->get('apellido')" class="mt-2" />
+                </div>
 
-<section class="customer-info-card">
-    <div class="info-header">
-      <img src="path_to_image.jpg" alt="Profile Picture" class="profile-img" />
-      <div class="customer-details">
-        <h2 class="customer-name">Lucian Obrien</h2>
-        <p class="customer-email">ashlynn.ohara62@gmail.com</p>
-        <p class="customer-ip">IP address: 192.158.1.38</p>
-        <button class="blacklist-btn">+ Add to Blacklist</button>
-      </div>
+                <!-- Teléfono -->
+                <div class="mt-3 mb-3">
+                    <label for="telefono" class="form-label">Teléfono</label>
+                    <input id="telefono" type="text" name="telefono"
+                        class="form-control"
+                        required autocomplete="telefono" />
+                    <x-input-error :messages="$errors->get('telefono')" class="mt-2" />
+                </div>
+
+                <!-- Email -->
+                <div class="mt-3 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input id="email" type="email" name="email"
+                        class="form-control"
+                        required autocomplete="email" />
+                    <x-input-error :messages="$errors->get('email')" class="mt-2" />
+                </div>
+
+                <!-- Password -->
+                <div class="mt-3 mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input id="password" type="password" name="password"
+                        class="form-control"
+                        required autocomplete="new-password" />
+                    <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mt-3 mb-3">
+                    <label for="password_confirmation" class="form-label">Confirmar Password</label>
+                    <input id="password_confirmation" type="password" name="password_confirmation"
+                        class="form-control"
+                        required autocomplete="new-password" />
+                    <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+                </div>
+
+                <!-- Selección de rol -->
+                <div class="mt-3 mb-3">
+                    <label class="form-label fw-bold">¿Qué deseas hacer?</label>
+                    <div class="row g-3">
+                        <div class="col-6">
+                            <label class="role-option w-100" id="option-empleado">
+                                <input type="radio" name="userRole" value="empleado"
+                                    {{ old('userRole') == 'empleado' ? 'checked' : '' }} />
+                                <x-input-error :messages="$errors->get('userRole')" class="mt-2" />
+                                <div>
+                                    <iconify-icon icon="mdi:hammer-wrench" width="30"></iconify-icon>
+                                    <div class="mt-2">Empleado</div>
+                                </div>
+                            </label>
+                        </div>
+                        <div class="col-6">
+                            <label class="role-option w-100" id="option-cliente">
+                                <input type="radio" name="userRole" value="cliente"
+                                    {{ old('userRole') == 'cliente' ? 'checked' : '' }} />
+                                <x-input-error :messages="$errors->get('userRole')" class="mt-2" />
+                                <div>
+                                    <iconify-icon icon="mdi:account" width="30"></iconify-icon>
+                                    <div class="mt-2">Cliente</div>
+                                </div>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid mt-3">
+                    <button class="btn btn-dark" type="submit">Crear cuenta</button>
+                </div>
+            </form>
+
+            <p class="text-center small mt-4">
+                Al registrarme, acepto <a href="#">los Términos de servicio</a> y la
+                <a href="#">Política de privacidad</a>.
+            </p>
+        </div>
     </div>
-    
-    <div class="delivery-section">
-      <h3>Delivery</h3>
-      <p>Ship by: DHL</p>
-      <p>Speedy: Standard</p>
-      <p>Tracking No: SPX037739199373</p>
-    </div>
-    
-    <div class="shipping-section">
-      <h3>Shipping</h3>
-      <p>Address: 19034 Verna Unions Apt. 164 - Honolulu, RI / 87535</p>
-      <p>Phone number: 365-374-4961</p>
-    </div>
-    
-    <div class="payment-section">
-      <h3>Payment</h3>
-      <p>**** **** **** 5678</p>
-      <img src="card_icon.png" alt="Card Icon" class="card-icon" />
-    </div>
-  </section>
-  
+@endsection
+
+@section('js')
+    <script defer src="{{ asset('js/registro.js') }}"></script>
+    <script defer src="{{ asset('js/eyes-pass.js') }}"></script>
+@endsection
