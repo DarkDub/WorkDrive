@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\profesiones;
 use App\Models\metodoPago;
 
-class servicios extends Model
+class Servicios extends Model
 {
- 
+
     use HasFactory;
 
     // Definir los campos que pueden ser asignados masivamente

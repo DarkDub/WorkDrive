@@ -84,25 +84,25 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->middleware('Rol:trabajador');
 
     Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->name('trabajador.index');
-     
+
     // Route::middleware('auth')->post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->name('ubicacion.actualizar');
 
     // Route::post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->name('ubicacion.actualizar');
     // Route::post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->middleware('auth');
-Route::middleware('auth')->post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->name('ubicacion.actualizar');
- // web.php o api.php (según como manejes rutas)
-Route::get('/ubicaciones', [UbicacionController::class, 'listar'])->name('ubicaciones.listar');
+    Route::middleware('auth')->post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->name('ubicacion.actualizar');
+    // web.php o api.php (según como manejes rutas)
+    Route::get('/ubicaciones', [UbicacionController::class, 'listar'])->name('ubicaciones.listar');
 
 
-// RUTAS DE PERFIL
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
-    Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
-    // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    // RUTAS DE PERFIL
+    Route::middleware('auth')->group(function () {
+        Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
+        Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
+        // Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    });
 });
 
-});
 Route::get('/login', [AutenticacionController::class, 'create'])->name('login');
 Route::post('/login', [AutenticacionController::class, 'store'])->name('login.store');
 Route::get('/registro', [RegisterController::class, 'create'])->name('register');

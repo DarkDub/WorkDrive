@@ -21,7 +21,7 @@
 <body>
 
     <x-header></x-header>
-    
+
     <div class="content">
 
         <div class="card">
@@ -36,8 +36,8 @@
                 <div class="row mb-3">
                     <div class="col">
                         <input type="text" class="form-control @error('nombre') is-invalid @enderror"
-                            placeholder="First name" name="nombre" id="nombre" value="{{ old('nombre') }}"
-                            required autofocus />
+                            placeholder="First name" name="nombre" id="nombre" value="{{ old('nombre') }}" required
+                            autofocus />
                         @error('nombre')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
@@ -74,8 +74,8 @@
                 <div class="mb-3">
                     <div class="password-container position-relative">
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                            id="password" name="password" placeholder="Password" required
-                            autocomplete="new-password" value="{{old('password')}}"/>
+                            id="password" name="password" placeholder="Password" required autocomplete="new-password"
+                            value="{{ old('password') }}" />
                         <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y me-2"
                             id="togglePassword" style="cursor: pointer;"></i>
                         @error('password')
