@@ -116,7 +116,7 @@ class ProveedorController extends Controller
         ]);
         $prove->update($request->all());
         return redirect()->route('prove.index')->with('toast_success', 'Proveedor actualizado correctamente');
-        //
+        
     }
 
     /**

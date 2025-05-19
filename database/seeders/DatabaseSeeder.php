@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\AdminUser;
+use App\Models\Registro;
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,8 +17,8 @@ class DatabaseSeeder extends Seeder
         // User::factory(10)->create();
 
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Test',
+            'email' => 'test@gmail.com',
             'password' => bcrypt('123456'),
         ]);
         $this->call(RolSeeder::class);
@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminUserSeeder::class);
         $this->call(profesiones::class);
         $this->call(metodos_pago::class);
+        $this->call(RegistroSeeder::class);
     }
 }

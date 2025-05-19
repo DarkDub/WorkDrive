@@ -54,6 +54,7 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Registro::class, 'registro_id');
     }
+    
 
     public function rol()
     {

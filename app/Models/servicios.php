@@ -19,8 +19,11 @@ class servicios extends Model
         'descripcion',
         'tarifa',
         'estado',
+        'user_id',
         'labor_id',
         'pago_id',
+        'latitud',
+        'longitud',
     ];
 
     // Definir las relaciones con otros modelos

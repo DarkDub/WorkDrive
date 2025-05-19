@@ -9,9 +9,8 @@ class Registro extends Model
 {
     use HasFactory;
     protected $table = 'registros';
-    // protected $primaryKey = 'id_registro';
+
     protected $guarded = [];
-    //
 
     public function rol()
     {
@@ -22,8 +21,28 @@ class Registro extends Model
     {
         return $this->hasMany(User::class, 'registro_id');
     }
-    public function registro()
+
+    public function profesion()
     {
-        return $this->belongsTo(Registro::class);
+        return $this->belongsTo(Profesion::class, 'profesion_id');
+    }
+
+    public function datosTrabajador()
+    {
+        return $this->hasOne(DatosTrabajador::class);
+    }
+    public function pais()
+    {
+        return $this->belongsTo(Pais::class, 'pais_id');
+    }
+
+    public function departamento()
+    {
+        return $this->belongsTo(Departamento::class, 'departamento_id');
+    }
+
+    public function municipio()
+    {
+        return $this->belongsTo(Municipio::class, 'municipio_id');
     }
 }

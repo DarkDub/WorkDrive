@@ -17,6 +17,7 @@
     {{-- Fuentes opcionales --}}
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
     {{-- Estilos de la app --}}
     {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
@@ -49,8 +50,8 @@
 
 <body {{-- class="font-sans antialiased bg-light" --}}>
     {{-- Sidebar y barra superior --}}
-    @include('components.sidebar')
-    @include('components.topbar')
+    {{-- @include('components.sidebar')
+    @include('components.topbar') --}}
 
     {{-- Contenido principal --}}
     <div class="content">
@@ -64,7 +65,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     {{-- Scripts comunes --}}
-    @include('components.scripts')
+    {{-- @include('components.scripts') --}}
 
     {{-- Scripts personalizados --}}
     @yield('scripts')

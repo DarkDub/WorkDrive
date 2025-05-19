@@ -44,7 +44,7 @@
 
 <body>
     <header class="navbar navbar-expand-lg navbar-light  px-4 py-3" id="header">
-        <a class="navbar-brand fw-bold" id="title" href="#">WorkDrive</a>
+        <a class="navbar-brand fw-bold" id="title" href="{{route('login')}}">WorkDrive</a>
 
         <div class="nav-left">
             <a class="navbar-brand fw-300" href="#">sobre nosotros</a>

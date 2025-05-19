@@ -1,0 +1,51 @@
+/* Contenedor del mapa */
+#map {
+  height: 400px;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+  filter: drop-shadow(0 1px 3px rgba(0,0,0,0.06));
+  margin-bottom: 20px;
+  font-family: 'Public Sans', sans-serif;
+}
+
+/* Tarjetas de trabajadores */
+.tarjeta-trabajador {
+  background: #fff;
+  border-radius: 12px;
+  padding: 15px 20px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 5px rgba(0,0,0,0.07);
+  transition: box-shadow 0.3s ease;
+  cursor: pointer;
+}
+.tarjeta-trabajador:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+/* Texto simple y limpio */
+body, button, input {
+  font-family: 'Public Sans', sans-serif;
+  color: #333;
+}
+
+/* Popup minimalista */
+.leaflet-popup-content-wrapper {
+  border-radius: 8px !important;
+  background: #f9f9f9 !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+  font-size: 14px !important;
+  color: #222 !important;
+}
+.leaflet-popup-tip {
+  background: #f9f9f9 !important;
+}
+
+/* Controles del mapa minimalistas */
+.leaflet-control-zoom {
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 1px 6px rgba(0,0,0,0.1);
+  width: 36px;
+  height: 72px;
+  font-size: 22px;
+}

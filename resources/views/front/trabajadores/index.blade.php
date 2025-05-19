@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8" name="csrf-token" content="{{ csrf_token() }}"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Solicitudes - WorkDrive</title>
   <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;600;700&display=swap" rel="stylesheet" />
@@ -49,7 +49,16 @@
         </div>
       </div>
     </header>
-       
+       @if($latitud && $longitud)
+    <p>Tu última ubicación guardada es:</p>
+    <ul>
+        <li>Latitud: {{ $latitud }}</li>
+        <li>Longitud: {{ $longitud }}</li>
+    </ul>
+@else
+    <p>No tenemos tu ubicación registrada aún.</p>
+@endif
+
     <!-- Navegación -->
     <x-menu-nav>
         <li>
@@ -157,5 +166,7 @@
   </script>
 </body>
 <script src="{{asset('js/principal-page/menuActive.js')}}"></script>
+<script src="{{asset('js/trabajadores-js/map-work.js')}}"></script>
+{{-- <script src="{{asset('js/principal-page/map.js')}}"></script> --}}
 
 </html>
