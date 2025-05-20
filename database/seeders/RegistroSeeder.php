@@ -1,14 +1,26 @@
 <?php
+
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\Registro;
 use App\Models\DatosTrabajador;
+use App\Models\estado;
 
 class RegistroSeeder extends Seeder
 {
     public function run()
+
     {
+
+        estado::insert([
+            ['nombre' => 'Activo'],
+            ['nombre' => 'Inactivo'],
+            ['nombre' => 'pendiente'],
+            ['nombre' => 'verificado'],
+            ['nombre' => 'realizado'],
+            ['nombre' => 'en proceso'],
+        ]);
         $nombres = [
             ['Carlos', 'Pérez'],
             ['Laura', 'Gómez'],
@@ -22,8 +34,8 @@ class RegistroSeeder extends Seeder
             ['Valentina', 'Castro'],
         ];
 
-        $profesiones = [1, 2, 3, 4]; 
-        $tipo_documento = [1, 2, 3, 4]; 
+        $profesiones = [1, 2, 3, 4];
+        $tipo_documento = [1, 2, 3, 4];
 
         foreach ($nombres as $index => [$nombre, $apellido]) {
             $registro = Registro::create([

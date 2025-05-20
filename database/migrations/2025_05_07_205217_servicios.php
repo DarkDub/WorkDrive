@@ -16,10 +16,14 @@ return new class extends Migration
             $table->string('nombre')->nullable();
             // $table->string('telefono', 20)->nullable();
             $table->text('descripcion');
-            $table->string('tarifa')->nullable();
+            $table->text('fecha');
+            $table->text('hora');
+            $table->decimal('tarifa', 10, 2)->nullable();
             // Definición correcta de pago_id como clave foránea
             $table->foreignId('pago_id')->constrained('metodo_pago')->onDelete('cascade');
-            $table->string('estado')->default('activo');
+            $table->unsignedBigInteger('estado_id')->default(1);
+            $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
+
             // Relación con la tabla profesiones 
             $table->foreignId('labor_id')->constrained('profesiones')->onDelete('cascade');
             $table->decimal('latitud', 10, 7)->nullable();
@@ -27,8 +31,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
-
-        
     }
 
     /**

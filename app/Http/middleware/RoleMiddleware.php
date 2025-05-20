@@ -4,8 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
-use Symfony\Component\HttpFoundation\Response;
 use App\Models\Rol;
 
 class RoleMiddleware
@@ -13,13 +11,17 @@ class RoleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @param  string  $role
+     * @return mixed
      */
-    public function handle(Request $request, Closure $next, $role): Response
+    public function handle(Request $request, Closure $next, $role)
     {
-        if (request()->user()->rol->nombre !== $role) {
-            return redirect()->route('errors.no-autorizado')->with('advertencia', 'No tienes permiso para acceder a esta página.');
+        if (!$request->user() || $request->user()->rol->nombre !== $role) {
+            return redirect()->route('errors.404')->with('advertencia', 'No tienes permiso para acceder a esta página.');
         }
+
         return $next($request);
     }
 }

@@ -8,22 +8,21 @@
 
     <title>@yield('title', config('app.name', 'Laravel'))</title>
 
-    {{-- Bootstrap y estilos externos --}}
+    {{-- Estilos y bibliotecas externas --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
-
-    {{-- Fuentes opcionales --}}
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 
-    {{-- Estilos de la app --}}
-    {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
 
-    {{-- Estilos personalizados --}}
     <style>
         .fade {
             transition: 0.5s;
@@ -44,30 +43,21 @@
         }
     </style>
 
-    {{-- Estilos específicos de la vista --}}
     @yield('styles')
 </head>
 
-<body {{-- class="font-sans antialiased bg-light" --}}>
-    {{-- Sidebar y barra superior --}}
-    {{-- @include('components.sidebar')
-    @include('components.topbar') --}}
-
+<body class="bg-light">
     {{-- Contenido principal --}}
     <div class="content">
-        @yield('content') {{-- Para vistas tipo Blade --}}
-        {{ $slot ?? '' }} {{-- Para vistas tipo componente --}}
+        @yield('content')
+        {{ $slot ?? '' }}
     </div>
 
-    {{-- jQuery, Bootstrap y DataTables --}}
+    {{-- Scripts --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-    {{-- Scripts comunes --}}
-    {{-- @include('components.scripts') --}}
-
-    {{-- Scripts personalizados --}}
     @yield('scripts')
     @yield('js')
 </body>

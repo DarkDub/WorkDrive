@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('icono')->nullable();
             $table->timestamps();
         });
-        
     }
 
     /**
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('metodo_pago');
     }
 };

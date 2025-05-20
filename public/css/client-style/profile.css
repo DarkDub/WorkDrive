@@ -13,6 +13,7 @@ body {
 
 .header {
     position: relative;
+    border-radius: 10px;
 }
 
 .cover-photo {
@@ -24,7 +25,7 @@ body {
 
 .profile-pic-container {
     position: absolute;
-    bottom: -40px;
+    bottom: -30px;
     /* left: 30px; */
     /* background: white; */
     padding: 10px 20px;
@@ -125,6 +126,7 @@ body {
     padding: 1rem;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: #212b36;
 }
 
 .stats div {
