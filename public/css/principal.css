@@ -43,11 +43,23 @@ body {
 }
 
 .sidebar .menu-header {
+    text-align: center;
     padding: 15px;
     border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
     align-items: center;
+    justify-content: flex-start;
     gap: 15px;
     width: 100%;
+    padding-left: 40px;
+}
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 10px;
 }
 
 .menu-text {

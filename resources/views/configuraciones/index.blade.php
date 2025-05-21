@@ -15,12 +15,12 @@
 <body>
 
 
-    <x-principal>
-        <div class="container py-4 text-center">
-            <h2 class="mb-4">Inicio</h2>
-            <div class="alert alert-success py-4" role="alert" style="font-size: 1.25rem;">
-                La sección de <strong>Inicio</strong> está en proceso de desarrollo.
-                Estamos trabajando para ofrecerte una experiencia óptima muy pronto.
-            </div>
+<x-principal>
+    <div class="container py-4 text-center">
+        <h2 class="mb-4">Configuraciones</h2>
+        <div class="alert alert-warning py-4" role="alert" style="font-size: 1.25rem;">
+            La sección de <strong>Configuraciones</strong> está en proceso de desarrollo.
+            Estamos trabajando para ofrecerte una experiencia óptima muy pronto.
         </div>
-    </x-principal>
+    </div>
+</x-principal>

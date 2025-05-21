@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccionesController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\ProveedorController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\UbicacionController;
 use App\Http\Controllers\auth\RegisterController;
 use App\Http\Controllers\auth\AutenticacionController;
 use App\Http\Controllers\DatosTrabajadorController;
+use App\Http\Controllers\PermisosController;
+use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\profesion;
 use App\Http\Controllers\ProfileController;
 
@@ -47,7 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', fn() => view('dashboard'))->name('dashboard');
 
     // RUTAS PARA ADMINISTRADOR
-    Route::middleware('Rol:administrador')->group(function () {
+    Route::middleware('Rol:SuperAdministrador')->group(function () {
         // Roles
         Route::resource('rol', RolController::class);
         Route::get('/rolesEliminados', [RolController::class, 'show'])->name('roles.Eliminados');
@@ -70,6 +73,22 @@ Route::middleware(['auth'])->group(function () {
         // Servicios
         Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
         Route::resource('servicios', ServiciosController::class);
+
+        Route::resource('permisos', PermisosController::class);
+        Route::get('/Permisoseliminados', [PermisosController::class, 'show'])->name('permisos.eliminados');
+        Route::put('/permisoscambiarEstado/{permisos}/{estado}', [PermisosController::class, 'cambiarEstado'])->name('permisos.cambiarEstado');
+
+        //Rutas de acciones
+        Route::resource('acciones', AccionesController::class);
+        // Route::get('/Permisoseliminados', [PermisosController::class, 'show'])->name('permisos.eliminados');
+        // Route::put('/permisoscambiarEstado/{permisos}/{estado}', [PermisosController::class, 'cambiarEstado'])->name('permisos.cambiarEstado');
+
+        //Rutas de configuracion
+        Route::resource('configuraciones', ConfiguracionesController::class);
+        // Route::get('/Permisoseliminados', [PermisosController::class, 'show'])->name('permisos.eliminados');
+        // Route::put('/permisoscambiarEstado/{permisos}/{estado}', [PermisosController::class, 'cambiarEstado'])->name('permisos.cambiarEstado');
+
+
     });
 
     // RUTAS PARA CLIENTES

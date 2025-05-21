@@ -87,7 +87,8 @@
                 <div class="about">
                     <p>Tart I love sugar plum I love oat cake. Sweet roll caramels I love jujubes.</p>
                     <ul>
-                        <li><strong>📍</strong> {{ $user->registro->pais->nombre }}</li>
+                        <li><strong>📍</strong> {{ optional(optional($user->registro)->pais)->nombre ?? 'No especificado' }}
+                        </li>
                         <li><strong>📧</strong> {{ $user->registro->email }}</li>
                         <li><strong>🎓</strong> Studied at Nikolaus - Leuschke</li>
                     </ul>
@@ -107,7 +108,8 @@
                     <div class="post-actions">
                         <p class="info-p"><i class="fas fa-user"></i> Acerca de mi</p>
                         <ul>
-                            <li><strong>📍</strong> {{ $user->registro->pais->nombre }}</li>
+                            <li><strong>📍</strong>
+                                {{ optional(optional($user->registro)->pais)->nombre ?? 'No especificado' }}</li>
                             <li><strong>📧</strong> {{ $user->registro->email }}</li>
                             <li><strong>🎓</strong> Studied at Nikolaus - Leuschke</li>
                         </ul>
@@ -128,6 +130,7 @@
                     </div>
                 </div>
                 --}}
+                <a href="{{ route('profile.edit') }}">editar</a>
             </section>
         </div>
     </div>

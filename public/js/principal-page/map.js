@@ -11,8 +11,8 @@ function distanciaKm(lat1, lon1, lat2, lon2) {
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
   const a = Math.sin(dLat / 2) ** 2 +
-            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
-            Math.sin(dLon / 2) ** 2;
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+    Math.sin(dLon / 2) ** 2;
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
   return R * c;
 }
@@ -74,11 +74,10 @@ function inicializarMapa(lat, lon) {
       .openPopup();
   }
 
-  // Actualizar inputs ocultos con ubicación
   const latInput = document.getElementById('user-lat');
   const lonInput = document.getElementById('user-lon');
-  if(latInput) latInput.value = lat;
-  if(lonInput) lonInput.value = lon;
+  if (latInput) latInput.value = lat;
+  if (lonInput) lonInput.value = lon;
 
   guardarUbicacion(lat, lon);
 
@@ -98,16 +97,16 @@ function guardarUbicacion(lat, lon) {
     },
     body: JSON.stringify({ latitud: lat, longitud: lon })
   })
-  .then(response => response.json())
-  .then(data => console.log('Ubicación guardada:', data))
-  .catch(error => console.error('Error al guardar ubicación:', error));
+    .then(response => response.json())
+    .then(data => console.log('Ubicación guardada:', data))
+    .catch(error => console.error('Error al guardar ubicación:', error));
 }
 
 
 
 function cargarTrabajadores() {
   const lista = document.getElementById('lista-trabajadores');
-  
+
   if (!profesionSeleccionada) {
     lista.innerHTML = `<p style="padding: 10px; color: #555;">Selecciona una profesión para ver trabajadores cerca.</p>`;
     ocultarSidebar();
@@ -130,17 +129,17 @@ function cargarTrabajadores() {
       const idsActuales = data.map(t => t.id);
       lista.innerHTML = ''; // limpiar lista
 
-      if(data.length === 0) {
-        lista.innerHTML = `<p style="padding: 10px; color: #555;">No hay trabajadores cerca para esta profesión.</p>`;
-        ocultarSidebar();
-        Object.keys(markers).forEach(id => {
-          if (id !== 'user') {
-            map.removeLayer(markers[id]);
-            delete markers[id];
-          }
-        });
-        return;
-      }
+      // if (data.length === 0) {
+      //   lista.innerHTML = `<p style="padding: 10px; color: #555;">No hay trabajadores cerca para esta profesión.</p>`;
+      //   ocultarSidebar();
+      //   Object.keys(markers).forEach(id => {
+      //     if (id !== 'user') {
+      //       map.removeLayer(markers[id]);
+      //       delete markers[id];
+      //     }
+      //   });
+      //   return;
+      // }
 
       data.forEach(trabajador => {
         const dist = distanciaKm(userLat, userLon, trabajador.latitud, trabajador.longitud);
@@ -156,9 +155,9 @@ function cargarTrabajadores() {
               gap: 10px;
               padding: 6px 8px;
               ">
-              <img src="${trabajador.imagen_perfil || 'https://via.placeholder.com/40?text=👤'}" 
+              <img src="${trabajador.avatar || 'https://via.placeholder.com/40?text=👤'}" 
                    alt="${trabajador.nombre}" 
-                   style="
+                   style=" 
                      width: 40px; 
                      height: 40px; 
                      border-radius: 50%; 
@@ -216,7 +215,7 @@ function cargarTrabajadores() {
           const tarjeta = document.createElement('div');
           tarjeta.className = 'tarjeta-trabajador';
           tarjeta.innerHTML = `
-            <img src="${trabajador.imagen_perfil || 'https://via.placeholder.com/48?text=👤'}" alt="${trabajador.nombre}">
+            <img src="${trabajador.avatar_url}" alt="${trabajador.nombre}">
             <div class="info">
               <div class="nombre">${trabajador.nombre}</div>
               <div class="distancia">${dist.toFixed(2)} km cerca de ti</div>
@@ -261,7 +260,7 @@ document.querySelectorAll('.profesion-item').forEach(item => {
 
     // Actualizar input oculto del formulario
     const inputProfesion = document.getElementById('profesion_id');
-    if(inputProfesion) inputProfesion.value = profesionSeleccionada;
+    if (inputProfesion) inputProfesion.value = profesionSeleccionada;
 
     cargarTrabajadores();
 
