@@ -15,12 +15,12 @@ class TrabajadorController extends Controller
         $servicios = Servicios::all();
         // Supongamos que en User tienes:
         // public function registro() { return $this->belongsTo(Registro::class); }
-
+        // dd($servicios);
         $registro = $user->registro;
 
         $latitud = $registro ? $registro->latitud : null;
         $longitud = $registro ? $registro->longitud : null;
 
-        return view('front.trabajadores.index', compact('latitud', 'longitud'));
+        return view('front.trabajadores.index', compact('latitud', 'longitud', 'servicios', 'user'));
     }
 }

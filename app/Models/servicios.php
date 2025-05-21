@@ -20,6 +20,8 @@ class Servicios extends Model
         'tarifa',
         'estado',
         'user_id',
+        'fecha',
+        'hora',
         'labor_id',
         'pago_id',
         'latitud',

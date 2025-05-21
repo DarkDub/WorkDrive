@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
     <link rel="stylesheet" href="{{ asset('css/tarjeta.css') }}">
-
     <style>
         .map-section {
             height: 400px;
@@ -19,6 +18,22 @@
         #map {
             height: 100%;
             width: 100%;
+        }
+
+        .form-control {
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            font-size: var(--font-size-base);
+            background-color: var(--color-input-bg);
+            border: 1px solid var(--color-input-border);
+            transition: 0.3s ease, color 0.5s ease;
+            box-sizing: border-box;
+        }
+
+        .form-label {
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            margin-bottom: 0.2rem;
         }
     </style>
 @endsection
@@ -60,7 +75,7 @@
 
             <ul class="list-group">
                 @foreach ($profesiones as $profesion)
-                    <li class="list-group-item profesion-item" id="list-group-item" data-id="{{ $profesion->id }}">
+                    <li class="list-group-item profesion-item tarjeta" id="list-group-item" data-id="{{ $profesion->id }}">
                         <div class="icon-circle">
                             <span class="iconify icono-profesion" data-icon="{{ $profesion->icono }}" data-width="22"
                                 data-height="22"></span>
@@ -79,17 +94,40 @@
 
         <aside class="form-section">
             <div class="form-header">
+
                 <i class="fas fa-map-marker-alt"></i>
                 <span>Dirección: Dg. 18 161</span>
             </div>
 
             <form id="work-form" method="POST" action="{{ route('servicios.store') }}">
                 @csrf
-                <input type="text" name="nombre" placeholder="Tu nombre">
-                <input type="date" name="fecha">
-                <input type="time" name="hora">
-                <textarea name="descripcion" placeholder="Descripción" rows="3"></textarea>
-                <input type="text" name="tarifa" placeholder="Tarifa">
+
+                <x-input-error :messages="$errors->get('nombre')" />
+                <input type="text" name="nombre" placeholder="Tu nombre" class=" @error('nombre')
+is-invalid
+@enderror"
+                    autofocus value="{{ old('fecha') }}">
+                <x-input-error :messages="$errors->get('fecha')" />
+                <input type="date" name="fecha" class=" @error('nombre')
+is-invalid
+@enderror" autofocus>
+                <x-input-error :messages="$errors->get('hora')" />
+                <input type="time" name="hora" class=" @error('nombre')
+is-invalid
+@enderror" autofocus>
+
+                <x-input-error :messages="$errors->get('descripcion')" />
+
+                <textarea name="descripcion" placeholder="Descripción" rows="3"
+                    class=" @error('descripcion')
+is-invalid
+@enderror" autofocus></textarea>
+                <x-input-error :messages="$errors->get('tarifa')" />
+
+                <input type="text" name="tarifa" placeholder="Tarifa"
+                    class=" @error('tarifa') is-invalid
+                @enderror" autofocus>
+
                 <input type="hidden" name="pago_id" id="pago_id_hidden" required>
                 <input type="hidden" name="labor_id" id="profesion_id" required>
                 <input type="hidden" name="estado" value="" required>
@@ -100,7 +138,7 @@
                     <i class="fas fa-credit-card"></i> <span class="method-text">Seleccionar método de pago</span>
                 </div>
 
-                <button type="submit" class="submit-btn">Solicitar</button>
+                <button type="submit" class="submit-btn">Solicitar Servicio</button>
             </form>
         </aside>
 
@@ -136,10 +174,55 @@
                 duration: 3000,
                 gravity: "top",
                 position: "right",
-                backgroundColor: "#ffffff", // verde
+                style: {
+                    background: "#ffffff"
+                }, // verde
                 close: true,
                 avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
             }).showToast();
         </script>
     @endif
+
+    <script>
+        document.getElementById("work-form").addEventListener("submit", function(e) {
+            const laborInput = document.getElementById("profesion_id");
+            if (!laborInput.value) {
+                e.preventDefault();
+                Toastify({
+                    text: "seleccione una labor",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#ffffff"
+                    }, // verde
+                    close: true,
+                    avatar: "https://cdn-icons-png.flaticon.com/512/463/463612.png"
+                }).showToast();
+            }
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.profesion-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const laborId = item.dataset.id;
+                const laborNombre = item.querySelector('.profesion-nombre').innerText;
+
+                document.getElementById('profesion_id').value = laborId;
+
+                Toastify({
+                    text: `Labor seleccionada: ${laborNombre}`,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#ffffff"
+                    },
+                    close: true,
+                    avatar: "https://cdn-icons-png.flaticon.com/512/190/190411.png"
+                }).showToast();
+            });
+        });
+    </script>
+
 @endsection

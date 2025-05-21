@@ -30,10 +30,9 @@ class ServiciosController extends Controller
             'nombre' => 'required|string|max:255',
             'telefono' => 'nullable|string|max:20',
             'descripcion' => 'required|string',
-            'fecha' => 'required|string',
+            'fecha' => 'required|date',
             'hora' => 'required|string',
-            'tarifa' => 'nullable|string',
-            // 'estado_id' => 'required|string',
+            'tarifa' => 'required|numeric|min:0|max:100000000000',
             'labor_id' => 'required|exists:profesiones,id',  // Asegurarse de que la labor exista
             'pago_id' => 'required|exists:metodo_pago,id',
             'latitud' => 'nullable|numeric|between:-90,90',
@@ -44,8 +43,8 @@ class ServiciosController extends Controller
         Servicios::create([ // Nota que el nombre de la clase debe ser 'Servicios', con mayúscula
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
-            'fecha' => $request->hora,
-            'hora' => $request->fecha,
+            'fecha' => $request->fecha,
+            'hora' => $request->hora,
             'tarifa' => $request->tarifa,
             'labor_id' => $request->labor_id, // Guardar la labor seleccionada
             'pago_id' => $request->pago_id,
@@ -57,6 +56,7 @@ class ServiciosController extends Controller
 
         // Redireccionar con un mensaje de éxito o donde sea necesario
         return redirect()->back()->with('success', 'Servicio creado con éxito!');
+
         // return view('front.clients.index');
     }
 
