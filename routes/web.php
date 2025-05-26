@@ -17,8 +17,50 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\profesion;
 use App\Http\Controllers\ProfileController;
+use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 // RUTAS PÚBLICAS
+Route::get('/test-mail', function () {
+    $user = User::first();
+    if (!$user) {
+        return 'No hay usuarios para probar.';
+    }
+    $user->sendEmailVerificationNotification();
+    return 'Correo de verificación enviado.';
+});
+// 📨 Muestra la vista donde se avisa que se debe verificar el correo
+Route::get('/email/verify', function () {
+    return view('auth.verify-email'); // Esta vista la crearemos si no existe
+})->middleware('auth')->name('verification.notice');
+
+// ✅ Ruta que maneja el clic en el enlace del email de verificación
+Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
+    $request->fulfill(); // Marca el correo como verificado
+
+    $user = Auth::user();
+
+    // Verifica el rol para redirigir
+    if ($user->rol->nombre === 'cliente') {
+        return redirect()->route('cliente.index')->with('status', 'Correo verificado correctamente. Ahora puedes iniciar sesión.');
+    } elseif ($user->rol->nombre === 'trabajador') {
+        return redirect()->route('trabajador.index')->with('status', 'Correo verificado correctamente. Ahora puedes iniciar sesión.');
+    }
+
+    // Por defecto redirige al login
+    return redirect()->route('login')->with('status', 'Correo verificado correctamente. Ahora puedes iniciar sesión.');
+})->middleware(['auth', 'signed'])->name('verification.verify');
+
+// 🔁 Ruta para reenviar el correo de verificación
+Route::post('/email/verification-notification', function (Request $request) {
+    $request->user()->sendEmailVerificationNotification();
+
+    return back()->with('message', 'Se ha enviado un nuevo enlace de verificación.');
+})->middleware(['auth', 'throttle:6,1'])->name('verification.send');
+
 Route::get('/', fn() => view('auth.login'));
 Route::get('/login', [AutenticacionController::class, 'create'])->name('login');
 Route::post('/login', [AutenticacionController::class, 'store'])->name('login.store');
@@ -92,7 +134,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // RUTAS PARA CLIENTES
-    Route::middleware('Rol:cliente')->group(function () {
+    Route::middleware(['auth', 'verified', 'Rol:cliente'])->group(function () {
         Route::get('/principal', [ClienteController::class, 'dashboard'])->name('cliente.index');
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -103,7 +145,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // RUTAS PARA TRABAJADORES
-    Route::middleware('Rol:trabajador')->group(function () {
+    Route::middleware(['auth', 'verified', 'Rol:trabajador'])->group(function () {
         Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->name('trabajador.index');
     });
 
