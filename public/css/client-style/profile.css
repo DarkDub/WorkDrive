@@ -11,9 +11,11 @@ body {
     padding: 1rem;
 }
 
-.header {
+#header-profile {
     position: relative;
     border-radius: 10px;
+    padding: 0 !important;
+    z-index: 0;
 }
 
 .cover-photo {

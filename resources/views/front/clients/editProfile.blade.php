@@ -35,7 +35,6 @@
             </x-menu-nav>
         </div>
 
-        {{-- Enlaces secundarios --}}
         <div class="nav-left">
             <a href="#">
                 <h5>Sobre nosotros</h5>

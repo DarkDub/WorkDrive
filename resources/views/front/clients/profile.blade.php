@@ -56,7 +56,8 @@
 
     {{-- Perfil --}}
     <div class="profile-container">
-        <div class="header">
+        <div class="header" id="header-profile">
+            {{-- Imagen de fondo y foto de perfil --}}
             <img src="{{ asset('image/fondo.jpg') }}" alt="Fondo" class="cover-photo">
             <div class="profile-pic-container">
                 <img class="profile-pic" id="previewImage" src="{{ asset('storage/' . $user->registro->avatar) }}"
