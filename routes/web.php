@@ -30,7 +30,11 @@ Route::get('/test-mail', function () {
         return 'No hay usuarios para probar.';
     }
     $user->sendEmailVerificationNotification();
-    return 'Correo de verificación enviado.';
+    return view('auth.verify-email');
+});
+
+route::get('/v', function () {
+    return view('auth.verify-email'); // Esta vista la crearemos si no existe
 });
 // 📨 Muestra la vista donde se avisa que se debe verificar el correo
 Route::get('/email/verify', function () {
