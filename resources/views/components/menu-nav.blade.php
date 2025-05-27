@@ -86,7 +86,6 @@
         <div class="avatar-wrapper">
             <div class="rotating-border"></div>
             <img src="{{ asset('storage/' . Auth::user()->registro->avatar) }}" alt="Avatar" class="avatar-img">
-
         </div>
         <!-- Usuario -->
 

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('apellido');
             $table->string('telefono');
             $table->string('email')->unique();
-            
-            $table->string('avatar')->default('image/avatar-default.jpg');
+
+            $table->string('avatar')->default('images/avatar-default.jpg');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->decimal('latitud', 10, 7)->nullable();
@@ -54,7 +54,7 @@ return new class extends Migration
     public function down(): void
     {
 
-         Schema::table('registros', function (Blueprint $table) {
+        Schema::table('registros', function (Blueprint $table) {
             // Eliminar las restricciones de claves foráneas
             $table->dropForeign(['pais_id']);
             $table->dropForeign(['departamento_id']);

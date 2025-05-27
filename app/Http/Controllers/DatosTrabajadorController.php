@@ -7,7 +7,9 @@ use App\Models\DatosTrabajador;
 use App\Models\Profesion;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use App\Models\User; // Si necesitas usar esta tabla por la llave foránea
 use App\Models\Registro; // Si necesitas usar esta tabla por la llave foránea
+use Illuminate\Support\Facades\Auth;
 
 class DatosTrabajadorController extends Controller
 {
@@ -19,16 +21,16 @@ class DatosTrabajadorController extends Controller
     }
 
     // Procesar el formulario de registro
-    public function store(Request $request)
+    public function store(Request $request, $registro_id)
     {
         // Validar datos recibidos
         $request->validate([
-             'registro_id' => 'required|exists:registros,id',
+            'registro_id' => 'required|exists:registros,id',
             'nombre' => 'required|string|max:255',
             'tipo_documento ' => 'require',
             'numero_documento' => 'required|string|unique:datos_trabajador,numero_documento',
             'profesion_id' => 'required',
-            'otra_labor' => 'required_if:profesion_id,otro|string|max:255',
+            // 'otra_labor' => 'required_if:profesion_id,otro|string|max:255',
             'hoja_vida' => 'required|file|mimes:pdf,doc,docx|max:2048',
             'foto_documento' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
@@ -50,7 +52,6 @@ class DatosTrabajadorController extends Controller
         // Para registro_id, aquí debes adaptarlo según cómo lo obtienes o si el usuario está autenticado.
         // Por ejemplo, si el trabajador tiene un registro relacionado:
         // $registroId = auth()->user()->registro->id ?? null;
-        $registroId = null; // Cambia esto según tu lógica
 
         // Crear nuevo registro en datos_trabajador
         DatosTrabajador::create([
@@ -64,6 +65,13 @@ class DatosTrabajadorController extends Controller
 
         ]);
 
-        return redirect()->route('login')->with('success', 'Registro exitoso. Por favor inicie sesión.');
+
+        $registro = Registro::findOrFail($registro_id);
+        $user = User::where('registro_id', $registro_id)->firstOrFail();
+
+        $user->sendEmailVerificationNotification();
+        Auth::login($user);
+
+        return redirect()->route('verification.notice')->with('success', 'Registro exitoso. Por favor inicie sesión.');
     }
 }

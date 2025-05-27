@@ -36,6 +36,15 @@ Route::get('/test-mail', function () {
 route::get('/v', function () {
     return view('auth.verify-email'); // Esta vista la crearemos si no existe
 });
+route::get('/serv', function () {
+    return view('front.clients.servicios'); // Esta vista la crearemos si no existe
+});
+route::get('/servs', function () {
+    return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
+});
+route::get('/pro', function () {
+    return view('pruebas.prueba2'); // Esta vista la crearemos si no existe
+});
 // 📨 Muestra la vista donde se avisa que se debe verificar el correo
 Route::get('/email/verify', function () {
     return view('auth.verify-email'); // Esta vista la crearemos si no existe
@@ -73,7 +82,7 @@ Route::get('/registro', [RegisterController::class, 'create'])->name('register')
 Route::post('/registro', [RegisterController::class, 'registro'])->name('registro');
 Route::get('/registro/trabajador/{registro_id}', [RegisterController::class, 'formularioTrabajador'])->name('registro.trabajador');
 Route::get('/registro-trabajador', [DatosTrabajadorController::class, 'create'])->name('trabajador.create');
-Route::post('/registro-trabajador', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
+Route::post('/registro-trabajador/{registro_id}', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
 
 // RUTAS DE PRUEBA (sólo usar en desarrollo)
 if (app()->environment('local')) {
