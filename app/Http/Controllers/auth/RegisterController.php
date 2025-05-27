@@ -35,7 +35,6 @@ class RegisterController extends Controller
             'apellido' => 'required|string|max:255',
             'telefono' => 'required|string|max:15',  // Validación para teléfono
             'email' => 'required|string|email|max:255|unique:registros',
-            'avatar' => 'image/avatar-default.jpg',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
             'userRole' => ['required', Rule::in(['trabajador', 'cliente'])],

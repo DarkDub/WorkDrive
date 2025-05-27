@@ -25,8 +25,7 @@
             @method('PUT')
             <section class="left-panel">
                 <div class="avatar-wrapper">
-                    <img class="profile-pic" id="previewImage" src="{{ asset('storage/' . $user->registro->avatar) }}"
-                        alt="Foto de perfil actual">
+                    <x-avatar class="profile-pic" id="previewImage" />
                     <div class="upload-overlay">
                         <i class="fa fa-camera"></i>
                         <span>Subir foto</span>

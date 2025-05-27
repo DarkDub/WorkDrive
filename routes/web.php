@@ -34,6 +34,7 @@ if (app()->environment('local')) {
     Route::get('/r', fn() => view('trabajadores.registro2'));
     Route::get('/p', fn() => view('pruebas.demos'));
     Route::get('/b', fn() => view('pruebas.prueba2'));
+    Route::get('/p', fn() => view('front/trabajadores.prove'));
 }
 
 // RUTAS PROTEGIDAS CON AUTENTICACIÓN
@@ -99,19 +100,29 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
 
         Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
+        //  Route::get('/servicios/mis-solicitudes', [ServiciosController::class, 'misSolicitudes'])->name('servicios.misSolicitudes');
+
+Route::get('/servicios/check-acceptance/{id}', [ServiciosController::class, 'checkAcceptance']);
+Route::post('/servicios/update-status/{id}', [ServiciosController::class, 'updateStatus']);
+
         Route::resource('servicios', ServiciosController::class);
+
+       
     });
 
     // RUTAS PARA TRABAJADORES
     Route::middleware('Rol:trabajador')->group(function () {
         Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->name('trabajador.index');
+
+        Route::post('/servicio/{id}/aceptar', [ServiciosController::class, 'aceptar'])->name('servicio.aceptar');
+
+        Route::get('/solicitudes', [TrabajadorController::class, 'solicitudes'])->name('solicitudes.estado');
+        Route::get('/solicitudes/{id}', [TrabajadorController::class, 'solicitudDetalles'])->name('solicitudes.detalle');
+
+
     });
 
     // Rutas de ubicación (disponibles para cualquier autenticado)
     Route::post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->name('ubicacion.actualizar');
     Route::get('/ubicaciones', [UbicacionController::class, 'listar'])->name('ubicaciones.listar');
 });
-Route::get('/login', [AutenticacionController::class, 'create'])->name('login'); // Mostrar formulario login
-Route::post('/login', [AutenticacionController::class, 'store'])->name('login.store'); // Procesar login
-
-// LOGOUT (protegido por auth)

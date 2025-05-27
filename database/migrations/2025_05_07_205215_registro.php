@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('telefono');
             $table->string('email')->unique();
             
-            $table->string('avatar')->default('image/avatar-default.jpg');
+            $table->string('avatar')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->decimal('latitud', 10, 7)->nullable();

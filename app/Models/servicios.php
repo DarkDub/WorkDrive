@@ -19,6 +19,7 @@ class Servicios extends Model
         'descripcion',
         'tarifa',
         'estado',
+        'trabajador_id',
         'user_id',
         'fecha',
         'hora',
@@ -40,5 +41,23 @@ class Servicios extends Model
     public function metodoPago()
     {
         return $this->belongsTo(MetodoPago::class, 'pago_id');
+    }
+    public function usuario()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+    public function estado()
+    {
+        return $this->belongsTo(estado::class, 'estado_id'); // Usa el nombre correcto del modelo
+    }
+
+    public function registro()
+    {
+        return $this->belongsTo(registro::class);
+    }
+
+    public function trabajador()
+    {
+        return $this->belongsTo(registro::class, 'trabajador_id');
     }
 }

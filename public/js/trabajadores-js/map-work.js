@@ -18,7 +18,15 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .then(res => res.json())
       .then(data => {
-        alert(data.status); // Mostrar mensaje de éxito
+      //   Toastify({
+      //                       text: "ubicacion guardada",
+      //                       duration: 3000,
+      //                       gravity: "top",
+      //                       position: "right",
+      //                       style: { background: "#fff" },
+      //                       close: true,
+      //                       avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
+      //                   }).showToast();
       })
       .catch(err => {
         alert('Error al enviar ubicación');

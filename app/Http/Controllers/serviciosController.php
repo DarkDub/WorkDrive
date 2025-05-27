@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 use App\Models\User;
 use Illuminate\Http\Request; // Importar correctamente la clase Request
 use App\Models\Servicios; // Asegúrate de usar el modelo correcto (mayúscula en "Servicios")
 use App\Models\Profesion; // Importar el modelo 'Profesion' correctamente
 use App\Models\MetodoPago;
+use App\Models\estado;
 use Illuminate\Support\Facades\DB;
 
 class ServiciosController extends Controller
@@ -66,4 +69,103 @@ class ServiciosController extends Controller
 
         return view('front.clients.index', compact('metodosPago'));
     }
+
+    public function aceptar(Request $request, $id)
+    {
+        $servicio = Servicios::findOrFail($id);
+        if ($servicio->trabajador_id === null) {
+            $servicio->trabajador_id = Auth::user()->registro->id;
+
+            $estadoPendiente = estado::where('nombre', 'pendiente')->first();
+
+            if ($estadoPendiente) {
+                $servicio->estado_id = $estadoPendiente->id;
+            }
+
+            $servicio->save();
+
+            if ($request->ajax()) {
+                return response()->json(['success' => true, 'message' => 'Has aceptado esta solicitud']);
+            }
+            return redirect()->back()->with('success', 'Has aceptado esta solicitud');
+        }
+
+        if ($request->ajax()) {
+            return response()->json(['error' => 'Esta solicitud ya fue aceptada por otro trabajador.'], 409);
+        }
+
+        return redirect()->back()->with('error', 'Esta solicitud ya fue aceptada por otro trabajador.');
+    }
+   public function checkAcceptance($id)
+{
+    $servicio = Servicios::with('estado', 'trabajador')->find($id);
+
+    if (!$servicio) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Servicio no encontrado'
+        ], 404);
+    }
+
+    if ($servicio->estado->nombre === 'pendiente' && $servicio->trabajador_id !== null) {
+        $trabajador = $servicio->trabajador()->select('id', 'nombre', 'email')->first();
+
+        return response()->json([
+            'status' => 'accepted',
+            'message' => 'Un trabajador aceptó tu servicio.',
+            'trabajador' => $trabajador,
+            'estado' => $servicio->estado->nombre,
+        ]);
+    }
+
+    return response()->json([
+        'status' => 'pending',
+        'message' => 'Nadie ha aceptado tu servicio aún.',
+        'estado' => $servicio->estado->nombre,
+    ]);
+}
+
+public function updateStatus(Request $request, $id)
+    {
+        $servicio = Servicios::find($id);
+
+        if (!$servicio) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Servicio no encontrado'
+            ], 404);
+        }
+
+        $estadoNombre = $request->input('estado');
+
+        $estado = Estado::where('nombre', $estadoNombre)->first();
+        if (!$estado) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Estado inválido'
+            ], 400);
+        }
+
+        $servicio->estado_id = $estado->id;
+        $servicio->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => "Estado del servicio actualizado a: {$estado->nombre}"
+        ]);
+    }
+
+    // public function misSolicitudes($id)
+    // {
+    //      $user = auth::user();
+    //     $servicios = Servicios::where('trabajador_id', $user->id)->get();
+
+    //     if (request()->ajax()) {
+    //         return response()->json($servicios);
+    //     }
+
+    //     return view('clients.misSolicitudes', compact('servicios'));
+    // }
+
+
 }

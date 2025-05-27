@@ -60,4 +60,10 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Rol::class, 'rol_id'); // corregido: relación con Rol, usando la clave foránea 'rol_id'
     }
+    // app/Models/User.php
+public function profesion()
+{
+    return $this->belongsTo(Profesion::class);
+}
+
 }

@@ -161,11 +161,22 @@ is-invalid
 @endsection
 
 @section('scripts')
+<script src="{{ asset('js/servicios-polling.js') }}"></script>
+
+@foreach ($servicios as $servicio)
+<script>
+    verificarAceptacion({{ $servicio->id }});
+</script>
+@endforeach
+
     <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
     <script src="{{ asset('js/principal-page/modal-page.js') }}"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="{{ asset('js/principal-page/map.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+<!-- CDN de SweetAlert2 -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     @if (session('success'))
         <script>
