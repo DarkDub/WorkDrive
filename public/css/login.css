@@ -1,0 +1,161 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    
+  background: linear-gradient(135deg, #f4f7fa, #e2e6ef);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+/* Contenedor del login */
+.login-box,
+.login-container {
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 12px;
+}
+
+.logo img {
+  width: 100px;
+}
+
+/* Encabezados */
+h2,
+h4 {
+  font-weight: 600;
+  margin-bottom: 30px;
+}
+
+/* Etiqueta del email ya ingresado */
+.correo-mostrado,
+.email-label {
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  padding: 8px 16px;
+  display: inline-block;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+/* Formularios */
+.form-group{ 
+  position: relative;
+  margin-bottom: 1.5rem;
+/*   margin-top: 30px; /* Ajusta según sea necesario */ 
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px 40px 16px 12px;
+  font-size: 16px;
+  border: 1px solid #999;
+  border-radius: 6px;
+  outline: none;
+}
+
+.form-group input:focus {
+  border-color: #0067c5;
+}
+
+/* Etiquetas flotantes */
+.form-label {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: #6c757d;
+  background: white;
+  padding: 0 4px;
+  transition: 0.2s ease all;
+  pointer-events: none;
+}
+
+.form-control:focus + .form-label,
+.form-control:not(:placeholder-shown) + .form-label {
+  top: -8px;
+  left: 10px;
+  font-size: 0.75rem;
+  color: #198754;
+}
+
+/* Mostrar/ocultar contraseña */
+.toggle-password {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.toggle-password img {
+  width: 20px;
+  opacity: 0.6;
+}
+
+/* Enlaces */
+a.link,
+.forgot-link,
+.other-options a {
+  color: #0067c5;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+a.link {
+  display: block;
+  margin-bottom: 25px;
+}
+
+/* Botones */
+button {
+  width: 100%;
+  background-color: #0067c5;
+  color: white;
+  padding: 14px;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.form-label {
+    color: gray !important;
+    position: absolute;
+    top: 50%;
+    left: 2%;
+    transform: translateY(-50%);
+    padding-left: 10px; /* Ajusta según sea necesario */ 
+} 
+
+.text-red-600 {
+  color: #dc2626 !important; /* rojo vivo */
+  font-size: 14px;
+  margin-top: 6px;
+  display: block;
+  text-align: left !important;
+}
+
+.text-red-600 li {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
+} 

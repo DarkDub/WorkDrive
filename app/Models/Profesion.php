@@ -13,10 +13,15 @@ class Profesion extends Model
     protected $fillable = [
         'nombre', // Nombre de la profesión
     ];
+    protected $table = 'profesiones';
 
     // Relación con los servicios (si un trabajador tiene servicios)
     public function servicios()
     {
         return $this->hasMany(servicios::class, 'labor_id');
+    }
+     public function datosTrabajadores()
+    {
+        return $this->hasMany(DatosTrabajador::class);
     }
 }

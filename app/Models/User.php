@@ -6,8 +6,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Rol;
 
-class User extends Authenticatable
+class User extends Authenticatable implements MustVerifyEmail
+
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
@@ -21,7 +24,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rol_id',
+        'registro_id',
     ];
+
 
     /**
      * The attributes that should be hidden for serialization.
@@ -38,11 +44,20 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+    ];
+
+
+    public function registro()
     {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
+        return $this->belongsTo(Registro::class, 'registro_id');
+    }
+
+
+    public function rol()
+    {
+        return $this->belongsTo(Rol::class, 'rol_id'); // corregido: relación con Rol, usando la clave foránea 'rol_id'
     }
 }

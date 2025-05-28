@@ -14,21 +14,47 @@ class RolSeeder extends Seeder
     public function run(): void
     {
         DB::table('rols')->insert([
-            'nombre' => 'SuperAdministrador',
-            'descripcion' => 'Todos los permisos',
-            'padre' => 1,
+            [
+                'nombre' => 'SuperAdministrador',
+                'descripcion' => 'Todos los permisos',
+                'padre' => 1,
+            ],
+            [
+                'nombre' => 'Normal',
+                'descripcion' => 'navegar',
+                'padre' => 2,
+            ],
+            [
+                'nombre' => 'Operador',
+                'descripcion' => 'Restringido',
+                'padre' => 3,
+            ],
+            [
+                'nombre' => 'trabajador',
+                'descripcion' => 'Restringido',
+                'padre' => 4,
+            ],
+            [
+                'nombre' => 'cliente',
+                'descripcion' => 'Restringido',
+                'padre' => 5,
+            ],
+
         ]);
 
-
-        DB::table('rols')->insert([
-            'nombre' => 'Normal',
-            'descripcion' => 'navegar',
-            'padre' => 2,
-        ]);
-        DB::table('rols')->insert([
-            'nombre' => 'Operador',
-            'descripcion' => 'Restringido',
-            'padre' => 3,
+        DB::table('tipo_documentos')->insert([
+            [
+                'nombre' => 'C.C',
+            ],
+             [
+                'nombre' => 'Cedula Extranjera',
+            ],
+             [
+                'nombre' => 'Registro Civil',
+            ],
+             [
+                'nombre' => 'Pasaporte',
+            ],
         ]);
     }
 }

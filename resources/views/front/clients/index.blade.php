@@ -1,201 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
+@extends('layouts.app')
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Drive</title>
+@section('title', 'Work Drive')
+
+@section('styles')
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <!-- En tu layout o directamente en el archivo -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <link rel="stylesheet" href="{{ asset('css/tarjeta.css') }}">
     <style>
-.toastify {
-    display: flex;
-    align-items: center;
-    background-color: #ffffff; /* Verde de éxito */
-    color: #212b36;
-    border-radius: 6px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.09);
-    padding: 10px 10px;
-    max-width: 300px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 14px;
-    animation: slide-in 0.3s ease-in-out; /* Animación de entrada */
-}
+        .map-section {
+            height: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
 
-@keyframes slide-in {
-  from {
-    transform: translateX(100%);
-  }
-  to {
-    transform: translateX(0);
-  }
-}
+        #map {
+            height: 100%;
+            width: 100%;
+        }
 
-.toastify .toastify-icon {
-  background-color: white; /* Fondo blanco */
-  color: #4caf50; /* Verde de éxito */
-  border-radius: 50%;
-  width: 35px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 15px;
-  font-weight: bold;
-  font-size: 16px;
-}
+        .form-control {
+            border-radius: var(--radius-md);
+            padding: 0.75rem;
+            font-size: var(--font-size-base);
+            background-color: var(--color-input-bg);
+            border: 1px solid var(--color-input-border);
+            transition: 0.3s ease, color 0.5s ease;
+            box-sizing: border-box;
+        }
 
-.toastify .toastify-text {
-  flex-grow: 1;
-  color: #fff;
-}
-
-.toastify .toastify-close {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: white;
-  cursor: pointer;
-  position: absolute;
-  top: 50%;
-  right: 10px;
-  transform: translateY(-50%);
-  opacity: 0.7;
-  transition: opacity 0.3s;
-  padding: 0px 1px;
-  margin-left: 10px;
-}
-
-.toastify .toast-close {
-    padding: 0px 1px;
-    margin-left: 40px;
-    color: #c3c3c3;
-    padding: 0px 0px 20px 0px;
-}
-
-.toastify .toastify-close:hover {
-  opacity: 1;
-}
-
-.toastify .toastify-icon {
-    background-color: white;
-    color: #4caf50; 
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    font-weight: bold;
-    font-size: 16px;
-    content: "";
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-.toastify .toastify-avatar{
-    width: 40px;
-    height: 40px;
-    margin: 1px 10px;
-    padding: 10px;
-    background-color: #e6f8f1;
-    border-radius: 10px;
-}
-.toastify .toastify-icon {
-    background-color: white;
-    /* color: #4caf50;  */
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 15px;
-    font-weight: bold;
-    font-size: 16px;
-    content: "";
-    background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Check_circle.svg/800px-Check_circle.svg.png'); /* URL del icono */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
+        .form-label {
+            font-weight: 500;
+            font-size: var(--font-size-sm);
+            margin-bottom: 0.2rem;
+        }
     </style>
-</head>
+@endsection
 
-<body>
+@section('content')
     <header class="header">
         <div class="menu-container">
-
             <div class="logo">
                 <div class="menu-icon" id="menu-icon">
                     <i class="fas fa-bars"></i>
                 </div>
                 <div class="text-logo">Work Drive</div>
-
             </div>
 
-            <!-- Navegación -->
             <x-menu-nav>
-                <li>
-                    <a href="{{ route('profesiones.index') }}">
-                        <i class="bi bi-house-door icon-lg"></i> Inicio
-                    </a>
-                </li>
-                <li>
-                    <a href="/usuario/inicio.html">
-                        <i class="bi bi-person-circle"></i> Perfil
-                    </a>
-                </li>
-                <li>
-                    <a href="/usuario/Menuu/Servicios.html">
-                        <i class="bi bi-briefcase icon-lg"></i> Servicios
-                    </a>
-                </li>
-
-                <li>
-                    <a href="/usuario/Menuu/Contacto.html">
-                        <i class="bi bi-telephone icon-lg"></i> Contacto
-                    </a>
-                </li>
-                <li>
-                    <a href="/usuario/Menuu/Acercade.html">
-                        <i class="bi bi-info-circle icon-lg"></i> Acerca de
-                    </a>
-                </li>
-                <!-- Cerrar sesión y modo trabajador-->
-
+                <li><a href="{{ route('cliente.index') }}"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
+                <li><a href="{{ route('profile.index') }}"><i class="bi bi-person-circle"></i> Perfil</a></li>
+                <li><a href="#"><i class="bi bi-briefcase icon-lg"></i> Servicios</a></li>
+                <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
+                <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
             </x-menu-nav>
-
-
         </div>
         <div class="nav-left">
-            <a href="">
-                <h5>Sobre nosostros</h5>
-
+            <a href="#">
+                <h5>Sobre nosotros</h5>
             </a>
-            <a href="">
-
-                <h5>Contactanos</h5>
+            <a href="#">
+                <h5>Contáctanos</h5>
             </a>
         </div>
     </header>
 
     <main class="main-container">
-        <!-- Sidebar -->
-        <!-- Icono de menú (hamburguesa) -->
-
-
-        <!-- Menú desplegable -->
-
         <aside class="sidebar">
             <div class="search-container">
                 <i class="fas fa-search search-icon"></i>
@@ -204,7 +75,7 @@
 
             <ul class="list-group">
                 @foreach ($profesiones as $profesion)
-                    <li class="list-group-item" id="list-group-item">
+                    <li class="list-group-item profesion-item tarjeta" id="list-group-item" data-id="{{ $profesion->id }}">
                         <div class="icon-circle">
                             <span class="iconify icono-profesion" data-icon="{{ $profesion->icono }}" data-width="22"
                                 data-height="22"></span>
@@ -216,56 +87,59 @@
                     </li>
                 @endforeach
             </ul>
-
         </aside>
 
+        <div class="map-section" id="map"></div>
+        <div id="lista-trabajadores"></div>
 
-        <!-- Map Section -->
-        <div class="map-section">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15717.064567241416!2d-74.7797!3d10.8262!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e44b0223332f4cf%3A0xb9c7d68e5c58a5fe!2sMalambo%2C%20Atl%C3%A1ntico%2C%20Colombia!5e0!3m2!1ses!2ses!4v1699885588789!5m2!1ses!2ses"
-                allowfullscreen="" loading="lazy"></iframe>
-        </div>
-
-        <!-- Form Section -->
         <aside class="form-section">
             <div class="form-header">
+
                 <i class="fas fa-map-marker-alt"></i>
                 <span>Dirección: Dg. 18 161</span>
             </div>
 
             <form id="work-form" method="POST" action="{{ route('servicios.store') }}">
                 @csrf
-                <input type="text" name="nombre" placeholder="Tu nombre" required>
-                <input type="date" name="fecha" required>
-                <input type="time" name="hora" required>
-                <textarea name="descripcion" placeholder="Descripción" rows="3" required></textarea>
-                <input type="text" name="tarifa" placeholder="Tarifa" required>
 
-                <!-- Campo oculto para guardar el método de pago -->
+                <x-input-error :messages="$errors->get('nombre')" />
+                <input type="text" name="nombre" placeholder="Tu nombre" class=" @error('nombre')
+is-invalid
+@enderror"
+                    autofocus value="{{ old('fecha') }}">
+                <x-input-error :messages="$errors->get('fecha')" />
+                <input type="date" name="fecha" class=" @error('nombre')
+is-invalid
+@enderror" autofocus>
+                <x-input-error :messages="$errors->get('hora')" />
+                <input type="time" name="hora" class=" @error('nombre')
+is-invalid
+@enderror" autofocus>
+
+                <x-input-error :messages="$errors->get('descripcion')" />
+
+                <textarea name="descripcion" placeholder="Descripción" rows="3"
+                    class=" @error('descripcion')
+is-invalid
+@enderror" autofocus></textarea>
+                <x-input-error :messages="$errors->get('tarifa')" />
+
+                <input type="text" name="tarifa" placeholder="Tarifa"
+                    class=" @error('tarifa') is-invalid
+                @enderror" autofocus>
+
                 <input type="hidden" name="pago_id" id="pago_id_hidden" required>
-                <input type="hidden" name="labor_id" id="labor_id" value="1" required>
-                <input type="hidden" name="estado" id="labor_id" value="A" required>
+                <input type="hidden" name="labor_id" id="profesion_id" required>
+                <input type="hidden" name="estado" value="" required>
+                <input type="hidden" name="latitud" id="user-lat">
+                <input type="hidden" name="longitud" id="user-lon">
 
                 <div class="payment-method" id="payment-method">
-                    <i class="fas fa-credit-card"></i> Seleccionar método de pago
+                    <i class="fas fa-credit-card"></i> <span class="method-text">Seleccionar método de pago</span>
                 </div>
 
-
-                <button type="submit" class="submit-btn">Solicitar</button>
+                <button type="submit" class="submit-btn">Solicitar Servicio</button>
             </form>
-
-
-            {{-- <div class="promo-card">
-                    <div class="promo-content">
-                        <h3>¡35% de Descuento!</h3>
-                        <p>Aprovecha esta oferta para pedir tu servicio hoy mismo.</p>
-                        <button>Solicitar Servicio</button>
-                    </div>
-                    <div class="promo-icon">
-                        <i class="fas fa-hourglass-end"></i>
-                    </div>
-                </div> --}}
         </aside>
 
         <div id="paymentModal" class="modal">
@@ -280,31 +154,75 @@
                             {{ $metodo->nombre }}
                         </li>
                     @endforeach
-
                 </ul>
             </div>
         </div>
-
-
     </main>
+@endsection
+
+@section('scripts')
     <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
     <script src="{{ asset('js/principal-page/modal-page.js') }}"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="{{ asset('js/principal-page/map.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
-    
     @if (session('success'))
-    <script>
-        Toastify({
-            text: "{{ session('success') }}",
-            duration: 4000,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "#ffffff", // verde
-            close: true,
-            avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
-        }).showToast();
-    </script>
-@endif
-</body>
+        <script>
+            Toastify({
+                text: "{{ session('success') }}",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#ffffff"
+                }, // verde
+                close: true,
+                avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
+            }).showToast();
+        </script>
+    @endif
 
-</html>
+    <script>
+        document.getElementById("work-form").addEventListener("submit", function(e) {
+            const laborInput = document.getElementById("profesion_id");
+            if (!laborInput.value) {
+                e.preventDefault();
+                Toastify({
+                    text: "seleccione una labor",
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#ffffff"
+                    }, // verde
+                    close: true,
+                    avatar: "https://cdn-icons-png.flaticon.com/512/463/463612.png"
+                }).showToast();
+            }
+        });
+    </script>
+    <script>
+        document.querySelectorAll('.profesion-item').forEach(item => {
+            item.addEventListener('click', () => {
+                const laborId = item.dataset.id;
+                const laborNombre = item.querySelector('.profesion-nombre').innerText;
+
+                document.getElementById('profesion_id').value = laborId;
+
+                Toastify({
+                    text: `Labor seleccionada: ${laborNombre}`,
+                    duration: 3000,
+                    gravity: "top",
+                    position: "right",
+                    style: {
+                        background: "#ffffff"
+                    },
+                    close: true,
+                    avatar: "https://cdn-icons-png.flaticon.com/512/190/190411.png"
+                }).showToast();
+            });
+        });
+    </script>
+
+@endsection
