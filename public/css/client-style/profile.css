@@ -11,9 +11,11 @@ body {
     padding: 1rem;
 }
 
-.header {
+#header-profile {
     position: relative;
     border-radius: 10px;
+    padding: 0 !important;
+    z-index: 0;
 }
 
 .cover-photo {
@@ -37,8 +39,8 @@ body {
 }
 
 .profile-pic {
-    width: 120px;
-    height: 120px;
+    width: 124px;
+    height: 130px;
     border-radius: 50%;
     border: 3px solid #fff;
 }
@@ -117,15 +119,15 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
+    box-shadow: none !important;
+    background: none;
+    padding: 0 !important;
 }
 
 .stats {
     display: flex;
     justify-content: space-between;
-    background: white;
-    padding: 1rem;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
     color: #212b36;
 }
 
@@ -142,26 +144,40 @@ body {
 .about,
 .social {
     background: white;
-    padding: 1rem;
     border-radius: 12px;
+    color: #212b36;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+
+
+}
+
+.about h4,
+.social h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.about .info {
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .about ul {
-    padding: 0;
     list-style: none;
+    padding: 0;
 }
 
 .about li {
     margin: 5px 0;
-    font-size: 0.9rem;
 }
 
-.social a {
-    display: block;
-    margin: 5px 0;
-    text-decoration: none;
-    color: #1976d2;
+.about li i {
+    font-size: 0.9rem;
+    margin: 10px 7px;
+    font-size: 1rem;
+
 }
 
 .content {
@@ -170,6 +186,31 @@ body {
 
 .info-p i {
     margin: 10px;
+}
+
+.info-p {
+    margin: 0px;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.social .icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.social .icon p {
+    color: #212b36;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 0 !important;
+    margin-left: 5px;
+}
+
+.social .instagram-icon a p {
+    color: #000000;
+    font-size: 1.2rem;
 }
 
 .post-box {
@@ -193,10 +234,33 @@ body {
     margin-top: 10px;
 }
 
+.post-actions li {
+    margin: 7px 0px;
+}
+
 .post-actions ul {
     list-style: none;
 }
 
+.post-action {
+    display: flex;
+    justify-content: space-between;
+}
+
+.post-action a {
+    text-decoration: none;
+    padding: 10px;
+    font-weight: 600;
+    color: #212529;
+    background: aliceblue;
+    border-radius: 10px;
+    transition: 0.5s all;
+}
+
+.post-action a:hover {
+    background: #e3f2fd;
+    transition: 0.5s all;
+}
 
 .image-btn,
 .stream-btn,

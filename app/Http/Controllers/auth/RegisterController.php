@@ -65,12 +65,16 @@ class RegisterController extends Controller
 
         ]);
 
+        $user->sendEmailVerificationNotification();
+
         Auth::login($user);
         if ($request->userRole === 'trabajador') {
             // Redirigir a formulario adicional para trabajadores
-            return redirect()->route('registro.trabajador', ['registro_id' => $registro->id]); // Define esta ruta para la vista adicional
+            return redirect()->route('registro.trabajador', ['registro_id' => $registro->id]); 
         }
-        return redirect()->route('login');
+        return redirect()->route('verification.notice');
+
+        // return redirect()->route('login');
     }
 
     public function formularioTrabajador($registro_id): View
