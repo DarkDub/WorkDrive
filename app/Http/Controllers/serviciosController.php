@@ -11,6 +11,7 @@ use App\Models\Servicios; // Asegúrate de usar el modelo correcto (mayúscula e
 use App\Models\Profesion; // Importar el modelo 'Profesion' correctamente
 use App\Models\MetodoPago;
 use App\Models\estado;
+use App\Models\Notificaciones;
 use Illuminate\Support\Facades\DB;
 
 class ServiciosController extends Controller
@@ -84,6 +85,12 @@ class ServiciosController extends Controller
 
             $servicio->save();
 
+            Notificaciones::create([
+                'user_id' => $servicio->user_id, 
+                'message' => 'Un Trabajador a aceptado su servicio: "' . $servicio->nombre . '"',
+                'read' => 0,
+            ]);
+
             if ($request->ajax()) {
                 return response()->json(['success' => true, 'message' => 'Has aceptado esta solicitud']);
             }
@@ -155,17 +162,27 @@ public function updateStatus(Request $request, $id)
         ]);
     }
 
-    // public function misSolicitudes($id)
-    // {
-    //      $user = auth::user();
-    //     $servicios = Servicios::where('trabajador_id', $user->id)->get();
+    public function misSolicitudes()
+    {
+        $user = auth::user();
+        $servicios = Servicios::where('user_id', $user->id)->get();
 
-    //     if (request()->ajax()) {
-    //         return response()->json($servicios);
-    //     }
+        if (request()->ajax()) {
+            return response()->json($servicios);
+        }
 
-    //     return view('clients.misSolicitudes', compact('servicios'));
-    // }
+        return view('front.clients.servicios', compact('servicios', 'user'));
+    }
+
+    public function servicioDetails($id){
+
+    
+        $servicio = Servicios::with('trabajador.datosTrabajador')->find($id);
+        // dd($servicio
+        // dd($servicio->toArray());
+
+        return view('front.clients.servicios-details', compact('servicio'));
+    }
 
 
 }

@@ -1,25 +1,3 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <title>Panel de Notificaciones</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
-<body class="bg-light p-4">
-
-    <div class="container">
-        <h2 class="mb-4">🔔 Panel de Notificaciones</h2>
-        
-        <ul class="list-group" id="notificacionesList">
-            <!-- Aquí se llenan las notificaciones -->
-        </ul>
-        
-        <button class="btn btn-primary mt-3" onclick="cargarNotificaciones()">🔄 Recargar Manual</button>
-    </div>
-
-<script>
 $(document).ready(function() {
     // Configuración global para enviar el token CSRF en todas las peticiones AJAX POST
     $.ajaxSetup({
@@ -40,18 +18,34 @@ $(document).ready(function() {
             method: 'GET',
             success: function(data) {
                 $('#notificacionesList').empty();
-                if (data.length === 0) {
+
+                // Actualizar contador y mostrar u ocultar
+                if(data.length === 0) {
+                    $('#notificaciones-count').text('').hide();
                     $('#notificacionesList').append(
                         '<li class="list-group-item text-muted">No hay notificaciones nuevas.</li>'
                     );
                 } else {
+                    $('#notificaciones-count').text(data.length).show();
                     data.forEach(function(n) {
-                        $('#notificacionesList').append(
-                            `<li class="list-group-item d-flex justify-content-between align-items-center">
-                                ${n.message}
-                                <button class="btn btn-sm btn-success" onclick="marcarLeida(${n.id})">Leída</button>
-                            </li>`
-                        );
+                        const foto = n.user?.registro?.avatar || '/images/default-user.png';
+                        const nombre = n.user?.registro?.nombre || 'Usuario desconocido';
+                        const mensaje = n.message || 'Sin mensaje';
+                        const fecha = new Date(n.created_at);
+                        const hora = fecha.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+                        const dia = fecha.toLocaleDateString();
+
+                        $('#notificacionesList').append(`
+                            <li class="list-group-item d-flex align-items-center gap-3 py-3">
+                                <img src="storage/${foto}" alt="Foto" class="rounded-circle">
+                                <div class="flex-fill">
+                                    <div class="fw-semibold">${nombre}</div>
+                                    <div class="text-muted small">${dia} ${hora}</div>
+                                    <div class="text-muted small">${mensaje}</div>
+                                </div>
+                                <button class="btn btn-sm btn-outline-success" onclick="marcarLeida(${n.id})">Leída</button>
+                            </li>
+                        `);
                     });
                 }
             },
@@ -59,6 +53,7 @@ $(document).ready(function() {
                 $('#notificacionesList').empty().append(
                     '<li class="list-group-item text-danger">Error al cargar las notificaciones.</li>'
                 );
+                $('#notificaciones-count').text('').hide();
             }
         });
     }
@@ -81,7 +76,3 @@ $(document).ready(function() {
         });
     }
 });
-</script>
-
-</body>
-</html>

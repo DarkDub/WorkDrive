@@ -33,8 +33,9 @@ class RegisterController extends Controller
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
-            'telefono' => 'required|string|max:15',  // Validación para teléfono
+            'telefono' => 'required|string|max:15',
             'email' => 'required|string|email|max:255|unique:registros',
+            'avatar' => 'images/avatar-default.jpg',
             'password' => 'required|string|min:8|confirmed',
             'password_confirmation' => 'required|string|min:8',
             'userRole' => ['required', Rule::in(['trabajador', 'cliente'])],
@@ -65,13 +66,15 @@ class RegisterController extends Controller
 
         ]);
 
-        $user->sendEmailVerificationNotification();
 
-        Auth::login($user);
         if ($request->userRole === 'trabajador') {
             // Redirigir a formulario adicional para trabajadores
             return redirect()->route('registro.trabajador', ['registro_id' => $registro->id]); 
         }
+
+        $user->sendEmailVerificationNotification();
+        Auth::login($user);
+
         return redirect()->route('verification.notice');
 
         // return redirect()->route('login');

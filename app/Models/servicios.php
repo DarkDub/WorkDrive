@@ -51,6 +51,10 @@ class Servicios extends Model
         return $this->belongsTo(estado::class, 'estado_id'); // Usa el nombre correcto del modelo
     }
 
+    public function datosTrabajador(){
+        return $this->belongsTo(DatosTrabajador::class, 'user_id');
+    }
+
     public function registro()
     {
         return $this->belongsTo(registro::class);

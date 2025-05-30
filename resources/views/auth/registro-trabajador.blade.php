@@ -58,9 +58,10 @@
                 </div>
             @endif
 
-            <form action="{{ route('trabajador.registrar') }}" method="POST" enctype="multipart/form-data" novalidate>
+            <form action="{{ route('trabajador.registrar', ['registro_id' => $registro_id]) }}" method="POST"
+                enctype="multipart/form-data" novalidate>
                 @csrf
-              
+
                 <div class="mb-3">
                     <input name="nombre" type="text" class="form-control" placeholder="Nombre completo"
                         value="{{ old('nombre') }}" required />
@@ -117,7 +118,7 @@
                     <input name="foto_documento" type="file" id="cvFile" class="file-input form-control" required>
                 </div>
 
-                   <input type="hidden" name="registro_id" value="{{ $registro_id }}">
+                <input type="hidden" name="registro_id" value="{{ $registro_id }}">
                 <div class="d-grid mt-3">
                     <button class="btn btn-dark" type="submit">Crear cuenta</button>
                 </div>
@@ -167,4 +168,5 @@
     </script>
 
 </body>
-</html>    
+
+</html>

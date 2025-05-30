@@ -22,6 +22,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\notificacionController;
 
 // RUTAS PÚBLICAS
 Route::get('/test-mail', function () {
@@ -36,17 +37,20 @@ Route::get('/test-mail', function () {
 route::get('/v', function () {
     return view('emails.verify-email'); // Esta vista la crearemos si no existe
 });
-
-route::get('/ve', function () {
-    return view('emails.verify-email-custom'); // Esta vista la crearemos si no existe
-});
+// 📨 Muestra la vista donde se avisa que se debe verificar el correo
 Route::get('/email/verify', function () {
     return view('emails.verify-email'); // Esta vista la crearemos si no existe
 })->middleware('auth')->name('verification.notice');
 Route::get('/verificado', function () {
     return view('emails.verificado'); // Esta vista la crearemos si no existe
 })->middleware('auth')->name('verification.verificado');
+route::get('/serv', function () {
+    return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
+});
 
+route::get('/servs', function () {
+    return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
+});
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
     // Buscar el usuario
     $user = User::findOrFail($id);
@@ -68,6 +72,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
 
 })->middleware(['signed'])->name('verification.verify');
 
+
 // 🔁 Ruta para reenviar el correo de verificación
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
@@ -84,7 +89,7 @@ Route::get('/registro', [RegisterController::class, 'create'])->name('register')
 Route::post('/registro', [RegisterController::class, 'registro'])->name('registro');
 Route::get('/registro/trabajador/{registro_id}', [RegisterController::class, 'formularioTrabajador'])->name('registro.trabajador');
 Route::get('/registro-trabajador', [DatosTrabajadorController::class, 'create'])->name('trabajador.create');
-Route::post('/registro-trabajador', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
+Route::post('/registro-trabajador/{registro_id}', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
 
 
 
@@ -151,14 +156,23 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
 
         Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
-        //  Route::get('/servicios/mis-solicitudes', [ServiciosController::class, 'misSolicitudes'])->name('servicios.misSolicitudes');
 
-Route::get('/servicios/check-acceptance/{id}', [ServiciosController::class, 'checkAcceptance']);
-Route::post('/servicios/update-status/{id}', [ServiciosController::class, 'updateStatus']);
+        Route::get('/mis-solicitudes', [ServiciosController::class, 'misSolicitudes'])->name('servicio.misSolicitudes');
+        Route::get('/solicitud-details/{id}', [ServiciosController::class, 'servicioDetails'])->name('servicio.detalle');
+
+        Route::get('/servicios/check-acceptance/{id}', [ServiciosController::class, 'checkAcceptance']);
+        Route::post('/servicios/update-status/{id}', [ServiciosController::class, 'updateStatus']);
 
         Route::resource('servicios', ServiciosController::class);
 
-       
+        Route::get('/notificaciones', [NotificacionController::class, 'getNotificaciones']);
+        Route::post('/notificaciones/marcar-leida', [NotificacionController::class, 'markAsRead']);
+         Route::get('/panel-notificaciones', [NotificacionController::class, 'index']);
+
+
+Route::get('/notificaciones/no-leidas', [NotificacionController::class, 'obtenerNoLeidas'])->name('notificaciones.noLeidas');
+Route::post('/notificaciones/marcar-leidas', [NotificacionController::class, 'marcarLeidas'])->name('notificaciones.marcarLeidas');
+
     });
 
     // RUTAS PARA TRABAJADORES

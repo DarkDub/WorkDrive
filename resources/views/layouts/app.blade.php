@@ -58,6 +58,8 @@
 
     {{-- Scripts --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{asset('js/notificacionesAjax.js')}}"></script>
+
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -74,6 +76,25 @@
             }
         }, 800); // puedes ajustar el tiempo de espera aquí (800 ms a 1500 ms)
     });
+
+    
+</script>
+<script>
+    const notificationButton = document.getElementById('notificationButton');
+    const notificationMenu = document.getElementById('notificationMenu');
+
+    notificationButton.addEventListener('click', function() {
+        notificationMenu.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(e) {
+        if (!notificationButton.contains(e.target) && !notificationMenu.contains(e.target)) {
+            notificationMenu.classList.remove('show');
+        }
+    });
+</script>
+<script>
+
 </script>
 
 </html>

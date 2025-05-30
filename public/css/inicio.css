@@ -534,6 +534,69 @@ textarea {
     color: #facc15;
     animation: pulse 2s infinite;
 }
+.notification-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.notification-icon {
+    background: none;
+    border: none;
+    position: relative;
+    font-size: 1.5rem;
+    cursor: pointer;
+}
+
+.notification-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 2px 6px;
+    font-size: 0.8rem;
+}
+
+.notification-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 0.5rem;
+    width: 250px;
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.notification-menu h5 {
+    margin: 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.notification-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.notification-menu ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 0.9rem;
+}
+
+.notification-menu ul li:last-child {
+    border-bottom: none;
+}
+
+.notification-menu.show {
+    display: block;
+}
 
 /* Animaciones */
 @keyframes float {

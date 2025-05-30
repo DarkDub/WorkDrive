@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('nombre')->nullable();
             // $table->string('telefono', 20)->nullable();
             $table->text('descripcion');
+            $table->text('direccion');
             $table->text('fecha');
             $table->text('hora');
             $table->decimal('tarifa', 10, 2)->nullable();

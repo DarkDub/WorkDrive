@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Rol;
+use Illuminate\Notifications\Notification;
+use PHPUnit\Framework\TestStatus\Notice;
 
 class User extends Authenticatable implements MustVerifyEmail
 
@@ -70,6 +72,11 @@ public function sendEmailVerificationNotification()
 public function profesion()
 {
     return $this->belongsTo(Profesion::class);
+}
+
+public function notificaciones()
+{
+    return $this->hasMany(Notificaciones::class, 'user_id');
 }
 
 }
