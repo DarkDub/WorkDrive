@@ -143,6 +143,9 @@
   </div>
                     <div class="detail-row"><span>Fecha estimada</span><span>{{ $solicitud->created_at ? $solicitud->created_at->format('d M Y') : 'No disponible' }}</span></div>
                 </div>
+                <a href="{{ route('chat.view', ['trabajadorId' => $solicitud->usuario->registro->id, 'clienteId' => $user->registro->id]) }}">
+                  chaaa
+</a>
             </div>
         </div>
     </div>

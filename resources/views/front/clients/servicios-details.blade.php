@@ -211,7 +211,9 @@
                 <div class="user-phone">
                     <i class="fas fa-phone" aria-hidden="true"></i>
                     <a href="tel:+573001112233" style="color: inherit; text-decoration: none;"
-                        aria-label="Número de teléfono">+57 {{ $servicio->trabajador->telefono }}</a>
+                        aria-label="Número de teléfono">+57 {{ $servicio->trabajador->telefono }}
+                    {{ $servicio->trabajador->id }}
+                    </a>
                 </div>
 
                 <div class="user-location">
@@ -224,7 +226,11 @@
                 </div>
 
                 <div class="action-buttons">
-                    <button type="button" class="btn btn-contact" aria-label="Contactar al proveedor">Contactar</button>
+                    <a href="" type="button" class="btn btn-contact" aria-label="Contactar al proveedor">Contactar</a>
+                    <a href="{{ route('chat.view', ['trabajadorId' => $servicio->trabajador->id, 'clienteId' => $user->registro->id]) }}">
+    Chatear con {{ $servicio->trabajador->name }}
+</a>
+
                     <button type="button" class="btn btn-edit"
                         aria-label="Editar información del proveedor">Rechazar</button>
                 </div>

@@ -17,6 +17,7 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\profesion;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\chatController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -51,6 +52,7 @@ route::get('/serv', function () {
 route::get('/servs', function () {
     return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
 });
+
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
     // Buscar el usuario
     $user = User::findOrFail($id);
@@ -96,6 +98,9 @@ Route::post('/registro-trabajador/{registro_id}', [DatosTrabajadorController::cl
 // RUTAS PROTEGIDAS CON AUTENTICACIÓN
 Route::middleware(['auth'])->group(function () {
 
+route::get('/chat', function () {
+    return view('pruebas.prueba2'); // Esta vista la crearemos si no existe
+});
     Route::get('/error/404', function () {
         return view('errors.404');
     })->name('errors.404');
@@ -148,6 +153,12 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/chat/{trabajadorId}/{clienteId}', [ChatController::class, 'chat'])->name('chat.view');
+Route::get('/chat/mensajes', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+});
+
     // RUTAS PARA CLIENTES
     Route::middleware(['auth', 'verified', 'Rol:cliente'])->group(function () {
         Route::get('/principal', [ClienteController::class, 'dashboard'])->name('cliente.index');
@@ -173,6 +184,13 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/notificaciones/no-leidas', [NotificacionController::class, 'obtenerNoLeidas'])->name('notificaciones.noLeidas');
 Route::post('/notificaciones/marcar-leidas', [NotificacionController::class, 'marcarLeidas'])->name('notificaciones.marcarLeidas');
 
+// Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+
+// // Ruta para obtener mensajes (GET)
+// Route::get('/chat/mensajes', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+// Route::get('/chat/{trabajador_id}', [ChatController::class, 'abrirChat'])->name('chat.abrir')->middleware('auth');
+// Route::get('/chat/mensajes/{trabajador_id}', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+
     });
 
     // RUTAS PARA TRABAJADORES
@@ -184,6 +202,12 @@ Route::post('/notificaciones/marcar-leidas', [NotificacionController::class, 'ma
         Route::get('/solicitudes', [TrabajadorController::class, 'solicitudes'])->name('solicitudes.estado');
         Route::get('/solicitudes/{id}', [TrabajadorController::class, 'solicitudDetalles'])->name('solicitudes.detalle');
 
+
+// Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+
+// // Ruta para obtener mensajes (GET)
+
+// Route::get('/chat/mensajes/{trabajador_id}', [ChatController::class, 'mensajes'])->name('chat.mensajes');
 
     });
 

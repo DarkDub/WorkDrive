@@ -127,8 +127,9 @@ public function solicitudes(Request $request)
 }
 
 public function solicitudDetalles($id){
+    $user = Auth::user();
 $solicitud = Servicios::with(['usuario.registro', 'trabajador', 'estado'])->findOrFail($id);
-    return view('front.trabajadores.solicitud-detalle', compact('solicitud'));
+    return view('front.trabajadores.solicitud-detalle', compact('solicitud', 'user'));
 }
 
 }

@@ -176,12 +176,13 @@ public function updateStatus(Request $request, $id)
 
     public function servicioDetails($id){
 
+        $user = auth::user();
     
-        $servicio = Servicios::with('trabajador.datosTrabajador')->find($id);
-        // dd($servicio
+        $servicio = Servicios::with(['trabajador.usuario', 'trabajador.datosTrabajador'])->find($id);
+        // dd($servicio);
         // dd($servicio->toArray());
 
-        return view('front.clients.servicios-details', compact('servicio'));
+        return view('front.clients.servicios-details', compact('servicio', 'user'));
     }
 
 

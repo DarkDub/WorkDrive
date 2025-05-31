@@ -47,6 +47,7 @@
             <p>Haz clic en una tarjeta para ver más detalles aquí.</p>
         </section>
     </section>
+    
 </main>
 
 
