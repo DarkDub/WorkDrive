@@ -1,4 +1,5 @@
 @extends('layouts.app')
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,7 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/inicio.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
 
     <style>
@@ -24,53 +25,72 @@
             background-color: rgba(100, 116, 139, 0.4);
             border-radius: 4px;
         }
-        #center-info{
+
+        #center-info {
             padding: 1.3rem !important;
         }
-        
+
         #content {
             height: 80% !important;
         }
-        
-        #text-name{
+
+        #text-name {
             margin-bottom: 3px !important;
+        }
+
+        .sidebar {
+            width: 240px !important;
+            background-color: #ffffff !important;
+            border-right: 1px solid #e5e7eb !important;
+            flex-direction: column !important;
         }
     </style>
 </head>
 
 <body class="bg-gradient-to-br from-gray-50 via-white to-gray-100 text-gray-800">
 
-    <header class="header" id="header">
-        <div class="menu-container">
-            <div class="logo">
-                <div class="menu-icon" id="menu-icon">
-                    <i class="fas fa-bars"></i>
+    @if ($usuarioConElQueHablas->rol->nombre === 'trabajador')
+        <header class="header" id="header">
+            <div class="menu-container">
+                <div class="logo">
+                    <div class="menu-icon" id="menu-icon">
+                        <i class="fas fa-bars"></i>
+                    </div>
+                    <div class="text-logo">Work Drive</div>
                 </div>
-                <div class="text-logo">Work Drive</div>
+
+                <!-- Navegación -->
+                <x-menu-nav>
+                    <li><a href="{{ route('cliente.index') }}"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
+                    <li><a href="{{ route('profile.index') }}"><i class="bi bi-person-circle"></i> Perfil</a></li>
+                    <li><a href="{{ route('servicio.misSolicitudes') }}"><i class="bi bi-briefcase icon-lg"></i>
+                            Servicios</a></li>
+                    <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
+                    <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
+                </x-menu-nav>
             </div>
 
-            <!-- Navegación -->
-            <x-menu-nav>
-                <li><a href="{{ route('cliente.index') }}"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
-                <li><a href="{{ route('profile.index') }}"><i class="bi bi-person-circle"></i> Perfil</a></li>
-                <li><a href="{{route('servicio.misSolicitudes')}}"><i class="bi bi-briefcase icon-lg"></i> Servicios</a></li>
-                <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
-                <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
-            </x-menu-nav>
-        </div>
+            {{-- Enlaces secundarios --}}
+            <div class="nav-left">
+                <a href="#">
+                    <h5>Sobre nosotros</h5>
+                </a>
+                <a href="#">
+                    <h5>Contáctanos</h5>
+                </a>
+            </div>
+        </header>
+    @elseif($usuarioConElQueHablas->rol->nombre === 'cliente')
+    <link rel="stylesheet" href="{{ asset('css/trabajador-style/principal.css') }}">
 
-        {{-- Enlaces secundarios --}}
-        <div class="nav-left">
-            <a href="#">
-                <h5>Sobre nosotros</h5>
-            </a>
-            <a href="#">
-                <h5>Contáctanos</h5>
-            </a>
-        </div>
-    </header>
+        <x-menuWork />
+        @else
+        <p>no hay header</p>
+    @endif
 
-    <div class="flex h-screen max-w-6xl w-full mx-auto border border-gray-200 rounded-2xl shadow-2xl overflow-hidden mt-8" id="content">
+
+    <div class="flex h-screen max-w-6xl w-full mx-auto border border-gray-200 rounded-2xl shadow-2xl overflow-hidden mt-8"
+        id="content">
 
 
         <!-- Sidebar izquierdo -->
@@ -92,7 +112,7 @@
                     <div>
                         <p class="text-sm font-medium" id="text-name">{{ $usuarioConElQueHablas->nombre }}</p>
                         <p class="text-xs text-gray-500" id="text-name">
-                            {{ $usuarioConElQueHablas->rol === 'trabajador' ? 'Disponible' : 'Conectado' }}</p>
+                            {{ $usuarioConElQueHablas->rol->nombre === 'trabajador' ? 'Disponible' : 'Conectado' }}</p>
                     </div>
                 </div>
             </div>

@@ -34,7 +34,7 @@ html, body {
   color: #111827;
 }
 .sidebar a{
-  color: #4b5563;
+  color: #4b5563 !important;
 }
 .menu-item {
   display: flex;

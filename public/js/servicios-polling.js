@@ -51,34 +51,34 @@ function verificarAceptacion(servicioId) {
             const claveAlerta = `alertaAceptadaServicio_${servicioId}`;
             const yaMostrado = localStorage.getItem(claveAlerta);
 
-            if (data.status === 'accepted' && !yaMostrado) {
-                console.log('Mostrando alerta SweetAlert para aceptación del servicio.');
+            // if (data.status === 'accepted' && !yaMostrado) {
+            //     console.log('Mostrando alerta SweetAlert para aceptación del servicio.');
 
-                Swal.fire({
-                    title: 'Servicio aceptado',
-                    html: `
-                        <p>${data.message}</p>
-                        <p><strong>Trabajador:</strong> ${data.trabajador.nombre}</p>
-                        <p>¿Quieres aceptar a este trabajador para el servicio?</p>
-                    `,
-                    icon: 'info',
-                    showCancelButton: true,
-                    confirmButtonText: 'Aceptar trabajador',
-                    cancelButtonText: 'Rechazar trabajador',
-                    reverseButtons: true,
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        console.log('Usuario aceptó al trabajador.');
-                        actualizarEstado(servicioId, 'completado');
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        console.log('Usuario rechazó al trabajador.');
-                        actualizarEstado(servicioId, 'activo');
-                    }
-                });
+            //     Swal.fire({
+            //         title: 'Servicio aceptado',
+            //         html: `
+            //             <p>${data.message}</p>
+            //             <p><strong>Trabajador:</strong> ${data.trabajador.nombre}</p>
+            //             <p>¿Quieres aceptar a este trabajador para el servicio?</p>
+            //         `,
+            //         icon: 'info',
+            //         showCancelButton: true,
+            //         confirmButtonText: 'Aceptar trabajador',
+            //         cancelButtonText: 'Rechazar trabajador',
+            //         reverseButtons: true,
+            //     }).then((result) => {
+            //         if (result.isConfirmed) {
+            //             console.log('Usuario aceptó al trabajador.');
+            //             actualizarEstado(servicioId, 'completado');
+            //         } else if (result.dismiss === Swal.DismissReason.cancel) {
+            //             console.log('Usuario rechazó al trabajador.');
+            //             actualizarEstado(servicioId, 'activo');
+            //         }
+            //     });
 
-                localStorage.setItem(claveAlerta, 'true');
-                console.log(`localStorage seteado: ${claveAlerta} = true`);
-            }
+            //     localStorage.setItem(claveAlerta, 'true');
+            //     console.log(`localStorage seteado: ${claveAlerta} = true`);
+            // }
 
             if (data.estado === 'activo') {
                 console.log(`Estado del servicio ${servicioId} es ACTIVO. Eliminando localStorage.`);
