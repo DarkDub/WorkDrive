@@ -74,7 +74,7 @@ class UbicacionController extends Controller
         $trabajadores->transform(function ($trabajador) {
             $trabajador->avatar_url = $trabajador->avatar
                 ? asset('storage/' . $trabajador->avatar)
-                : 'resource/public/image/avatar-defaul.jpg';
+                : asset('image/avatar-defaul.jpg');
             return $trabajador;
         });
 

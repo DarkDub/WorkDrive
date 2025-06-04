@@ -63,9 +63,10 @@ class RegisterController extends Controller
 
         if ($request->userRole === 'trabajador') {
             return redirect()->route('registro.trabajador', ['registro_id' => $registro->id]); // Define esta ruta para la vista adicional
+
         }
 
-        $user->sendEmailVerificationNotification();
+        // $user->sendEmailVerificationNotification();
         Auth::login($user);
 
         return redirect()->route('verification.notice');

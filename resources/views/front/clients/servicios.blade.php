@@ -5,9 +5,9 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
-
-    <style>
-        body {
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
+<style>
+   body {
             background-color: #ffffff;
             color: #1f2937;
             /* text-gray-900 */
@@ -47,12 +47,42 @@
         &nbsp;
 
         /* Additional styles for buttons, cards, etc. can be added here */
+                    .scrollbar-hide::-webkit-scrollbar {
+                display: none;
+            }
+
+            .scrollbar-hide {
+                -ms-overflow-style: none;
+                scrollbar-width: none;
+            }
+            
+
+            
+        .header {
+            position: fixed !important;
+            width: 100%;
+
+        }
+
+       #header {
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: rgba(255, 255, 255, 0); /* Totalmente transparente al inicio */
+    backdrop-filter: blur(0px); /* Inicial sin desenfoque */
+}
+
+#header.scrolled {
+    background-color: rgba(255, 255, 255, 0.8); /* Blanco semitransparente */
+    backdrop-filter: blur(10px); /* Agregamos un desenfoque al fondo */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Sombra para que se distinga */
+}
+
+        
     </style>
 @endsection
 
 @section('content')
     {{-- Menú superior --}}
-    <header class="header">
+    <header class="header" id="header">
         <div class="menu-container">
             <div class="logo">
                 <div class="menu-icon" id="menu-icon">
@@ -81,35 +111,9 @@
             </a>
         </div>
     </header>
-
-    {{-- Perfil --}}
-    {{-- Contenido principal --}}
-    <html lang="en">
-
-    <head>
-        <meta charset="utf-8" />
-        <meta content="width=device-width, initial-scale=1" name="viewport" />
-        <title>
-            List Page
-        </title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet" />
-        <style>
-            /* Custom scrollbar for horizontal scroll on tabs */
-            .scrollbar-hide::-webkit-scrollbar {
-                display: none;
-            }
-
-            .scrollbar-hide {
-                -ms-overflow-style: none;
-                scrollbar-width: none;
-            }
-        </style>
-    </head>
-
     <body class="bg-white text-gray-900 font-sans antialiased">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-2 mt-20">
                 <h2 class="text-lg font-extrabold leading-6 text-gray-900 mb-3 sm:mb-0">List</h2>
                 <button
                     class="inline-flex items-center gap-2 rounded-md bg-gray-900 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2"
@@ -164,18 +168,36 @@
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Card 1 -->
+                @foreach ($servicios as $serv)
+
                 <article aria-label="Draft post about The Future of Renewable Energy"
                     class="flex rounded-lg border border-gray-100 shadow-sm overflow-hidden">
                     <div class="flex flex-col justify-between p-4 w-full">
                         <div>
-                            <span
+                             @if ($serv->estado->nombre == 'pendiente')
+                                                                                
+                                        <span
+                                class="inline-block rounded-md bg-orange-200 px-2 py-0.5 text-xs font-semibold text-orange-800 mb-2">pendiente</span>
+
+                                    @elseif($serv->estado->nombre == 'completado')
+                                          <span
+                                class="inline-block rounded-md bg-green-200 px-2 py-0.5 text-xs font-semibold text-green-600 mb-2">completado</span>                           
+                                    @elseif($serv->estado->nombre == 'Activo')
+                                          
+                                           
+                                        <span
+                                class="inline-block rounded-md bg-blue-200 px-2 py-0.5 text-xs font-semibold text-blue-700 mb-2">Activo</span>
+                                    @else
+                                        <span
                                 class="inline-block rounded-md bg-gray-200 px-2 py-0.5 text-xs font-semibold text-gray-600 mb-2">Draft</span>
-                            <time class="block text-xs text-gray-400 mb-3" datetime="2025-05-27">27 May 2025</time>
-                            <a
+                                    @endif
+                            
+                            <time class="block text-xs text-gray-400 mb-3" datetime="2025-05-27">{{ $serv->created_at->format('d M Y g:i a') }}</time>
+                            <a 
+                                href="{{route('servicio.detalle', $serv->id)}}"
                                 class="text-[#212121] cursor-pointer no-underline hover:underline  text-sm font-semibold leading-tight mb-2">
-                                Luis fernando duncan hernandez</a>
-                            <p class="text-xs text-gray-600 leading-relaxed">necesito un plomero en via #40 para que
-                                modifique la tuveria de agua.</p>
+                                Servicios de {{$serv->profesion->nombre}}, {{$user->registro->nombre . ' ' . $user->registro->apellido}}</a>
+                            <p class="text-xs text-gray-600 leading-relaxed">{{$serv->descripcion}}</p>
                         </div>
                         <div class="flex items-center space-x-6 text-xs text-gray-400 mt-4">
                             <button aria-label="More options" class="hover:text-gray-600"><i
@@ -191,10 +213,11 @@
                         <img alt="Avatar of a person with sunglasses and short hair"
                             class="absolute top-2 right-2 w-10 h-10 rounded-full border-2 border-white object-cover"
                             height="40"
-                            src="https://storage.googleapis.com/a1aa/image/738836ca-597f-4361-987a-65a203b459db.jpg"
+                            src="{{ asset('storage/' . ($serv->usuario?->registro?->avatar ?? 'default-avatar.png')) }}"
                             width="40" />
                     </div>
                 </article>
+                @endforeach
                 <!-- Additional cards can be added here -->
             </div>
         </div>
@@ -208,8 +231,17 @@
 @endsection
 @section('scripts')
     <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
-    <script src="{{ asset('js/principal-page/modal-page.js') }}"></script>
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-    <script src="{{ asset('js/principal-page/map.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+        <script src="https://cdn.tailwindcss.com"></script>
+         <script>
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 10) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+    </script>
+
 @endsection

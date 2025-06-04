@@ -17,11 +17,13 @@ use App\Http\Controllers\PermisosController;
 use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\profesion;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\chatController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\notificacionController;
 
 // RUTAS PÚBLICAS
 Route::get('/test-mail', function () {
@@ -30,42 +32,48 @@ Route::get('/test-mail', function () {
         return 'No hay usuarios para probar.';
     }
     $user->sendEmailVerificationNotification();
-    return view('auth.verify-email');
+    return view('emails.verify-email');
 });
 
 route::get('/v', function () {
-    return view('auth.verify-email'); // Esta vista la crearemos si no existe
-});
-route::get('/serv', function () {
-    return view('front.clients.servicios'); // Esta vista la crearemos si no existe
-});
-route::get('/servs', function () {
-    return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
-});
-route::get('/pro', function () {
-    return view('pruebas.prueba2'); // Esta vista la crearemos si no existe
+    return view('emails.verify-email'); // Esta vista la crearemos si no existe
 });
 // 📨 Muestra la vista donde se avisa que se debe verificar el correo
 Route::get('/email/verify', function () {
-    return view('auth.verify-email'); // Esta vista la crearemos si no existe
+    return view('emails.verify-email'); // Esta vista la crearemos si no existe
 })->middleware('auth')->name('verification.notice');
+Route::get('/verificado', function () {
+    return view('emails.verificado'); // Esta vista la crearemos si no existe
+})->middleware('auth')->name('verification.verificado');
+route::get('/serv', function () {
+    return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
+});
 
-// ✅ Ruta que maneja el clic en el enlace del email de verificación
-Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
-    $request->fulfill(); // Marca el correo como verificado
+route::get('/servs', function () {
+    return view('front.clients.servicios-details'); // Esta vista la crearemos si no existe
+});
 
-    $user = Auth::user();
+Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
+    // Buscar el usuario
+    $user = User::findOrFail($id);
 
-    // Verifica el rol para redirigir
-    if ($user->rol->nombre === 'cliente') {
-        return redirect()->route('cliente.index')->with('status', 'Correo verificado correctamente. Ahora puedes iniciar sesión.');
-    } elseif ($user->rol->nombre === 'trabajador') {
-        return redirect()->route('trabajador.index')->with('status', 'Correo verificado correctamente. Ahora puedes iniciar sesión.');
+    // Verificar que el hash corresponde al email del usuario
+    if (! hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
+        abort(403, 'El enlace de verificación no es válido.');
     }
 
-    // Por defecto redirige al login
-    return redirect()->route('login')->with('status', 'Correo verificado correctamente. Ahora puedes iniciar sesión.');
-})->middleware(['auth', 'signed'])->name('verification.verify');
+    // Marcar el email como verificado si no lo está
+    if (! $user->hasVerifiedEmail()) {
+        $user->markEmailAsVerified();
+    }
+
+    
+    Auth::login($user);
+
+    return redirect()->route('verification.verificado')->with('message', '¡Tu correo ha sido verificado con éxito!');
+
+})->middleware(['signed'])->name('verification.verify');
+
 
 // 🔁 Ruta para reenviar el correo de verificación
 Route::post('/email/verification-notification', function (Request $request) {
@@ -75,6 +83,7 @@ Route::post('/email/verification-notification', function (Request $request) {
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
 Route::get('/', fn() => view('auth.login'));
+
 Route::get('/login', [AutenticacionController::class, 'create'])->name('login');
 Route::post('/login', [AutenticacionController::class, 'store'])->name('login.store');
 
@@ -84,16 +93,14 @@ Route::get('/registro/trabajador/{registro_id}', [RegisterController::class, 'fo
 Route::get('/registro-trabajador', [DatosTrabajadorController::class, 'create'])->name('trabajador.create');
 Route::post('/registro-trabajador/{registro_id}', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
 
-// RUTAS DE PRUEBA (sólo usar en desarrollo)
-if (app()->environment('local')) {
-    Route::get('/r', fn() => view('trabajadores.registro2'));
-    Route::get('/p', fn() => view('pruebas.demos'));
-    Route::get('/b', fn() => view('pruebas.prueba2'));
-}
+
 
 // RUTAS PROTEGIDAS CON AUTENTICACIÓN
 Route::middleware(['auth'])->group(function () {
 
+route::get('/chat', function () {
+    return view('pruebas.prueba2'); // Esta vista la crearemos si no existe
+});
     Route::get('/error/404', function () {
         return view('errors.404');
     })->name('errors.404');
@@ -146,6 +153,12 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
+Route::middleware('auth')->group(function () {
+    Route::get('/chat/{trabajadorId}/{clienteId}', [ChatController::class, 'chat'])->name('chat.view');
+Route::get('/chat/mensajes', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+});
+
     // RUTAS PARA CLIENTES
     Route::middleware(['auth', 'verified', 'Rol:cliente'])->group(function () {
         Route::get('/principal', [ClienteController::class, 'dashboard'])->name('cliente.index');
@@ -154,19 +167,51 @@ Route::middleware(['auth'])->group(function () {
         Route::put('/profile-update', [ProfileController::class, 'update'])->name('profile.update');
 
         Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
+
+        Route::get('/mis-solicitudes', [ServiciosController::class, 'misSolicitudes'])->name('servicio.misSolicitudes');
+        Route::get('/solicitud-details/{id}', [ServiciosController::class, 'servicioDetails'])->name('servicio.detalle');
+
+        Route::get('/servicios/check-acceptance/{id}', [ServiciosController::class, 'checkAcceptance']);
+        Route::post('/servicios/update-status/{id}', [ServiciosController::class, 'updateStatus']);
+
         Route::resource('servicios', ServiciosController::class);
+
+        Route::get('/notificaciones', [NotificacionController::class, 'getNotificaciones']);
+        Route::post('/notificaciones/marcar-leida', [NotificacionController::class, 'markAsRead']);
+         Route::get('/panel-notificaciones', [NotificacionController::class, 'index']);
+
+
+Route::get('/notificaciones/no-leidas', [NotificacionController::class, 'obtenerNoLeidas'])->name('notificaciones.noLeidas');
+Route::post('/notificaciones/marcar-leidas', [NotificacionController::class, 'marcarLeidas'])->name('notificaciones.marcarLeidas');
+
+// Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+
+// // Ruta para obtener mensajes (GET)
+// Route::get('/chat/mensajes', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+// Route::get('/chat/{trabajador_id}', [ChatController::class, 'abrirChat'])->name('chat.abrir')->middleware('auth');
+// Route::get('/chat/mensajes/{trabajador_id}', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+
     });
 
     // RUTAS PARA TRABAJADORES
     Route::middleware(['auth', 'verified', 'Rol:trabajador'])->group(function () {
         Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->name('trabajador.index');
+
+        Route::post('/servicio/{id}/aceptar', [ServiciosController::class, 'aceptar'])->name('servicio.aceptar');
+
+        Route::get('/solicitudes', [TrabajadorController::class, 'solicitudes'])->name('solicitudes.estado');
+        Route::get('/solicitudes/{id}', [TrabajadorController::class, 'solicitudDetalles'])->name('solicitudes.detalle');
+
+
+// Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
+
+// // Ruta para obtener mensajes (GET)
+
+// Route::get('/chat/mensajes/{trabajador_id}', [ChatController::class, 'mensajes'])->name('chat.mensajes');
+
     });
 
     // Rutas de ubicación (disponibles para cualquier autenticado)
     Route::post('/actualizar-ubicacion', [UbicacionController::class, 'actualizar'])->name('ubicacion.actualizar');
     Route::get('/ubicaciones', [UbicacionController::class, 'listar'])->name('ubicaciones.listar');
 });
-Route::get('/login', [AutenticacionController::class, 'create'])->name('login'); // Mostrar formulario login
-Route::post('/login', [AutenticacionController::class, 'store'])->name('login.store'); // Procesar login
-
-// LOGOUT (protegido por auth)

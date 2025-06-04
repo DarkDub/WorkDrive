@@ -19,6 +19,7 @@ class RegistroSeeder extends Seeder
             ['nombre' => 'pendiente'],
             ['nombre' => 'verificado'],
             ['nombre' => 'realizado'],
+            ['nombre' => 'completado'],
             ['nombre' => 'en proceso'],
         ]);
         $nombres = [

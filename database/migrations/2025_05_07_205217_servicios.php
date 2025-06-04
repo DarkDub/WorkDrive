@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre')->nullable();
             // $table->string('telefono', 20)->nullable();
             $table->text('descripcion');
-            $table->text('direccion');
+            $table->text('direccion')->nullable();
             $table->text('fecha');
             $table->text('hora');
             $table->decimal('tarifa', 10, 2)->nullable();
@@ -24,12 +24,12 @@ return new class extends Migration
             $table->foreignId('pago_id')->constrained('metodo_pago')->onDelete('cascade');
             $table->unsignedBigInteger('estado_id')->default(1);
             $table->foreign('estado_id')->references('id')->on('estados')->onDelete('cascade');
-
-            // Relación con la tabla profesiones 
+            $table->unsignedBigInteger('trabajador_id')->nullable();
+            $table->foreign('trabajador_id')->references('id')->on('registros')->onDelete('set null');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('labor_id')->constrained('profesiones')->onDelete('cascade');
             $table->decimal('latitud', 10, 7)->nullable();
             $table->decimal('longitud', 10, 7)->nullable();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -39,6 +39,10 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('servicios');
+        // Schema::dropIfExists('servicios');
+        Schema::table('servicios', function (Blueprint $table) {
+            $table->dropForeign(['trabajador_id']);
+            $table->dropColumn('trabajador_id');
+        });
     }
 };

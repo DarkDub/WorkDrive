@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+use App\Notifications\CustomVerifyEmail;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\Rol;
+use Illuminate\Notifications\Notification;
+use PHPUnit\Framework\TestStatus\Notice;
 
 class User extends Authenticatable implements MustVerifyEmail
 
@@ -50,6 +53,11 @@ class User extends Authenticatable implements MustVerifyEmail
     ];
 
 
+public function sendEmailVerificationNotification()
+{
+    $this->notify(new CustomVerifyEmail());
+}
+
     public function registro()
     {
         return $this->belongsTo(Registro::class, 'registro_id');
@@ -60,4 +68,15 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsTo(Rol::class, 'rol_id'); // corregido: relación con Rol, usando la clave foránea 'rol_id'
     }
+    // app/Models/User.php
+public function profesion()
+{
+    return $this->belongsTo(Profesion::class);
+}
+
+public function notificaciones()
+{
+    return $this->hasMany(Notificaciones::class, 'user_id');
+}
+
 }

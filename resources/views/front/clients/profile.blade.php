@@ -19,6 +19,7 @@
             height: 100%;
             width: 100%;
         }
+        
     </style>
 @endsection
 
@@ -34,13 +35,14 @@
             </div>
 
             <!-- Navegación -->
-            <x-menu-nav>
+               <x-menu-nav>
                 <li><a href="{{ route('cliente.index') }}"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
                 <li><a href="{{ route('profile.index') }}"><i class="bi bi-person-circle"></i> Perfil</a></li>
-                <li><a href="#"><i class="bi bi-briefcase icon-lg"></i> Servicios</a></li>
+                <li><a href="{{ route('servicio.misSolicitudes')}}"><i class="bi bi-briefcase icon-lg"></i> Servicios</a></li>
                 <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
                 <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
             </x-menu-nav>
+           
         </div>
 
         {{-- Enlaces secundarios --}}
@@ -55,13 +57,14 @@
     </header>
 
     {{-- Perfil --}}
+            
     <div class="profile-container">
+
         <div class="header" id="header-profile">
             {{-- Imagen de fondo y foto de perfil --}}
             <img src="{{ asset('image/fondo.jpg') }}" alt="Fondo" class="cover-photo">
             <div class="profile-pic-container">
-                <img class="profile-pic" id="previewImage" src="{{ asset('storage/' . $user->registro->avatar) }}"
-                    alt="Foto de perfil actual">
+                <x-avatar class="profile-pic" id="previewImage" />
                 <div>
                     <h2>{{ $user->registro->nombre . ' ' . $user->registro->apellido }}</h2>
                     <p class="role">CTO</p>
