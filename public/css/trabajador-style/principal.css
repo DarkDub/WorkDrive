@@ -1,3 +1,19 @@
+:root {
+  --primary-color: #2563eb;
+  /* Azul */
+  --secondary-color: #f3f4f6;
+  /* Gris claro */
+  --text-color: #111827;
+  /* Gris oscuro */
+  --background-color: #f9fafb;
+  /* Fondo claro */
+  --border-color: #e5e7eb;
+  /* Borde gris claro */
+  --sidebar-bg-color: #212529;
+
+  --sidebar-text-color: #e5e7eb;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -12,15 +28,17 @@ body {
   height: 100vh;
   overflow: hidden;
 }
-html, body {
+
+html,
+body {
   height: 100%;
   overflow-y: auto;
 }
 
 
 .sidebar {
-  width: 240px;
-  background-color: #ffffff;
+  width: 270px;
+  background-color: var(--sidebar-bg-color);
   border-right: 1px solid #e5e7eb;
   display: flex;
   flex-direction: column;
@@ -29,13 +47,17 @@ html, body {
 
 .sidebar h2 {
   font-size: 1.5rem;
+  padding: 10px;
   margin-bottom: 2rem;
   font-weight: 700;
-  color: #111827;
+  color: #e5e7eb;
+  border-bottom: 2px solid var(--sidebar-text-color);
 }
-.sidebar a{
-  color: #4b5563 !important;
+
+.sidebar a {
+  color: var(--sidebar-text-color) !important;
 }
+
 .menu-item {
   display: flex;
   align-items: center;
@@ -51,22 +73,23 @@ html, body {
 
 .menu-item:hover,
 .menu-item:focus {
-  background-color: #f3f4f6;
-  color: #111827;
   transform: translateX(5px);
   /* Efecto de desplazamiento */
 }
-.sidebar a:hover{
-  color: #000000;
+
+.menu-item:active {
+  background-color: #6b7280 !important;
+  color: #2563eb;
 }
-.menu-item:focus {
-  outline: none;
+
+.sidebar a:hover {
+  color: #000000;
 }
 
 .menu-item i {
   margin-right: 0.75rem;
   font-size: 1.2rem;
-  color: #4b5563;
+  color: var(--sidebar-text-color);
 }
 
 .main-content {
@@ -78,9 +101,8 @@ html, body {
 }
 
 .time-ago {
-  margin: 0px 0px 50px 10px;
-  width: 60px;
-  color: #c4c4c4;
+  color: #666;
+  font-size: 0.8em;
 }
 
 .header {
@@ -124,35 +146,37 @@ html, body {
 .content {
   display: flex;
   flex: 1;
-  margin: auto;
-  width: 90%;
 }
 
 #content {
   display: flex;
-  margin: auto;
-  width: 90%;
-  padding: 2rem;
 }
 
 
 .left-panel {
   flex: 1;
   overflow-y: auto;
-  padding-right: 1rem;
+  padding: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  width: 85%;
+  margin: 0 auto;
+}
+
+#content-left-solicitudes {
+  flex: 2;
 }
 
 .right-panel {
   flex: 1;
   background-color: #ffffff;
   border-radius: 1rem;
-  padding: 2rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
 }
 
 .right-panel img {
@@ -173,9 +197,6 @@ html, body {
 }
 
 .solicitud-card {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 1rem;
@@ -196,8 +217,8 @@ html, body {
 }
 
 .content-target img {
-  width: 50px;
-  height: 50px;
+  width: 60px;
+  height: 60px;
 }
 
 .avatar {
@@ -205,74 +226,76 @@ html, body {
   height: 70px;
   border-radius: 100%;
   object-fit: cover;
-  margin-right: 1rem;
 }
 
-.solicitud-info {
-  display: flex;
-  flex-direction: column;
-}
 
 .solicitud-info h4 {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-bottom: 0.25rem;
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 1px;
 }
 
 .solicitud-info p {
   font-size: 0.9rem;
   color: #6b7280;
+  margin-bottom: 1px;
 }
-.title-content {
-    width: 90%;
-    margin: auto;
-    padding: 10px 30px;
-}
-.solicitud-card.aceptado {
-    border-color: #16a34a;
-    background-color: #effff4;
-}
-.solicitud-card .estado-tarjeta {
-    font-weight: 600;
-    /* color: #16a34a; */
 
+.title-content {
+  padding: 1rem;
+  margin: 0px 20px;
 }
+
+.solicitud-card.aceptado {
+  border-color: #16a34a;
+  background-color: #effff4;
+}
+
+.solicitud-card .estado-tarjeta {
+  font-weight: 600;
+  /* color: #16a34a; */
+}
+
 /* aside.sidebar { */
-    /* Personaliza si quieres */
+/* Personaliza si quieres */
 /* } */
-.menu-item:focus {
-    /* outline: 3px solid #2563eb; */
-    background-color: #e0e7ff;
-}
+
+
 button#btnAceptar {
-    margin-top: 2rem;
-    padding: 0.75rem 1.5rem;
-    background-color: #2563eb;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+  margin-top: 2rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
+
 button#btnAceptar:hover,
 button#btnAceptar:focus {
-    outline: none;
+  outline: none;
 }
+
 #mensajeExito {
-    margin-top: 1rem;
-    font-weight: bold;
-    color: #16a34a;
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #16a34a;
 }
+
 #mensajeError {
-    margin-top: 1rem;
-    font-weight: bold;
-    color: #dc2626; /* rojo */
+  margin-top: 1rem;
+  font-weight: bold;
+  color: #dc2626;
+  /* rojo */
 }
+
 .solicitud-card {
-    cursor: pointer;
-    outline: none;
+  cursor: pointer;
+  outline: none;
 }
+
 .solicitud-card:focus {
-    background-color: #e0e7ff5a;
+  background-color: #e0e7ff5a;
 }
