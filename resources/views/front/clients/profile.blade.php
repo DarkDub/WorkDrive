@@ -130,7 +130,6 @@
                     </div>
                 </div>
                 --}}
-                <a href="{{ route('profile.edit') }}">editar</a>
             </section>
         </div>
     </div>

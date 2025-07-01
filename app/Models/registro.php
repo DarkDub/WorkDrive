@@ -51,4 +51,10 @@ class Registro extends Model
     {
         return $this->belongsTo(Municipio::class, 'municipio_id');
     }
+    // Registro.php
+public function usuario()
+{
+    return $this->belongsTo(User::class, 'user_id'); // Ajusta la foreign key si es distinta
+}
+
 }

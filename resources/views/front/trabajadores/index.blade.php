@@ -5,154 +5,241 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/tarjeta.css') }}">
     <link rel="stylesheet" href="{{ asset('css/trabajador-style/principal.css') }}">
+    <style>
+        #card {
+            background-color: #fff;
+            border-radius: 16px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            width: 400px;
+            padding: 24px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            transition: transform 0.2s;
+        }
+
+        #card:hover {
+            transform: translateY(-4px);
+        }
+
+        .status {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            color: #2e7d32;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .user-info img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-details .name {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #4194ff
+        }
+
+        .user-details .telefono {
+            font-size: 0.9em;
+            color: #555;
+        }
+
+        .service-info .category {
+            font-weight: 600;
+            color: #007bff;
+            margin-bottom: 6px;
+        }
+
+        .service-info .description {
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .content-target {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+        }
+
+        .extra-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85em;
+            color: #666;
+        }
+
+        #detalle {
+            justify-content: none !important;
+        }
+
+        .detail-panel {
+            background: #ffffff;
+            width: 400px;
+            height: 70%;
+            padding: 20px;
+            overflow-y: auto;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .user-info h4 {
+            position: absolute;
+            top: 24px;
+            left: 32px;
+            font-size: 1.4rem;
+            color: #333;
+            margin: 0;
+        }
+
+        .user-info img {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .user-details .name {
+            font-weight: bold;
+            font-size: 1.1rem;
+            color: #222;
+        }
+
+        .estado {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .pendiente {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .Activo {
+            background-color: #61a5b9;
+            color: #ffffff;
+        }
+
+        .disponible {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .info-block {
+            margin-bottom: 16px;
+        }
+
+        .info-block label {
+            display: block;
+            font-weight: bold;
+            color: #444;
+            margin-bottom: 4px;
+        }
+
+        .info-block p {
+            margin: 0;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+    </style>
 @endsection
 
 @section('content')
+    <x-menuWork />
 
-    <aside class="sidebar">
-        <h2>WorkDrive</h2>
-        <div class="menu-item" tabindex="0">
-            <!-- Icono de Inicio usando Bootstrap Icons -->
-            <i class="fa-solid fa-house"></i>
-            Inicio
-        </div>
-        <div class="menu-item" tabindex="0">
-            <!-- Icono de Servicios usando Bootstrap Icons -->
-            <i class="fa-solid fa-list"></i>
-            Servicios
-        </div>
-        <div class="menu-item" tabindex="0">
-            <!-- Icono de Solicitudes usando Bootstrap Icons -->
-            <i class="fa-solid fa-handshake"></i>
-            Solicitudes
-        </div>
-        <div class="menu-item" tabindex="0">
-            <!-- Icono de Perfil usando Bootstrap Icons -->
-            <i class="fa-solid fa-user"></i>
-            Trabajados
-        </div>
-    </aside>
+    <section class="content" id="content" aria-live="polite">
+        <div id="content-left-solicitudes" class="content-left">
+            <h2 class="title-content">Solicitudes</h2>
 
-    <div class="main-content">
-        <header class="header">
-            <h1>Panel de Trabajadores</h1>
-            <div class="user-avatar">
-                <span>{{ $user->name }}</span>
-                <div class="menu-icon" id="menu-icon">
-                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Avatar" />
-                </div>
-            </div>
-        </header>
-        {{-- @if ($latitud && $longitud)
-              <p>Tu última ubicación guardada es:</p>
-              <ul>
-                  <li>Latitud: {{ $latitud }}</li>
-                  <li>Longitud: {{ $longitud }}</li>
-              </ul>
-          @else
-              <p>No tenemos tu ubicación registrada aún.</p>
-          @endif --}}
+            <section class="left-panel" aria-label="Lista de solicitudes">
+                @forelse ($servicios as $serv)
+                    <div class="solicitud-card {{ $serv->trabajador_id ? 'aceptado' : '' }}" data-id="{{ $serv->id }}"
+                        data-trabajador="{{ $serv->trabajador_id ?? '' }}"
+                        data-direccion="{{ $serv->direccion ?? 'No especificada' }}"
+                        data-fecha="{{ $serv->fecha ?? '---' }}" data-hora="{{ $serv->hora ?? '---' }}"
+                        data-telefono="{{ $serv->usuario?->telefono ?? 'No disponible' }}" data-nombre="{{ $serv->nombre }}"
+                        data-descripcion="{{ $serv->descripcion }}" role="button" tabindex="0" aria-pressed="false"
+                        aria-label="Solicitud {{ $serv->nombre }} {{ $serv->trabajador_id ? '(Aceptada)' : '(Pendiente)' }}"
+                        id="card">
 
-        <!-- Navegación -->
-        <x-menu-nav>
-            <li>
-                <a href="{{ route('profesiones.index') }}">
-                    <i class="bi bi-house-door icon-lg"></i> Inicio
-                </a>
-            </li>
-            <li>
-                <a href="/usuario/inicio.html">
-                    <i class="bi bi-person-circle"></i> Perfil
-                </a>
-            </li>
-            <li>
-                <a href="/usuario/Menuu/Servicios.html">
-                    <i class="bi bi-briefcase icon-lg"></i> Servicios
-                </a>
-            </li>
-            <li>
-                <a href="/usuario/Menuu/Contacto.html">
-                    <i class="bi bi-telephone icon-lg"></i> Contacto
-                </a>
-            </li>
-            <li>
-                <a href="/usuario/Menuu/Acercade.html">
-                    <i class="bi bi-info-circle icon-lg"></i> Acerca de
-                </a>
-            </li>
-            <!-- Cerrar sesión y modo trabajador-->
-
-        </x-menu-nav>
-
-        <div class="content" id="content">
-            <section class="left-panel">
-                @foreach ($servicios as $serv)
-                    <div class="solicitud-card"
-                        onclick="mostrarDetalle(
-          '{{ $serv->nombre }}',
-          '',
-          '',
-          '',
-          '',
-          '',
-          '')">
-                        <div class="content-target">
-
-                            <img src="https://randomuser.me/api/portraits/women/60.jpg" class="avatar" alt="avatar" />
-                            <div class="solicitud-info">
-                                <h4>{{ $serv->nombre }}</h4>
-                                <p>{{ $serv->descripcion }}</p>
+                        <div class="status">
+                            <div class="estado {{ $serv->estado->nombre }}">
+                                {{ $serv->trabajador_id ? 'Pendiente' : 'Activo' }}
                             </div>
                         </div>
 
+                        <div class="content-target">
+                            <img src="{{ asset('storage/' . ($serv->usuario?->registro?->avatar ?? 'default-avatar.png')) }}"
+                                alt="Foto de perfil de {{ $serv->usuario->name ?? 'Usuario' }}" class="avatar">
 
-                        <i class="time-ago">2 day</i>
+                            <div class="solicitud-info">
+                                <h4>{{ $serv->nombre }}</h4>
+                                <div class="time-ago date">solicitidado {{ $serv->created_at->diffForHumans() }}</div>
+                            </div>
+                        </div>
 
+                        <div class="extra-info">
+                            <div class="user-details">
+                                <span class="name">Servicio:
+                                    {{ $serv->profesion->nombre ?? 'Usuario Desconocido' }}</span>
+                                <p class="my-0">{{ $serv->descripcion }}</p>
+                            </div>
+                        </div>
                     </div>
-                @endforeach
+                @empty
+                    <p>No hay solicitudes disponibles.</p>
+                @endforelse
             </section>
-            <section class="right-panel" id="detalle">
-                <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="empty" />
+        </div>
+
+        <section class="right-panel" id="detalle" aria-live="polite" aria-label="Detalles de solicitud">
+            <div class="right-panel2">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="No hay selección" />
                 <h2>Selecciona una solicitud</h2>
                 <p>Haz clic en una tarjeta para ver más detalles aquí.</p>
-            </section>
-        </div>
-    </div>
+            </div>
 
-
-    </body>
+        </section>
+    </section>
 @endsection
-@section('scripts')
 
-    <script>
-        function mostrarDetalle(nombre, descripcion, imagen, direccion, fecha, hora, telefono) {
-            const panel = document.getElementById('detalle');
-            panel.innerHTML = `
-        <img src="${imagen}" alt="${nombre}" />
-        <h2>${nombre}</h2>
-        <p style="margin-bottom: 1rem;">${descripcion}</p>
-        <div style="text-align: left; width: 100%; max-width: 400px;">
-          <p><strong>Dirección:</strong> ${direccion}</p>
-          <p><strong>Fecha:</strong> ${fecha}</p>
-          <p><strong>Hora:</strong> ${hora}</p>
-          <p><strong>Teléfono:</strong> ${telefono}</p>
-        </div>
-        <button style="
-          margin-top: 2rem;
-          padding: 0.75rem 1.5rem;
-          background-color: #2563eb;
-          color: white;
-          border: none;
-          border-radius: 0.5rem;
-          font-size: 1rem;
-          cursor: pointer;
-          transition: background-color 0.3s ease;
-        " onmouseover="this.style.backgroundColor='#1d4ed8'" onmouseout="this.style.backgroundColor='#2563eb'">
-          Aceptar Servicio
-        </button>
-      `;
-        }
-    </script>
+@section('scripts')
     <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
     <script src="{{ asset('js/trabajadores-js/map-work.js') }}"></script>
+    <script src="{{ asset('js/trabajadores-js/service.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @endsection

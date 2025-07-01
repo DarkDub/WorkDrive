@@ -129,35 +129,17 @@
                         value="{{ old('codigo_postal', $user->registro->codigo_postal ?? '') }}">
                 </div>
 
-                <div class="form-group">
-                    <label for="role">Rol</label>
-                    <input type="text" id="role" name="rol"
-                        value="{{ old('rol', $user->rol->nombre ?? '') }}" disabled>
-                </div>
-
-                <div class="form-actions">
-                    <button type="submit">Guardar cambios</button>
-                </div>
-            </section>
-        </form>
-    </main>
-</body>
-
-<script src="{{ asset('js/client-js/editProfile.js') }}"></script>
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-
-@if (session('success'))
-    <script>
-        Toastify({
-            text: "{{ session('success') }}",
-            duration: -1,
-            gravity: "top",
-            position: "right",
-            backgroundColor: "#ffffff",
-            close: true,
-            avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
-        }).showToast();
-    </script>
-@endif
-
-</html>
+    @if (session('success'))
+        <script>
+            Toastify({
+                text: "{{ session('success') }}",
+                duration: -1,
+                gravity: "top",
+                position: "right",
+                backgroundColor: "#ffffff",
+                close: true,
+                avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
+            }).showToast();
+        </script>
+    @endif
+@endsection

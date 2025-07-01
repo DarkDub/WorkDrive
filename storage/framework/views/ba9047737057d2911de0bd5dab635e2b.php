@@ -113,12 +113,8 @@ unset($__defined_vars); ?>
 
         <div class="avatar-wrapper">
             <div class="rotating-border"></div>
-<<<<<<< HEAD
             
 
-=======
-            <img src="<?php echo e(asset('storage/' . Auth::user()->registro->avatar)); ?>" alt="Avatar" class="avatar-img">
->>>>>>> origin/master
         </div>
         <!-- Usuario -->
 

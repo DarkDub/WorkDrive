@@ -7,7 +7,9 @@ use App\Models\DatosTrabajador;
 use App\Models\Profesion;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use App\Models\Registro; // Si necesitas usar esta tabla por la llave foránea
+use App\Models\User;
+use App\Models\Registro;
+use Illuminate\Support\Facades\Auth;
 
 class DatosTrabajadorController extends Controller
 {

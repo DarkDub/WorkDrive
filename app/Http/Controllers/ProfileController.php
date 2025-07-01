@@ -76,8 +76,8 @@ class ProfileController extends Controller
         }
 
         // Opcional: actualizar nombre del usuario (aunque email está disabled)
-        $user->name = $request->nombres;
-        $user->save();
+        // $user->name = $request->nombres;
+        // $user->save();
 
         return redirect()->route('profile.edit')->with('success', 'Perfil actualizado correctamente');
     }

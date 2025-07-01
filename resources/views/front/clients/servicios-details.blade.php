@@ -5,298 +5,248 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/servicios-details.css') }}">
     <style>
-        :root {
-            --color-primary: #1C252E;
-            --color-primary-hover: #2c3844;
-            --color-primary-dark: #2563eb;
-            --color-success: #22c55e;
-            --color-success-dark: #166534;
-            --color-warning: #fbbf24;
-            --color-warning-dark: #92400e;
-            --color-gray-light: #f9fafb;
-            --color-gray-medium: #6b7280;
-            --color-gray-dark: #374151;
-            --font-family-base: 'Helvetica Neue', sans-serif;
-        }
-
-        body {
-            background-color: #ffffff;
-            color: var(--color-gray-dark);
-            font-family: var(--font-family-base);
-            -webkit-font-smoothing: antialiased;
-            margin: 0;
-            padding: 0;
-        }
-
-        .container {
-            max-width: 80rem;
-            margin: 2rem auto;
-            padding: 0 1rem;
-            display: flex;
-            gap: 2rem;
-            min-height: 80vh;
-            flex-wrap: wrap;
-        }
-
-        /* Panel central */
-        .service-details {
-            flex: 3 1 60%;
-            background: var(--color-gray-light);
-            border-radius: 0.5rem;
-            padding: 2rem;
-            box-shadow: 0 4px 12px rgb(0 0 0 / 0.07);
-            color: var(--color-gray-dark);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .breadcrumb {
-            font-size: 0.875rem;
-            color: var(--color-gray-medium);
-            margin-bottom: 1.25rem;
-        }
-
-        .breadcrumb a {
-            color: var(--color-gray-dark);
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .breadcrumb a:hover {
-            text-decoration: underline;
-            color: var(--color-primary);
-        }
-
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            color: var(--color-gray-dark);
-        }
-
-        .info-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.25rem;
-            font-size: 1rem;
-            color: var(--color-gray-medium);
-            line-height: 1.4;
-        }
-
-        .info-row i {
-            margin-right: 0.75rem;
-            color: var(--color-gray-medium);
-            width: 24px;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .status {
-            display: inline-block;
-            padding: 0.25rem 0.85rem;
-            border-radius: 9999px;
-            font-weight: 600;
-            font-size: 0.875rem;
-            margin-left: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .status.pending {
-            background-color: var(--color-warning);
-            color: var(--color-warning-dark);
-        }
-
-        .status.in-progress {
-            background-color: var(--color-primary);
-            color: var(--color-primary-dark);
-        }
-
-        .status.completed {
-            background-color: var(--color-success);
-            color: var(--color-success-dark);
-        }
-
-        p.description {
-            color: var(--color-gray-medium);
-            font-size: 1rem;
-            line-height: 1.6;
-            margin-top: -1rem;
-            margin-bottom: 0;
-            padding-left: 2.5rem;
-        }
-
-        /* Panel derecho */
         .user-panel {
-            flex: 1 1 30%;
-            background: #fff;
-            border-radius: 0.5rem;
-            padding: 2rem 1.5rem;
-            box-shadow: 0 4px 12px rgb(0 0 0 / 0.07);
+            display: flex;
+            justify-content: center;
+            /* centra horizontal */
+            align-items: center;
+            /* centra vertical */
+            text-align: center;
+            flex-direction: column;
+        }
+
+        .waiting-container {
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            gap: 1rem;
-            font-size: 1rem;
-            color: var(--color-gray-dark);
-            min-width: 280px;
+            color: #ff9800;
+            font-family: 'Public Sans', sans-serif;
+            padding: 1rem 0;
         }
 
-        .user-photo {
-            width: 130px;
-            height: 130px;
-            border-radius: 50%;
-            object-fit: cover;
-            box-shadow: 0 0 0 4px var(--color-gray-light);
-            margin-bottom: 0.8rem;
-        }
-
-        .user-name {
-            font-weight: 700;
-            font-size: 1.4rem;
-            color: var(--color-gray-dark);
-        }
-
-        .user-role {
-            font-style: italic;
-            color: var(--color-gray-medium);
-            margin-bottom: 1rem;
-            font-size: 1rem;
-        }
-
-        .user-contact,
-        .user-phone,
-        .user-location {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
+        .waiting-icon {
+            font-size: 3rem;
+            /* tamaño grande del reloj */
             margin-bottom: 0.5rem;
-            color: var(--color-gray-medium);
+            animation: pulse 2s infinite ease-in-out;
+            color: #ff9800;
         }
 
-        .user-contact i,
-        .user-phone i,
-        .user-location i {
-            color: var(--color-gray-light);
-            background-color: var(--color-primary);
-            padding: 6px 7px;
-            border-radius: 6px;
-            font-size: 1rem;
-            width: 28px;
-            height: 28px;
-            display: flex;
+        .waiting-message {
+            font-weight: bold;
+            font-size: 1.2em;
+            display: inline-flex;
             align-items: center;
-            justify-content: center;
         }
 
-        .user-rating {
-            margin: 1.25rem 0;
-            color: var(--color-warning);
-            font-size: 1.2rem;
-            font-weight: 600;
+        .dot {
+            animation-name: blink;
+            animation-duration: 1.4s;
+            animation-iteration-count: infinite;
+            animation-timing-function: ease-in-out;
+            margin-left: 2px;
+            font-weight: bold;
+            font-size: 1.4em;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        @keyframes blink {
+
+            0%,
+            20% {
+                opacity: 0;
+            }
+
+            50% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.1);
+                opacity: 0.7;
+            }
+        }
+
+        .custom-orange {
+            background-color: #fcd34d;
+            /* Un naranja pastel */
+            color: #92400e;
+            /* Un marrón oscuro para contraste */
+        }
+
+        .custom-green {
+            background-color: #86efac;
+            /* Un verde claro */
+            color: #166534;
+        }
+
+        .custom-blue {
+            background-color: #93c5fd;
+            /* Azul pastel */
+            color: #1e3a8a;
+        }
+
+        .custom-gray {
+            background-color: #e5e7eb;
+            /* Gris claro */
+            color: #374151;
         }
 
         .action-buttons {
-            margin-top: auto;
-            width: 100%;
             display: flex;
-            gap: 1rem;
+            gap: 12px;
+            margin-top: 1rem;
+            justify-content: center;
         }
 
         .btn {
-            flex: 1;
-            padding: 0.85rem 1rem;
-            border-radius: 0.375rem;
-            font-weight: 700;
-            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             border: none;
-            transition: background-color 0.3s ease, box-shadow 0.2s ease;
-            font-size: 1rem;
-            box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-            user-select: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
         }
 
+        .btn i {
+            font-size: 18px;
+        }
+
+        /* Botón Contactar */
         .btn-contact {
-            background-color: var(--color-primary);
+            background-color: #2563eb;
             color: white;
         }
-
 
         .btn-contact:hover {
-            background-color: var(--color-primary-hover);
+            background-color: #1d4ed8;
+        }
+
+        /* Botón Chat estilo solo ícono redondo */
+        .btn-chat {
+            background-color: #22c55e;
             color: white;
-            outline: none;
+            border-radius: 50%;
+            padding: 12px;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
         }
 
-        .btn-contact:focus {
-            background-color: var(--color-primary-hover);
+        .btn-chat:hover {
+            background-color: #16a34a;
+            transform: scale(1.1);
         }
 
-        .btn-edit {
-            background-color: var(--color-gray-medium);
-            color: white;
+        /* Botón Rechazar */
+        .btn-reject {
+            background-color: #f3f4f6;
+            color: #dc2626;
+            border: 1px solid #dc2626;
         }
 
-        .btn-edit:hover {
-            background-color: var(--color-primary);
-            outline: none;
-        }
-
-        /* Responsive */
-        @media (max-width: 900px) {
-            .container {
-                flex-direction: column;
-                max-width: 95%;
-            }
-
-            .service-details,
-            .user-panel {
-                flex: 1 1 100%;
-            }
-
-            .user-panel {
-                margin-top: 2rem;
-                min-width: auto;
-            }
+        .btn-reject:hover {
+            background-color: #fee2e2;
         }
     </style>
 @endsection
 
 @section('content')
+    <header class="header" id="header">
+        <div class="menu-container">
+            <div class="logo">
+                <div class="menu-icon" id="menu-icon">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="text-logo">Work Drive</div>
+            </div>
+
+            <!-- Navegación -->
+            <x-menu-nav>
+                <li><a href="{{ route('cliente.index') }}"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
+                <li><a href="{{ route('profile.index') }}"><i class="bi bi-person-circle"></i> Perfil</a></li>
+                <li><a href="{{ route('servicio.misSolicitudes') }}"><i class="bi bi-briefcase icon-lg"></i> Servicios</a>
+                </li>
+                <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
+                <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
+            </x-menu-nav>
+        </div>
+
+        {{-- Enlaces secundarios --}}
+        <div class="nav-left">
+            <a href="#">
+                <h5>Sobre nosotros</h5>
+            </a>
+            <a href="#">
+                <h5>Contáctanos</h5>
+            </a>
+        </div>
+    </header>
     <div class="container">
 
         {{-- Panel central con datos del servicio --}}
         <section class="service-details" role="region" aria-labelledby="service-title">
-            <nav class="breadcrumb" aria-label="Breadcrumb">
-                <a href="{{ route('cliente.index') }}">Inicio</a> &raquo;
-                <a href="{{ route('servicios.index') }}">Servicios</a> &raquo;
-                <span>Detalles del Servicio</span>
-            </nav>
 
-            <h1 id="service-title">Servicio de Plomería</h1>
+            <h3 id="service-title">Servicio de Plomería</h3>
 
             <div class="info-row">
-                <i class="fas fa-calendar-alt" aria-hidden="true"></i>
-                Fecha: <strong>27 de Mayo, 2025</strong>
+                <i class="fas fa-calendar-alt mr-2" aria-hidden="true"></i>
+                Fecha: <strong style="margin-left: 7px;">{{ ' ' . $servicio->created_at->format('d M Y g:i a') }}</strong>
             </div>
 
             <div class="info-row">
                 <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                Lugar: <strong>Calle 40 #123, Bogotá</strong>
+                Lugar: <strong style="margin-left: 7px;">Calle 40 #123, Bogotá, fake</strong>
             </div>
 
             <div class="info-row">
                 <i class="fas fa-dollar-sign" aria-hidden="true"></i>
-                Tarifa: <strong>$150.000</strong>
+                Tarifa: <strong style="margin-left: 7px;">$ {{ number_format($servicio->tarifa, 2) }}</strong>
             </div>
 
             <div class="info-row">
                 <i class="fas fa-info-circle" aria-hidden="true"></i>
                 Estado:
-                <span class="status in-progress text-white" aria-label="Estado del servicio: En progreso">En Progreso</span>
+                @if ($servicio->estado->nombre == 'pendiente')
+                    <span class="badge custom-orange m-2">pendiente</span>
+                @elseif($servicio->estado->nombre == 'completado')
+                    <span class="badge custom-green m-2">completado</span>
+                @elseif($servicio->estado->nombre == 'Activo')
+                    <span class="badge custom-blue m-2">Activo</span>
+                @else
+                    <span class="badge custom-gray m-2">Draft</span>
+                @endif
+
+
             </div>
 
             <div class="info-row" style="margin-bottom: 2rem;">
@@ -309,38 +259,80 @@
         </section>
 
         {{-- Panel derecho con datos del usuario --}}
-        <aside class="user-panel" role="complementary" aria-label="Información del proveedor del servicio">
-            <img src="{{ asset('images/user.jpg') }}" alt="Foto del proveedor" class="user-photo" />
+        <aside class="user-panel" role="complementary" aria-label="Información del proveedor del servicio"
+            style="text-align: center; padding: 1rem;">
+            @if ($servicio->trabajador)
+                <img src="{{ asset('storage/' . $servicio->trabajador->avatar) }}" alt="Foto del proveedor"
+                    class="user-photo" />
 
-            <div class="user-name">Juan Pérez</div>
-            <div class="user-role">Plomero Certificado</div>
+                <div class="user-name">{{ $servicio->trabajador->nombre . ' ' . $servicio->trabajador->apellido }}</div>
+                <div class="user-role">{{ $servicio->trabajador->datosTrabajador->profesion->nombre }}</div>
 
-            <div class="user-contact">
-                <i class="fas fa-envelope" aria-hidden="true"></i>
-                <a href="mailto:juan.perez@example.com" style="color: inherit; text-decoration: none;"
-                    aria-label="Correo electrónico">juan.perez@example.com</a>
-            </div>
+                <div class="user-contact">
+                    <i class="fas fa-envelope" aria-hidden="true"></i>
+                    <a href="{{ $servicio->trabajador->email }}" style="color: inherit; text-decoration: none;"
+                        aria-label="Correo electrónico">{{ $servicio->trabajador->email }}</a>
+                </div>
 
-            <div class="user-phone">
-                <i class="fas fa-phone" aria-hidden="true"></i>
-                <a href="tel:+573001112233" style="color: inherit; text-decoration: none;"
-                    aria-label="Número de teléfono">+57 300 111 2233</a>
-            </div>
+                <div class="user-phone">
+                    <i class="fas fa-phone" aria-hidden="true"></i>
+                    <a href="tel:+573001112233" style="color: inherit; text-decoration: none;"
+                        aria-label="Número de teléfono">+57 {{ $servicio->trabajador->telefono }}
+                        {{ $servicio->trabajador->id }}
+                    </a>
+                </div>
 
-            <div class="user-location">
-                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                Bogotá, Colombia
-            </div>
+                <div class="user-location">
+                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                    {{-- {{ $servicio->trabajador->pais->nombre }} --}}
+                </div>
 
-            <div class="user-rating" aria-label="Calificación del usuario: 4.5 de 5 estrellas">
-                <i class="fas fa-star"></i> 4.5
-            </div>
+                <div class="user-rating" aria-label="Calificación del usuario: 4.5 de 5 estrellas">
+                    <i class="fas fa-star"></i> 4.5
+                </div>
 
-            <div class="action-buttons">
-                <button type="button" class="btn btn-contact" aria-label="Contactar al proveedor">Contactar</button>
-                {{-- <button type="button" class="btn btn-edit" aria-label="Editar información del proveedor">Editar</button> --}}
-            </div>
+                <!-- Asegúrate de tener Font Awesome incluido -->
+
+                <div class="action-buttons">
+                    <!-- Botón Contactar -->
+                    <a href="#" class="btn btn-contact" title="Enviar un mensaje al proveedor"
+                        aria-label="Contactar al proveedor">
+                        <i class="fas fa-envelope"></i> Contactar
+                    </a>
+
+                    <!-- Botón Chat (solo ícono redondo con tooltip) -->
+                    <a href="{{ route('chat.view', ['trabajadorId' => $servicio->trabajador->id, 'clienteId' => $user->registro->id]) }}"
+                        class="btn btn-chat" title="Abrir chat con {{ $servicio->trabajador->nombre }}"
+                        aria-label="Chatear con {{ $servicio->trabajador->nombre }}">
+                        <i class="fas fa-comments"></i>
+                    </a>
+
+                    <!-- Botón Rechazar con ícono -->
+                    <button type="button" class="btn btn-reject" title="Rechazar al proveedor"
+                        aria-label="Rechazar proveedor">
+                        <i class="fas fa-times-circle"></i> Rechazar
+                    </button>
+                </div>
+            @else
+                <div class="waiting-container" aria-live="polite" aria-atomic="true">
+                    <i class="fas fa-clock waiting-icon" aria-hidden="true"></i>
+                    <p class="waiting-message">
+                        Aún no aceptan tu solicitud<span class="dot">.</span><span class="dot">.</span><span
+                            class="dot">.</span>
+                    </p>
+                </div>
+            @endif
+        </aside>
+
+
+
+
         </aside>
 
     </div>
+@endsection
+
+@section('scripts')
+    <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 @endsection

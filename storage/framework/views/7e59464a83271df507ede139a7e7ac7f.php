@@ -137,4 +137,5 @@
 <?php if (isset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>
 <?php $component = $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c; ?>
 <?php unset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c); ?>
-<?php endif; ?><?php /**PATH C:\xampp\htdocs\workdrive\WorkDrive-Sena\resources\views/proveedores/index.blade.php ENDPATH**/ ?>
+<?php endif; ?>
+<?php /**PATH C:\xampp\htdocs\workdrive\WorkDrive-Sena\resources\views/proveedores/index.blade.php ENDPATH**/ ?>

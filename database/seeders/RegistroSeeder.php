@@ -44,6 +44,7 @@ public function run()
         ['Manuela', 'Cabrera'],
     ];
 
+<<<<<<< HEAD
     $profesiones = [1, 2, 3, 4];
     $tipo_documento = [1, 2, 3, 4];
 
@@ -64,6 +65,16 @@ public function run()
             'departamento_id' => rand(1, 25),
             'municipio_id' => rand(1, 25),
             'codigo_postal' => rand(100000, 999999),
+=======
+        estado::insert([
+            ['nombre' => 'Activo'],
+            ['nombre' => 'Inactivo'],
+            ['nombre' => 'pendiente'],
+            ['nombre' => 'verificado'],
+            ['nombre' => 'realizado'],
+            ['nombre' => 'completado'],
+            ['nombre' => 'en proceso'],
+>>>>>>> ae394c969ee4322ab69e278906c2471bdb5b4392
         ]);
 
         if ($rolId == 4) {
