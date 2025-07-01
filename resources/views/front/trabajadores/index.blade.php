@@ -27,7 +27,6 @@
             position: absolute;
             top: 16px;
             right: 16px;
-            background-color: #e0f3e0;
             color: #2e7d32;
             padding: 6px 12px;
             border-radius: 12px;
@@ -84,11 +83,15 @@
             color: #666;
         }
 
+        #detalle {
+            justify-content: none !important;
+        }
+
         .detail-panel {
             background: #ffffff;
             width: 400px;
-            height: 100%;
-            padding: 32px;
+            height: 70%;
+            padding: 20px;
             overflow-y: auto;
             font-family: 'Segoe UI', sans-serif;
         }
@@ -139,12 +142,17 @@
             width: fit-content;
         }
 
-        .estado.pendiente {
+        .pendiente {
             background-color: #fff3cd;
             color: #856404;
         }
 
-        .estado.disponible {
+        .Activo {
+            background-color: #61a5b9;
+            color: #ffffff;
+        }
+
+        .disponible {
             background-color: #d4edda;
             color: #155724;
         }
@@ -188,7 +196,9 @@
                         id="card">
 
                         <div class="status">
-                            {{ $serv->trabajador_id ? 'Aceptado' : 'Pendiente' }}
+                            <div class="estado {{ $serv->estado->nombre }}">
+                                {{ $serv->trabajador_id ? 'Pendiente' : 'Activo' }}
+                            </div>
                         </div>
 
                         <div class="content-target">
@@ -216,9 +226,13 @@
         </div>
 
         <section class="right-panel" id="detalle" aria-live="polite" aria-label="Detalles de solicitud">
-            <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="No hay selección" />
-            <h2>Selecciona una solicitud</h2>
-            <p>Haz clic en una tarjeta para ver más detalles aquí.</p>
+            <div class="right-panel2">
+
+                <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="No hay selección" />
+                <h2>Selecciona una solicitud</h2>
+                <p>Haz clic en una tarjeta para ver más detalles aquí.</p>
+            </div>
+
         </section>
     </section>
 @endsection

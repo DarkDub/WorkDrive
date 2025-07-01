@@ -48,8 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
       <img src="${imagen}" alt="Avatar de ${nombre}" />
       <div class="user-details">
         <div class="name">${nombre}</div>
-        <div class="estado ${aceptado ? 'pendiente' : 'disponible'}">
-          <span id="estado-span">${aceptado ? 'Pendiente' : 'Disponible'}</span>
+        <div class="estado ${aceptado ? 'pendiente' : 'Activo'}">
+          <span id="estado-span">${aceptado ? 'Pendiente' : 'Activo'}</span>
         </div>
       </div>
     </div>
