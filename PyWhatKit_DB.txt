@@ -1,0 +1,25 @@
+Date: 10/4/2025
+Time: 9:12
+Phone Number: +573239999856
+Message: ¡Prueba de notificación!
+--------------------
+Date: 10/4/2025
+Time: 9:16
+Phone Number: +573239999856
+Message: ¡Este mensaje se envía automáticamente!
+--------------------
+Date: 10/4/2025
+Time: 9:18
+Phone Number: +573146683014
+Message: ¡Este mensaje se envía automáticamente!
+--------------------
+Date: 10/4/2025
+Time: 9:31
+Phone Number: +573239999856
+Message: ¡Este mensaje se envía automáticamente!
+--------------------
+Date: 10/4/2025
+Time: 9:31
+Phone Number: +573239999856
+Message: ¡Este mensaje se envía automáticamente!
+--------------------

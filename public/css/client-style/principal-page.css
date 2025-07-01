@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
+
+/* Variables Globales */
+:root {
+    --primary-bg-color: #151E2B;
+    --secondary-bg-color: #ebebeb;
+    --text-color: #fff;
+    --label-color: #565656;
+    --placeholder-color: #C2C2C2;
+    --btn-bg-color: #4CAF50;
+    --btn-gradient-color-start: #201E72;
+    --btn-gradient-color-end: #9D0000;
+    --font-family: 'Inter', sans-serif;
+    --border-radius: 5px;
+    --box-shadow: 0 2px 5px rgba(0, 0, 0, 0.055);
+    --gradient-logo-start: #FFC7BF;
+    --gradient-logo-end: #3A71FF;
+    --font-size-small: 14px;
+    --font-size-medium: 16px;
+    --font-size-large: 20px;
+    --max-width: 90%;
+}
