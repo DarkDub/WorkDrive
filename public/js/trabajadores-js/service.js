@@ -84,15 +84,40 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!aceptado) {
             html += `
-                     <form id="formAceptar" method="POST" aria-label="Aceptar servicio">
-                         <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').getAttribute('content')}">
-                         <button id="btnAceptar" type="submit">Aceptar Servicio</button>
-                     </form>
-                     <div id="mensajeExito" style="display:none;"></div>
-                 `;
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 2rem;">
+            <form id="formAceptar" method="POST" aria-label="Aceptar servicio" style="text-align: center;">
+                <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').getAttribute('content')}">
+                <button id="btnAceptar" type="submit" style="
+                    background-color: #2563eb;
+                    color: white;
+                    border: none;
+                    padding: 0.75rem 1.5rem;
+                    border-radius: 0.5rem;
+                    font-size: 1rem;
+                    cursor: pointer;
+                    transition: background-color 0.3s ease;
+                ">
+                    Aceptar Servicio
+                </button>
+            </form>
+            <div id="mensajeExito" style="display:none; margin-top: 1.5rem; color: #16a34a; font-weight: 600; text-align: center;"></div>
+        </div>
+    `;
         } else {
-            html += `<div id="mensajeExito" style="margin-top: 2rem; font-weight: bold; color: #16a34a;">Servicio Aceptado</div>`;
+            html += `
+        <div style="
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        ">
+            <div id="mensajeExito" style="color: #16a34a; font-weight: bold; font-size: 1.1rem;">
+                ✔ Servicio Aceptado
+            </div>
+        </div>
+    `;
         }
+
 
         panel.innerHTML = html;
 
