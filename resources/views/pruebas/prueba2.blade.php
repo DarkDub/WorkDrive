@@ -70,7 +70,7 @@
         </div>
     </header>
 
-    <div class="flex h-screen max-w-6xl w-full mx-auto border border-gray-200 rounded-2xl shadow-2xl overflow-hidden mt-8" id="content">
+    <div class="flex h-screen max-w-6xl w-full mx-auto border border-gray-200 rounded-2xl overflow-hidden mt-8" id="content">
 
 
         <!-- Sidebar izquierdo -->

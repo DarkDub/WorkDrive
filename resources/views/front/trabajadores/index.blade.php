@@ -30,7 +30,7 @@
                     aria-label="Solicitud {{ $serv->nombre }} {{ $serv->trabajador_id ? '(Aceptada)' : '(Pendiente)' }}"
                 >
                     <div class="content-target">
-                        <img src="{{ asset('storage/' . ($serv->usuario?->registro?->avatar ?? 'default-avatar.png')) }}" alt="Avatar de usuario" class="avatar">
+                        <img src="{{ asset('storage/' . ($serv->usuario?->registro?->avatar)) }}" alt="Avatar de usuario" class="avatar">
                         <div class="solicitud-info">
                             <h4>{{ $serv->nombre }}</h4>
                             <p>{{ $serv->descripcion }}</p>
