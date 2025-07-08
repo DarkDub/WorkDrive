@@ -33,6 +33,103 @@
             font-size: var(--font-size-sm);
             margin-bottom: 0.2rem;
         }
+
+        #notificationMenu {
+            min-width: 400px;
+            /* O el ancho que prefieras */
+            max-width: 600px;
+            /* Opcional, para limitar */
+            white-space: normal;
+            /* Permite que los textos largos se ajusten */
+        }
+
+        /* Dropdown container */
+        .notification-dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Icono con contador */
+        .notification-icon {
+            background: none;
+            border: none;
+            position: relative;
+            cursor: pointer;
+            font-size: 24px;
+        }
+
+        .notification-count {
+            background-color: #ff4757;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 12px;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            transition: transform 0.3s ease;
+        }
+
+        .notification-count.updated {
+            transform: scale(1.3);
+        }
+
+        /* Menú dropdown */
+        .notification-menu {
+  position: absolute;
+  top: 100%; /* justo debajo del botón */
+  right: 0;
+  width: 320px; /* ajusta el ancho */
+  background: #fff; /* fondo blanco limpio */
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  padding: 1rem;
+  z-index: 1000;
+  max-height: 400px; /* para scroll si hay muchas notificaciones */
+  overflow-y: auto;
+  opacity: 0;
+  transform: translateY(-10px);
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.notification-menu.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* Para la cabecera */
+.notification-menu h5 {
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* Para las notificaciones */
+.list-group-item {
+  border: none;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  margin-bottom: 10px
+}
+.list-group-item img{
+    width: 50px !important;
+    height: 50px !important;
+}
+.list-group-item:hover {
+  background-color: #f5f5f5;
+}
+
+/* Botón leída más minimalista */
+.btn-outline-success {
+  font-size: 0.8rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+}
+
     </style>
 <?php $__env->stopSection(); ?>
 
@@ -57,8 +154,9 @@
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
                 <li><a href="<?php echo e(route('cliente.index')); ?>"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
-                <li><a href="<?php echo e(route('profile.index')); ?>"><i class="bi bi-person-circle"></i> Perfil</a></li>
-                <li><a href="#"><i class="bi bi-briefcase icon-lg"></i> Servicios</a></li>
+                <li><a href="<?php echo e(route('profile.index')); ?>"><i class="bi     bi-person-circle"></i> Perfil</a></li>
+                <li><a href="<?php echo e(route('servicio.misSolicitudes')); ?>"><i class="bi bi-briefcase icon-lg"></i> Servicios</a>
+                </li>
                 <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
                 <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
              <?php echo $__env->renderComponent(); ?>
@@ -71,8 +169,23 @@
 <?php $component = $__componentOriginalb00d8d8478d8b102d68d8f1d59f5af2d; ?>
 <?php unset($__componentOriginalb00d8d8478d8b102d68d8f1d59f5af2d); ?>
 <?php endif; ?>
+
+
         </div>
         <div class="nav-left">
+            <div class="notification-dropdown">
+                <button id="notificationButton" class="notification-icon">
+                     <i class="bi bi-bell"></i>
+                    <span id="notificaciones-count" class="notification-count">0</span>
+                </button>
+                <div id="notificationMenu" class="notification-menu">
+                    <h5>Notificaciones</h5>
+                    <ul class="list-group" id="notificacionesList">
+
+                    </ul>
+                </div>
+            </div>
+
             <a href="#">
                 <h5>Sobre nosotros</h5>
             </a>
@@ -308,11 +421,22 @@ unset($__errorArgs, $__bag); ?>" autofocus>
 <?php $__env->stopSection(); ?>
 
 <?php $__env->startSection('scripts'); ?>
+    <script src="<?php echo e(asset('js/servicios-polling.js')); ?>"></script>
+
+    <?php $__currentLoopData = $servicios; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $servicio): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <script>
+            verificarAceptacion(<?php echo e($servicio->id); ?>);
+        </script>
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+
     <script src="<?php echo e(asset('js/principal-page/menuActive.js')); ?>"></script>
     <script src="<?php echo e(asset('js/principal-page/modal-page.js')); ?>"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script src="<?php echo e(asset('js/principal-page/map.js')); ?>"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
+    <!-- CDN de SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <?php if(session('success')): ?>
         <script>

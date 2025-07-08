@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@6.0.0/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
@@ -47,7 +48,30 @@
 
 <body class="bg-light">
     
+    <!-- Spinner Global -->
+    <?php if (isset($component)) { $__componentOriginalb1d34d6f3e357e59739b3911f1a779be = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalb1d34d6f3e357e59739b3911f1a779be = $attributes; } ?>
+<?php $component = App\View\Components\GlobalSpiner::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('global-spiner'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\GlobalSpiner::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalb1d34d6f3e357e59739b3911f1a779be)): ?>
+<?php $attributes = $__attributesOriginalb1d34d6f3e357e59739b3911f1a779be; ?>
+<?php unset($__attributesOriginalb1d34d6f3e357e59739b3911f1a779be); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalb1d34d6f3e357e59739b3911f1a779be)): ?>
+<?php $component = $__componentOriginalb1d34d6f3e357e59739b3911f1a779be; ?>
+<?php unset($__componentOriginalb1d34d6f3e357e59739b3911f1a779be); ?>
+<?php endif; ?>
+
     <div class="content">
+
         <?php echo $__env->yieldContent('content'); ?>
         <?php echo e($slot ?? ''); ?>
 
@@ -55,12 +79,40 @@
 
     
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="<?php echo e(asset('js/notificacionesAjax.js')); ?>"></script>
+
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <?php echo $__env->yieldContent('scripts'); ?>
     <?php echo $__env->yieldContent('js'); ?>
 </body>
+<script>
+    window.addEventListener('load', () => {
+        setTimeout(() => {
+            const loader = document.getElementById('global-loader');
+            if (loader) {
+                loader.style.opacity = '0';
+                setTimeout(() => loader.style.display = 'none', 300);
+            }
+        }, 800); // puedes ajustar el tiempo de espera aquí (800 ms a 1500 ms)
+    });
+</script>
+<script>
+    const notificationButton = document.getElementById('notificationButton');
+    const notificationMenu = document.getElementById('notificationMenu');
+
+    notificationButton.addEventListener('click', function() {
+        notificationMenu.classList.toggle('show');
+    });
+
+    window.addEventListener('click', function(e) {
+        if (!notificationButton.contains(e.target) && !notificationMenu.contains(e.target)) {
+            notificationMenu.classList.remove('show');
+        }
+    });
+</script>
+
 
 </html>
 <?php /**PATH C:\xampp\htdocs\workdrive\WorkDrive-Sena\resources\views/layouts/app.blade.php ENDPATH**/ ?>

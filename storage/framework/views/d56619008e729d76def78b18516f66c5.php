@@ -187,4 +187,5 @@
     </script>
 
 </body>
-</html>    <?php /**PATH C:\xampp\htdocs\workdrive\WorkDrive-Sena\resources\views/auth/registro-trabajador.blade.php ENDPATH**/ ?>
+</html>    
+<?php /**PATH C:\xampp\htdocs\workdrive\WorkDrive-Sena\resources\views/auth/registro-trabajador.blade.php ENDPATH**/ ?>

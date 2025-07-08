@@ -30,8 +30,6 @@ unset($__defined_vars); ?>
 <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="<?php echo e(asset('css/menuActive.css')); ?>">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <style>
     .logout-beauty:hover {
         background: linear-gradient(135deg, #ffcccc, #ffb3b3);
@@ -100,6 +98,7 @@ unset($__defined_vars); ?>
     .scroll-area:hover::-webkit-scrollbar-thumb {
         background: linear-gradient(180deg, #5a5a5a, #888);
     }
+    
 </style>
 
 <nav class="menu" id="menu">
@@ -113,8 +112,31 @@ unset($__defined_vars); ?>
 
         <div class="avatar-wrapper">
             <div class="rotating-border"></div>
+<<<<<<< HEAD
             
 
+=======
+            <?php if (isset($component)) { $__componentOriginal7cfd8f8baef738949d4b6a5e8528bcb4 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal7cfd8f8baef738949d4b6a5e8528bcb4 = $attributes; } ?>
+<?php $component = App\View\Components\Avatar::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('avatar'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Avatar::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['class' => 'avatar-img']); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal7cfd8f8baef738949d4b6a5e8528bcb4)): ?>
+<?php $attributes = $__attributesOriginal7cfd8f8baef738949d4b6a5e8528bcb4; ?>
+<?php unset($__attributesOriginal7cfd8f8baef738949d4b6a5e8528bcb4); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal7cfd8f8baef738949d4b6a5e8528bcb4)): ?>
+<?php $component = $__componentOriginal7cfd8f8baef738949d4b6a5e8528bcb4; ?>
+<?php unset($__componentOriginal7cfd8f8baef738949d4b6a5e8528bcb4); ?>
+<?php endif; ?>
+>>>>>>> ae394c969ee4322ab69e278906c2471bdb5b4392
         </div>
         <!-- Usuario -->
 
@@ -137,7 +159,11 @@ unset($__defined_vars); ?>
             <img src="<?php echo e(asset('image/avatar-2.jpg')); ?>" alt="">
             <img src="<?php echo e(asset('image/avatar-3.jpg')); ?>" alt="">
             <img src="<?php echo e(asset('image/avatar-4.jpg')); ?>" alt="">
-            <button class="btn btn-light rounded-circle border"><i class="bi bi-plus"></i></button>
+           <button class="btn-more">
+  <i class="bi bi-plus"></i>
+</button>
+
+
         </div>
 
 

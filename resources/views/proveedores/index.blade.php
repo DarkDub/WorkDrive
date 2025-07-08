@@ -84,6 +84,9 @@
                                         <i class="bi bi-trash"></i>
                                     </button>
 
+
+                                    
+
                                     <a href="{{ route('prove.edit', $provv->id) }}"
                                         class="btn btn-sm btn-warning text-white shadow-sm">
                                         <i class="bi bi-pencil-square"></i>

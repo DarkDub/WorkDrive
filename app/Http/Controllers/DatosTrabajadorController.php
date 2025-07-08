@@ -30,7 +30,7 @@ class DatosTrabajadorController extends Controller
             'tipo_documento ' => 'require',
             'numero_documento' => 'required|string|unique:datos_trabajador,numero_documento',
             'profesion_id' => 'required',
-            'otra_labor' => 'required_if:profesion_id,otro|string|max:255',
+            // 'otra_labor' => 'required_if:profesion_id,otro|string|max:255',
             'hoja_vida' => 'required|file|mimes:pdf,doc,docx|max:2048',
             'foto_documento' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
