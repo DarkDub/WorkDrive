@@ -18,9 +18,6 @@ use App\Models\tipo_documentos;
 
 class RegisterController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function create(): View
     {
         return view('auth.registro');
@@ -28,8 +25,6 @@ class RegisterController extends Controller
 
     public function registro(Request $request)
     {
-        /* dd($request->all()); */
-        // Validación de los datos
         $request->validate([
             'nombre' => 'required|string|max:255',
             'apellido' => 'required|string|max:255',
@@ -47,7 +42,6 @@ class RegisterController extends Controller
             return back()->withErrors(['userRole' => 'Rol no válido.']);
         }
 
-        // Crear el registro en la tabla 'registros'
         $registro = Registro::create([
             'nombre' => $request->nombre,
             'apellido' => $request->apellido,
@@ -62,22 +56,20 @@ class RegisterController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'rol_id' => $registro->rol_id,
-            'registro_id' => $registro->id, // usa el id correcto
+            'registro_id' => $registro->id,
 
         ]);
 
 
         if ($request->userRole === 'trabajador') {
-            // Redirigir a formulario adicional para trabajadores
-            return redirect()->route('registro.trabajador', ['registro_id' => $registro->id]); 
+            return redirect()->route('registro.trabajador', ['registro_id' => $registro->id]); // Define esta ruta para la vista adicional
+
         }
 
         $user->sendEmailVerificationNotification();
         Auth::login($user);
 
         return redirect()->route('verification.notice');
-
-        // return redirect()->route('login');
     }
 
     public function formularioTrabajador($registro_id): View

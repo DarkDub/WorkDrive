@@ -113,6 +113,70 @@
             /* Gris claro */
             color: #374151;
         }
+
+        .action-buttons {
+            display: flex;
+            gap: 12px;
+            margin-top: 1rem;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 500;
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
+
+        /* Botón Contactar */
+        .btn-contact {
+            background-color: #2563eb;
+            color: white;
+        }
+
+        .btn-contact:hover {
+            background-color: #1d4ed8;
+        }
+
+        /* Botón Chat estilo solo ícono redondo */
+        .btn-chat {
+            background-color: #22c55e;
+            color: white;
+            border-radius: 50%;
+            padding: 12px;
+            width: 45px;
+            height: 45px;
+            font-size: 20px;
+        }
+
+        .btn-chat:hover {
+            background-color: #16a34a;
+            transform: scale(1.1);
+        }
+
+        /* Botón Rechazar */
+        .btn-reject {
+            background-color: #f3f4f6;
+            color: #dc2626;
+            border: 1px solid #dc2626;
+        }
+
+        .btn-reject:hover {
+            background-color: #fee2e2;
+        }
     </style>
 @endsection
 
@@ -130,7 +194,8 @@
             <x-menu-nav>
                 <li><a href="{{ route('cliente.index') }}"><i class="bi bi-house-door icon-lg"></i> Inicio</a></li>
                 <li><a href="{{ route('profile.index') }}"><i class="bi bi-person-circle"></i> Perfil</a></li>
-                <li><a href="{{route('servicio.misSolicitudes')}}"><i class="bi bi-briefcase icon-lg"></i> Servicios</a></li>
+                <li><a href="{{ route('servicio.misSolicitudes') }}"><i class="bi bi-briefcase icon-lg"></i> Servicios</a>
+                </li>
                 <li><a href="#"><i class="bi bi-telephone icon-lg"></i> Contacto</a></li>
                 <li><a href="#"><i class="bi bi-info-circle icon-lg"></i> Acerca de</a></li>
             </x-menu-nav>
@@ -197,7 +262,8 @@
         <aside class="user-panel" role="complementary" aria-label="Información del proveedor del servicio"
             style="text-align: center; padding: 1rem;">
             @if ($servicio->trabajador)
-                <img src="{{ asset('images/user.jpg') }}" alt="Foto del proveedor" class="user-photo" />
+                <img src="{{ asset('storage/' . $servicio->trabajador->avatar) }}" alt="Foto del proveedor"
+                    class="user-photo" />
 
                 <div class="user-name">{{ $servicio->trabajador->nombre . ' ' . $servicio->trabajador->apellido }}</div>
                 <div class="user-role">{{ $servicio->trabajador->datosTrabajador->profesion->nombre }}</div>
@@ -212,7 +278,7 @@
                     <i class="fas fa-phone" aria-hidden="true"></i>
                     <a href="tel:+573001112233" style="color: inherit; text-decoration: none;"
                         aria-label="Número de teléfono">+57 {{ $servicio->trabajador->telefono }}
-                    {{ $servicio->trabajador->id }}
+                        {{ $servicio->trabajador->id }}
                     </a>
                 </div>
 
@@ -225,14 +291,37 @@
                     <i class="fas fa-star"></i> 4.5
                 </div>
 
-                <div class="action-buttons">
-                    <a href="" type="button" class="btn btn-contact" aria-label="Contactar al proveedor">Contactar</a>
-                    <a href="{{ route('chat.view', ['trabajadorId' => $servicio->trabajador->id, 'clienteId' => $user->registro->id]) }}">
-    Chatear con {{ $servicio->trabajador->name }}
-</a>
+                <!-- Asegúrate de tener Font Awesome incluido -->
 
-                    <button type="button" class="btn btn-edit"
-                        aria-label="Editar información del proveedor">Rechazar</button>
+                <div class="action-buttons">
+                    @if ($servicio->estado->nombre === 'pendiente' && $servicio->trabajador)
+                        <!-- Aceptar trabajador -->
+                        <form action="{{ route('servicio.cliente.aceptar', $servicio->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-contact" title="Aceptar al trabajador"
+                                aria-label="Aceptar al proveedor">
+                                <i class="fas fa-check-circle"></i> Aceptar
+                            </button>
+                        </form>
+
+                        <!-- Rechazar trabajador -->
+                        <form action="{{ route('servicio.cliente.rechazar', $servicio->id) }}" method="POST"
+                            onsubmit="return confirm('¿Estás seguro de rechazar al trabajador? Esta acción no se puede deshacer.');">
+                            @csrf
+                            <button type="submit" class="btn btn-reject" title="Rechazar al trabajador"
+                                aria-label="Rechazar al proveedor">
+                                <i class="fas fa-times-circle"></i> Rechazar
+                            </button>
+                        </form>
+                    @endif
+
+                    @if (in_array($servicio->estado->nombre, ['pendiente', 'en proceso']) && $servicio->trabajador)
+                        <a href="{{ route('chat.view', ['trabajadorId' => $servicio->trabajador->id, 'clienteId' => $user->registro->id]) }}"
+                            class="btn btn-chat" title="Abrir chat">
+                            <i class="fas fa-comments"></i>
+                        </a>
+                    @endif
+
                 </div>
             @else
                 <div class="waiting-container" aria-live="polite" aria-atomic="true">
@@ -244,12 +333,6 @@
                 </div>
             @endif
         </aside>
-
-
-
-
-        </aside>
-
     </div>
 @endsection
 

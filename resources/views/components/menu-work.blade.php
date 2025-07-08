@@ -14,7 +14,7 @@
     </a>
 </aside>
   <x-menu-nav>
-        <li><a href="{{ route('profesiones.index') }}"><i class="bi bi-house-door icon-lg" aria-hidden="true"></i> Inicio</a></li>
+        <li><a href="{{ route('trabajador.index') }}"><i class="bi bi-house-door icon-lg" aria-hidden="true"></i> Inicio</a></li>
         <li><a href="/usuario/inicio.html"><i class="bi bi-person-circle" aria-hidden="true"></i> Perfil</a></li>
         <li><a href="/usuario/Menuu/Servicios.html"><i class="bi bi-briefcase icon-lg" aria-hidden="true"></i> Servicios</a></li>
         <li><a href="/usuario/Menuu/Contacto.html"><i class="bi bi-telephone icon-lg" aria-hidden="true"></i> Contacto</a></li>

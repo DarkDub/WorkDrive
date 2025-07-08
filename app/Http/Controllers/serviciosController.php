@@ -14,6 +14,8 @@ use App\Models\estado;
 use App\Models\Notificaciones;
 use Illuminate\Support\Facades\DB;
 
+use function Symfony\Component\VarDumper\Dumper\esc;
+
 class ServiciosController extends Controller
 {
     public function index()
@@ -86,7 +88,7 @@ class ServiciosController extends Controller
             $servicio->save();
 
             Notificaciones::create([
-                'user_id' => $servicio->user_id, 
+                'user_id' => $servicio->user_id,
                 'message' => 'Un Trabajador a aceptado su servicio: "' . $servicio->nombre . '"',
                 'read' => 0,
             ]);
@@ -103,36 +105,36 @@ class ServiciosController extends Controller
 
         return redirect()->back()->with('error', 'Esta solicitud ya fue aceptada por otro trabajador.');
     }
-   public function checkAcceptance($id)
-{
-    $servicio = Servicios::with('estado', 'trabajador')->find($id);
+    public function checkAcceptance($id)
+    {
+        $servicio = Servicios::with('estado', 'trabajador')->find($id);
 
-    if (!$servicio) {
+        if (!$servicio) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Servicio no encontrado'
+            ], 404);
+        }
+
+        if ($servicio->estado->nombre === 'pendiente' && $servicio->trabajador_id !== null) {
+            $trabajador = $servicio->trabajador()->select('id', 'nombre', 'email')->first();
+
+            return response()->json([
+                'status' => 'accepted',
+                'message' => 'Un trabajador aceptó tu servicio.',
+                'trabajador' => $trabajador,
+                'estado' => $servicio->estado->nombre,
+            ]);
+        }
+
         return response()->json([
-            'status' => 'error',
-            'message' => 'Servicio no encontrado'
-        ], 404);
-    }
-
-    if ($servicio->estado->nombre === 'pendiente' && $servicio->trabajador_id !== null) {
-        $trabajador = $servicio->trabajador()->select('id', 'nombre', 'email')->first();
-
-        return response()->json([
-            'status' => 'accepted',
-            'message' => 'Un trabajador aceptó tu servicio.',
-            'trabajador' => $trabajador,
+            'status' => 'pending',
+            'message' => 'Nadie ha aceptado tu servicio aún.',
             'estado' => $servicio->estado->nombre,
         ]);
     }
 
-    return response()->json([
-        'status' => 'pending',
-        'message' => 'Nadie ha aceptado tu servicio aún.',
-        'estado' => $servicio->estado->nombre,
-    ]);
-}
-
-public function updateStatus(Request $request, $id)
+    public function updateStatus(Request $request, $id)
     {
         $servicio = Servicios::find($id);
 
@@ -174,10 +176,11 @@ public function updateStatus(Request $request, $id)
         return view('front.clients.servicios', compact('servicios', 'user'));
     }
 
-    public function servicioDetails($id){
+    public function servicioDetails($id)
+    {
 
         $user = auth::user();
-    
+
         $servicio = Servicios::with(['trabajador.usuario', 'trabajador.datosTrabajador'])->find($id);
         // dd($servicio);
         // dd($servicio->toArray());
@@ -185,5 +188,47 @@ public function updateStatus(Request $request, $id)
         return view('front.clients.servicios-details', compact('servicio', 'user'));
     }
 
+    public function clienteAceptarTrabajador($id)
+    {
+        $user = auth::user();
+        
+        $servicio = Servicios::findOrFail($id);
 
+        if ($user->id !== $servicio->user_id) {
+            abort(403, "no autorizado");
+        }
+
+        $estadoEnProceso = estado::where('nombre', 'en proceso')->first();
+
+        if ($estadoEnProceso) {
+            $servicio->estado_id = $estadoEnProceso->id;
+            $servicio->save();
+
+            return redirect()->back()->with('succes', 'Has aceptado al trabajador');
+        }
+        return redirect()->back()->with('error', 'no se pudo actualizar el estado');
+    }
+
+    public function clienteRechazarTrabajador($id)
+    {
+        $user = auth::user();
+
+        $servicio = Servicios::findOrFail($id);
+
+        if ($user->id !== $servicio->user_id) {
+            abort(403, 'No autorizado.');
+        }
+
+        $estadoActivo = Estado::where('nombre', 'activo')->first(); // o estado_id = 1
+
+        if ($estadoActivo) {
+            $servicio->trabajador_id = null;
+            $servicio->estado_id = $estadoActivo->id;
+            $servicio->save();
+
+            return redirect()->back()->with('success', 'Has rechazado al trabajador. El servicio vuelve a estar disponible.');
+        }
+
+        return redirect()->back()->with('error', 'No se pudo restablecer el servicio.');
+    }
 }
