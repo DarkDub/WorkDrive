@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
@@ -22,12 +23,12 @@ class ChatController extends Controller
 
         $trabajador = Registro::find($trabajadorId);
         $cliente = Registro::find($clienteId);
-if ($userRegistroId == $trabajadorId) {
-        $usuarioConElQueHablas = $cliente;
-    } else {
-        $usuarioConElQueHablas = $trabajador;
-    }
-        return view('pruebas.prueba2', compact('trabajador', 'cliente', 'trabajadorId', 'clienteId', 'usuarioConElQueHablas'));
+        if ($userRegistroId == $trabajadorId) {
+            $usuarioConElQueHablas = $cliente;
+        } else {
+            $usuarioConElQueHablas = $trabajador;
+        }
+        return view('front.chat.chatView', compact('trabajador', 'cliente', 'trabajadorId', 'clienteId', 'usuarioConElQueHablas'));
     }
 
     // Enviar mensaje
@@ -64,16 +65,16 @@ if ($userRegistroId == $trabajadorId) {
         $clienteId = $request->cliente_id;
 
         // Obtener todos los mensajes que coincidan con trabajador y cliente, ordenados cronológicamente
-        $mensajes = Mensaje::where(function($q) use ($trabajadorId, $clienteId) {
-    $q->where('trabajador_id', $trabajadorId)
-      ->where('cliente_id', $clienteId);
-})
-->orWhere(function($q) use ($trabajadorId, $clienteId) {
-    $q->where('trabajador_id', $clienteId)
-      ->where('cliente_id', $trabajadorId);
-})
-->orderBy('created_at', 'asc')
-->get();
+        $mensajes = Mensaje::where(function ($q) use ($trabajadorId, $clienteId) {
+            $q->where('trabajador_id', $trabajadorId)
+                ->where('cliente_id', $clienteId);
+        })
+            ->orWhere(function ($q) use ($trabajadorId, $clienteId) {
+                $q->where('trabajador_id', $clienteId)
+                    ->where('cliente_id', $trabajadorId);
+            })
+            ->orderBy('created_at', 'asc')
+            ->get();
 
         return response()->json(['mensajes' => $mensajes]);
     }

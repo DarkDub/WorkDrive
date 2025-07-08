@@ -11,8 +11,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/inicio.css') }}">
     <link rel="stylesheet" href="{{ asset('css/menuActive.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/trabajador-style/principal.css') }}">
-
     <style>
         body {
             font-family: 'Public Sans', sans-serif;
