@@ -140,6 +140,7 @@
             font-weight: 600;
             text-align: center;
             width: fit-content;
+            text-transform: capitalize;
         }
 
         .pendiente {
@@ -147,12 +148,12 @@
             color: #856404;
         }
 
-        .Activo {
+        .activo {
             background-color: #61a5b9;
             color: #ffffff;
         }
 
-        .disponible {
+        .completado {
             background-color: #d4edda;
             color: #155724;
         }
@@ -186,18 +187,25 @@
 
             <section class="left-panel" aria-label="Lista de solicitudes">
                 @forelse ($servicios as $serv)
-                    <div class="solicitud-card {{ $serv->trabajador_id ? 'aceptado' : '' }}" data-id="{{ $serv->id }}"
+                    <div class="solicitud-card"
+                        data-id="{{ $serv->id }}"
                         data-trabajador="{{ $serv->trabajador_id ?? '' }}"
                         data-direccion="{{ $serv->direccion ?? 'No especificada' }}"
-                        data-fecha="{{ $serv->fecha ?? '---' }}" data-hora="{{ $serv->hora ?? '---' }}"
-                        data-telefono="{{ $serv->usuario?->telefono ?? 'No disponible' }}" data-nombre="{{ $serv->nombre }}"
-                        data-descripcion="{{ $serv->descripcion }}" role="button" tabindex="0" aria-pressed="false"
-                        aria-label="Solicitud {{ $serv->nombre }} {{ $serv->trabajador_id ? '(Aceptada)' : '(Pendiente)' }}"
+                        data-fecha="{{ $serv->fecha ?? '---' }}"
+                        data-hora="{{ $serv->hora ?? '---' }}"
+                        data-telefono="{{ $serv->usuario?->telefono ?? 'No disponible' }}"
+                        data-nombre="{{ $serv->nombre }}"
+                        data-descripcion="{{ $serv->descripcion }}"
+                        data-estado="{{ strtolower($serv->estado->nombre) }}"
+                        role="button"
+                        tabindex="0"
+                        aria-pressed="false"
+                        aria-label="Solicitud {{ $serv->nombre }} ({{ ucfirst($serv->estado->nombre) }})"
                         id="card">
 
                         <div class="status">
-                            <div class="estado {{ $serv->estado->nombre }}">
-                                {{ $serv->trabajador_id ? 'Pendiente' : 'Activo' }}
+                            <div class="estado {{ strtolower($serv->estado->nombre) }}">
+                                {{ ucfirst($serv->estado->nombre) }}
                             </div>
                         </div>
 
@@ -207,14 +215,14 @@
 
                             <div class="solicitud-info">
                                 <h4>{{ $serv->nombre }}</h4>
-                                <div class="time-ago date">solicitidado {{ $serv->created_at->diffForHumans() }}</div>
+                                <div class="time-ago date">Solicitado {{ $serv->created_at->diffForHumans() }}</div>
                             </div>
                         </div>
 
                         <div class="extra-info">
                             <div class="user-details">
                                 <span class="name">Servicio:
-                                    {{ $serv->profesion->nombre ?? 'Usuario Desconocido' }}</span>
+                                    {{ $serv->profesion->nombre ?? 'Desconocido' }}</span>
                                 <p class="my-0">{{ $serv->descripcion }}</p>
                             </div>
                         </div>
@@ -227,12 +235,10 @@
 
         <section class="right-panel" id="detalle" aria-live="polite" aria-label="Detalles de solicitud">
             <div class="right-panel2">
-
                 <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="No hay selección" />
                 <h2>Selecciona una solicitud</h2>
                 <p>Haz clic en una tarjeta para ver más detalles aquí.</p>
             </div>
-
         </section>
     </section>
 @endsection
