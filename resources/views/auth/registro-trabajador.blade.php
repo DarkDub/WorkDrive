@@ -120,11 +120,7 @@
                    <input type="hidden" name="registro_id" value="{{ $registro_id }}">
                 <div class="d-grid mt-3">
                     <button class="btn btn-dark" type="submit">Crear cuenta</button>
-                </div>
             </form>
-
-            <p class="text-center small mt-3">
-                Al registrarme, acepto <a href="#">los Términos de servicio</a> y la <a href="#">Política de
                     privacidad</a>.
             </p>
         </div>

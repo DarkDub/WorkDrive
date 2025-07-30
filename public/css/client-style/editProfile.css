@@ -15,7 +15,11 @@ body {
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
+<<<<<<< HEAD
 padding-top: 80px;
+=======
+  padding-top: 80px;
+>>>>>>> 434cc21 (Hollman)
 }
 
 @media (min-width: 768px) {
@@ -33,10 +37,18 @@ padding-top: 80px;
   position: relative;
   text-align: center;
 }
+<<<<<<< HEAD
 .avatar-wrapper {
   position: relative;
   width: 130px;
   height: 130px;
+=======
+
+.avatar-wrapper {
+  position: relative;
+  width: 130px !important;
+  height: 130px !important;
+>>>>>>> 434cc21 (Hollman)
   margin: auto;
 }
 
@@ -46,7 +58,11 @@ padding-top: 80px;
   object-fit: cover;
   border-radius: 50%;
   border: 4px solid #fff;
+<<<<<<< HEAD
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
+=======
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+>>>>>>> 434cc21 (Hollman)
 }
 
 .upload-overlay {
@@ -101,8 +117,13 @@ padding-top: 80px;
 }
 
 .avatar {
+<<<<<<< HEAD
   width: 110px;
   height: 110px;
+=======
+  width: 150px;
+  height: 150px;
+>>>>>>> 434cc21 (Hollman)
   border-radius: 50%;
   border: 2px solid #ddd;
   margin-bottom: 15px;
@@ -170,6 +191,7 @@ padding-top: 80px;
   border-radius: 50%;
 }
 
+<<<<<<< HEAD
 .switch input:checked + .slider {
   background-color: #22c55e;
 }
@@ -190,6 +212,47 @@ padding-top: 80px;
 form {
     display: flex;
 }
+=======
+.switch input:checked+.slider {
+  background-color: #22c55e;
+}
+
+.switch input:checked+.slider::before {
+  transform: translateX(20px);
+}
+
+.btn-danger {
+  margin-top: 100px;
+}
+
+
+.delete-button {
+  background-color: rgb(255 205 193 / 74%);
+  color: #B71D18;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 200px;
+  text-decoration: none;
+  transition: 0.1s all;
+
+}
+
+.delete-button:hover {
+  background-color: rgb(255 205 193 / 100%);
+  color: #B71D18;
+  transition: 0.1s all;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  margin: 100px;
+}
+
+>>>>>>> 434cc21 (Hollman)
 .right-panel {
   flex: 1;
   background: #fff;
@@ -201,7 +264,10 @@ form {
 
 .right-panel {
   display: grid;
+<<<<<<< HEAD
   grid-template-columns: 1fr;
+=======
+>>>>>>> 434cc21 (Hollman)
   gap: 20px;
   max-width: 700px;
 }
@@ -243,4 +309,8 @@ form {
   border: none;
   border-radius: 8px;
   cursor: pointer;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 434cc21 (Hollman)

@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 <html lang="en">
  <head>
   <meta charset="utf-8"/>
@@ -160,6 +161,8 @@
   </main>
  </body>
 =======
+=======
+>>>>>>> 434cc21 (Hollman)
 @extends('layouts.app')
 
 <head>
@@ -443,5 +446,8 @@
     </script>
 </body>
 
+<<<<<<< HEAD
 >>>>>>> ae394c969ee4322ab69e278906c2471bdb5b4392
+=======
+>>>>>>> 434cc21 (Hollman)
 </html>

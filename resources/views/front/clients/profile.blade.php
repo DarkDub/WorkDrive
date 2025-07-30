@@ -55,6 +55,7 @@
     </header>
 
     {{-- Perfil --}}
+<<<<<<< HEAD
     <div class="profile-container">
         <div class="header">
             <img src="{{ asset('image/fondo.jpg') }}" alt="Fondo" class="cover-photo">
@@ -63,6 +64,18 @@
                     alt="Foto de perfil actual">
                 <div>
                     <h2>{{ $user->registro->nombre }}</h2>
+=======
+            
+    <div class="profile-container">
+
+        <div class="header" id="header-profile">
+            {{-- Imagen de fondo y foto de perfil --}}
+            <img src="{{ asset('image/fondo.jpg') }}" alt="Fondo" class="cover-photo">
+            <div class="profile-pic-container">
+                <x-avatar class="profile-pic" id="previewImage" />
+                <div>
+                    <h2>{{ $user->registro->nombre . ' ' . $user->registro->apellido }}</h2>
+>>>>>>> 434cc21 (Hollman)
                     <p class="role">CTO</p>
                 </div>
             </div>
@@ -79,6 +92,7 @@
         <div class="main-content">
             {{-- Sidebar --}}
             <aside class="sidebar">
+<<<<<<< HEAD
                 <div class="stats">
                     <div><strong>1,947</strong><span>Follower</span></div>
                     <div><strong>9,124</strong><span>Following</span></div>
@@ -91,10 +105,27 @@
                         </li>
                         <li><strong>📧</strong> {{ $user->registro->email }}</li>
                         <li><strong>🎓</strong> Studied at Nikolaus - Leuschke</li>
+=======
+                {{-- <div class="stats">
+                    <div><strong>1,947</strong><span>Follower</span></div>
+                    <div><strong>9,124</strong><span>Following</span></div>
+                </div> --}}
+
+                <div class="about">
+                    <h4>Acerca de</h4>
+                    <p class="info">Tart I love sugar plum I love oat cake. Sweet roll caramels I love jujubes. Topping
+                        cake wafer.. </p>
+                    <ul>
+                        <li><strong><i class="bi bi-geo-alt-fill"></i> Vive en </strong>
+                            {{ optional(optional($user->registro)->municipio)->nombre ?? 'No especificado' }}
+                        </li>
+                        <li><strong><i class="bi bi-envelope-check-fill"></i></strong> {{ $user->registro->email }}</li>
+>>>>>>> 434cc21 (Hollman)
                     </ul>
                 </div>
 
                 <div class="social">
+<<<<<<< HEAD
                     <a href="#">🔵 Facebook</a>
                     <a href="#">🟣 Instagram</a>
                     <a href="#">🔷 LinkedIn</a>
@@ -102,16 +133,78 @@
                 </div>
             </aside>
 
+=======
+                    <h4>Social</h4>
+                    <div style="display: flex; gap: 10px; font-size: 1.5rem; flex-direction: column;">
+                        <div class="icon">
+
+                            <a href="https://facebook.com" target="_blank" style="color: #1877F2;">
+                                <i class="fab fa-facebook"></i>
+                            </a>
+                            <p>facebook</p>
+                        </div>
+
+                        <!-- Instagram (gradiente simulado con CSS) -->
+                        <div class="instagram-icon icon">
+                            <a href="https://instagram.com" target="_blank"
+                                style="
+    background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 1em;">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                            <p>
+                                Instagram
+                            </p>
+                        </div>
+                        <div class="icon">
+                            <a href="https://linkedin.com" target="_blank" style="color: #0A66C2;">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <p>Linkedin</p>
+                        </div>
+
+                    </div>
+                </div>
+            </aside>
+
+
+>>>>>>> 434cc21 (Hollman)
             {{-- Contenido principal --}}
             <section class="content">
                 <div class="post-box">
                     <div class="post-actions">
+<<<<<<< HEAD
                         <p class="info-p"><i class="fas fa-user"></i> Acerca de mi</p>
                         <ul>
                             <li><strong>📍</strong>
                                 {{ optional(optional($user->registro)->pais)->nombre ?? 'No especificado' }}</li>
                             <li><strong>📧</strong> {{ $user->registro->email }}</li>
                             <li><strong>🎓</strong> Studied at Nikolaus - Leuschke</li>
+=======
+                        <div class="post-action">
+
+                            <p class="info-p"><i class="fas fa-user"></i> Informacion</p>
+                            <a href="{{ route('profile.edit') }}"> <i class="bi bi-pencil-square"></i> editar</a>
+                        </div>
+
+                        <ul>
+                            <strong>Nombre</strong>
+                            <li>{{ $user->registro->nombre }}</li>
+                            <strong>Apellido</strong>
+                            <li>{{ $user->registro->apellido }}</li>
+                            <strong>Telefono</strong>
+                            <li><i class="bi bi-telephone"></i> {{ $user->registro->telefono }}</li>
+                            <strong> Ubicacion</strong>
+                            <li>
+                                <i class="bi bi-geo-alt"></i>
+                                {{ optional(optional($user->registro)->pais)->nombre ?? 'No especificado' }},
+                            </li>
+
+                            <strong>Email</strong>
+                            <li><i class="bi bi-envelope-at"></i> {{ $user->registro->email }}</li>
+>>>>>>> 434cc21 (Hollman)
                         </ul>
                     </div>
                 </div>

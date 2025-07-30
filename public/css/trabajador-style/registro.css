@@ -197,4 +197,88 @@ input::placeholder {
 #togglePassword:hover,
 #togglePassword:focus {
     background: var(--color-shadow-eyes);
+<<<<<<< HEAD
 }
+=======
+}
+
+.iti {
+    width: 100%;
+  }
+
+.iti__selected-flag {
+  background-color: transparent !important; 
+}
+
+.iti__flag-container {
+  border-right: 1px solid #ccc !important;
+  padding-right: 6px;
+}
+
+/* .form-floating {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.form-floating input {
+  height: 56px;
+  border-radius: 10px;
+  padding: 1rem 1rem 0.5rem 1rem;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  width: 100%;
+}
+
+.form-floating label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #6b7280;
+  font-size: 16px;
+  pointer-events: none;
+  background: white;
+  padding: 0 4px;
+  transition: 0.2s ease all;
+}
+
+.form-floating input:focus + label,
+.form-floating input:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 0.8rem;
+  font-size: 13px;
+  color: #3b82f6;
+} */ 
+
+.floating-label-group {
+    position: relative;
+    margin-bottom: 0.3rem;
+}
+
+.floating-label-group input {
+    width: 100%;
+    padding: 1.2rem 0.75rem 0.4rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 0.75rem;
+    background-color: white;
+}
+
+.floating-label-group label {
+    position: absolute;
+    top: 1rem;
+    left: 0.75rem;
+    font-size: 1rem;
+    color: #777;
+    background-color: white;
+    padding: 0 0.10rem;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+
+.floating-label-group input:focus + label,
+.floating-label-group input:not(:placeholder-shown) + label {
+    top: -0.5rem;
+    left: 0.65rem;
+    font-size: 0.75rem;
+}
+>>>>>>> 434cc21 (Hollman)

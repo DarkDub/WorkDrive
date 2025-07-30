@@ -1,0 +1,148 @@
+/* .badge-status {
+      display: inline-block;
+      padding: 0.35em 0.75em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+      border-radius: 0.65rem;
+  }
+
+  .status-active {
+      background-color: #dcfce7;
+      color: #15803d;
+  }
+
+  .status-pending {
+      background-color: #fef9c3;
+      color: #92400e;
+  }
+
+  .status-banned {
+      background-color: #fee2e2;
+      color: #b91c1c;
+  }
+
+  .status-rejected {
+      background-color: #e0e7ff;
+      color: #3730a3;
+  }
+
+  .status-unknown {
+      background-color: #f3f4f6;
+      color: #4b5563;
+  }
+
+ */
+ 
+  .campo-custom {
+        height: 38px; /* cambia a lo que desees, por ejemplo 32px, 40px, etc */
+        font-size: 14px; /* tamaño de texto */
+        padding: 6px 12px;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 0.35em 0.75em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+      border-radius: 0.65rem;
+  }
+
+  .status-active {
+      background-color: #dcfce7;
+      color: #15803d;
+  }
+
+  .status-pending {
+      background-color: #fef9c3;
+      color: #92400e;
+  }
+
+  .status-banned {
+      background-color: #fee2e2;
+      color: #b91c1c;
+  }
+
+  .status-rejected {
+      background-color: #e0e7ff;
+      color: #3730a3;
+  }
+
+  .status-unknown {
+      background-color: #f3f4f6;
+      color: #4b5563;
+  }
+
+  .custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background-color: #ffffff;
+    border: 2px solid #d1d5db;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.3s ease;
+    outline: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.custom-checkbox:checked {
+    background-color: #4CAF50;
+    border-color: #4CAF50;
+    animation: pop 0.2s ease;
+}
+
+.custom-checkbox:checked::after {
+    content: '✓';
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: bold;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: transform 0.2s ease;
+}
+
+.custom-checkbox:hover {
+    border-color: #4CAF50;
+    box-shadow: 0 0 6px rgba(76, 175, 80, 0.3);
+}
+
+.custom-checkbox:active {
+    transform: scale(0.95);
+}
+
+@keyframes pop {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+
+
+  .tab-btn {
+    background-color: transparent;
+    border: none;
+    padding: 6px 10px;
+    font-weight: 500;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .tab-btn.active {
+    background-color: #F1F2F6;
+    font-weight: 600;
+  }
+
+  .tab-btn:hover {
+    background-color: #F1F2F6;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    padding: 4px 8px;
+  }

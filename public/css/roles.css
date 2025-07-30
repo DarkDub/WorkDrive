@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 html,
 body {
     overflow-x: hidden;
@@ -7,6 +8,8 @@ body {
     background-color: #f8f9fa;
 }
 
+=======
+>>>>>>> 434cc21 (Hollman)
 .modal.fade .modal-dialog {
     transform: scale(0.8);
     opacity: 0;
@@ -24,6 +27,7 @@ body {
     align-items: center;
 }
 
+<<<<<<< HEAD
 .table-container {
     width: 80%;
     background: white;
@@ -39,6 +43,8 @@ body {
     margin-bottom: 15px;
 }
 
+=======
+>>>>>>> 434cc21 (Hollman)
 .bi-pencil,
 .bi-trash {
     color: white;
@@ -56,4 +62,61 @@ body {
     background-color: #f8f9fa;
     border-radius: 20px;
     height: auto;
+<<<<<<< HEAD
 }
+=======
+}
+
+  .campo-custom {
+        height: 38px; /* cambia a lo que desees, por ejemplo 32px, 40px, etc */
+        font-size: 14px; /* tamaño de texto */
+        padding: 6px 12px;
+    }
+
+    .badge-status {
+      display: inline-block;
+      padding: 0.35em 0.75em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+      border-radius: 0.65rem;
+  }
+
+  .status-active {
+      background-color: #dcfce7;
+      color: #15803d;
+  }
+
+  .status-pending {
+      background-color: #fef9c3;
+      color: #92400e;
+  }
+
+  .status-banned {
+      background-color: #fee2e2;
+      color: #b91c1c;
+  }
+
+  .status-rejected {
+      background-color: #e0e7ff;
+      color: #3730a3;
+  }
+
+  .status-unknown {
+      background-color: #f3f4f6;
+      color: #4b5563;
+  } 
+
+
+  /* resources/public/css/roles.css */
+.table-responsive {
+    max-width: 100%;
+    overflow-x: auto;
+}
+
+#roles {
+    width: 100%;
+    margin: 0;
+}
+
+>>>>>>> 434cc21 (Hollman)

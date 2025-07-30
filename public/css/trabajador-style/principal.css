@@ -160,7 +160,11 @@ body {
   display: flex;
   flex-wrap: wrap;
   gap: 2rem;
+<<<<<<< HEAD
   width: 90%;
+=======
+  width: 85%;
+>>>>>>> 434cc21 (Hollman)
   margin: 0 auto;
 }
 
@@ -169,13 +173,22 @@ body {
 }
 
 .right-panel {
+<<<<<<< HEAD
+=======
+  flex: 1;
+>>>>>>> 434cc21 (Hollman)
   background-color: #ffffff;
   border-radius: 1rem;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
+<<<<<<< HEAD
   width: 450px;
   padding: 20px;
+=======
+  justify-content: center;
+  align-items: center;
+>>>>>>> 434cc21 (Hollman)
 }
 
 .right-panel img {
@@ -195,6 +208,7 @@ body {
   font-size: 1rem;
 }
 
+<<<<<<< HEAD
 .right-panel2 {
   flex: 1;
   background-color: #ffffff;
@@ -222,6 +236,8 @@ body {
   font-size: 1rem;
 }
 
+=======
+>>>>>>> 434cc21 (Hollman)
 .solicitud-card {
   background-color: #ffffff;
   padding: 1rem;

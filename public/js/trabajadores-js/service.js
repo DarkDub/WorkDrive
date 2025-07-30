@@ -48,8 +48,13 @@ document.addEventListener('DOMContentLoaded', () => {
       <img src="${imagen}" alt="Avatar de ${nombre}" />
       <div class="user-details">
         <div class="name">${nombre}</div>
+<<<<<<< HEAD
         <div class="estado ${aceptado ? 'pendiente' : 'Activo'}">
           <span id="estado-span">${aceptado ? 'Pendiente' : 'Activo'}</span>
+=======
+        <div class="estado ${aceptado ? 'pendiente' : 'disponible'}">
+          <span id="estado-span">${aceptado ? 'Pendiente' : 'Disponible'}</span>
+>>>>>>> 434cc21 (Hollman)
         </div>
       </div>
     </div>
@@ -84,6 +89,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (!aceptado) {
             html += `
+<<<<<<< HEAD
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin-top: 2rem;">
             <form id="formAceptar" method="POST" aria-label="Aceptar servicio" style="text-align: center;">
                 <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').getAttribute('content')}">
@@ -119,6 +125,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
 
+=======
+                     <form id="formAceptar" method="POST" aria-label="Aceptar servicio">
+                         <input type="hidden" name="_token" value="${document.querySelector('meta[name=csrf-token]').getAttribute('content')}">
+                         <button id="btnAceptar" type="submit">Aceptar Servicio</button>
+                     </form>
+                     <div id="mensajeExito" style="display:none;"></div>
+                 `;
+        } else {
+            html += `<div id="mensajeExito" style="margin-top: 2rem; font-weight: bold; color: #16a34a;">Servicio Aceptado</div>`;
+        }
+
+>>>>>>> 434cc21 (Hollman)
         panel.innerHTML = html;
 
         if (!aceptado) {

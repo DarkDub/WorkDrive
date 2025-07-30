@@ -97,7 +97,11 @@ body {
 }
 
 .form-label {
+<<<<<<< HEAD
     font-weight: 500;
+=======
+    font-weight: 900;
+>>>>>>> 434cc21 (Hollman)
     font-size: var(--font-size-sm);
     margin-bottom: 0.2rem;
 }
@@ -183,3 +187,39 @@ a:hover {
     border-color: var(--color-border-focus);
     border: 1px solid var(--color-border-focus);
 }
+<<<<<<< HEAD
+=======
+
+
+/* ===== Floating Label Animation ===== */
+.input-group-floating {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-group-floating input {
+  padding: 1.2rem 1rem 0.5rem 1rem;
+  border-radius: 10px;
+  transition: border 0.2s ease;
+}
+
+.input-group-floating label {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #aaa;
+  font-size: 1rem;
+  pointer-events: none;
+  background-color: white;
+  padding: 0 0.4rem;
+  transition: 0.2s ease all;
+}
+
+.input-group-floating input:focus + label,
+.input-group-floating input:not(:placeholder-shown) + label {
+  top: -0.6rem;
+  left: 0.8rem;
+  font-size: 0.75rem;
+}
+    
+>>>>>>> 434cc21 (Hollman)

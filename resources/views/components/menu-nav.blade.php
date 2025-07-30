@@ -85,11 +85,15 @@
         <div class="avatar-wrapper">
             <div class="rotating-border"></div>
 <<<<<<< HEAD
+<<<<<<< HEAD
             {{-- <img src="{{ asset('storage/' . Auth::user()->registro->avatar) }}" alt="Avatar" class="avatar-img"> --}}
 
 =======
             <x-avatar class="avatar-img" />
 >>>>>>> ae394c969ee4322ab69e278906c2471bdb5b4392
+=======
+            <x-avatar class="avatar-img" />
+>>>>>>> 434cc21 (Hollman)
         </div>
         <!-- Usuario -->
 

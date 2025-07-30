@@ -22,7 +22,6 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600&display=swap" rel="stylesheet">
 
-
     <style>
         .fade {
             transition: 0.5s;
@@ -92,6 +91,5 @@
         }
     });
 </script>
-
 
 </html>
