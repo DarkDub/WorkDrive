@@ -8,29 +8,21 @@
 <?php $attributes = $attributes->except(\App\View\Components\Principal::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <?php $__env->startPush('styles'); ?>
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <?php $__env->stopPush(); ?> 
-    <?php $__env->startSection('content'); ?>
     <div class="container py-4">
         <h2 class="mb-4">Panel de administradores</h2>
+
         <!-- Dashboard -->
 
         <!-- Lista de Clientes -->
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
             <h2 class="h5 m-0 fw-bold">Lista de Admins</h2>
             <div>
-                <a href="<?php echo e(route('clientes.create')); ?>" class="btn btn-success me-2">
-                    <i class="bi bi-plus-circle"></i> Registrar admin
-                </a>
-                <a href="<?php echo e(route('clientes.eliminados')); ?>" class="btn btn-danger">
-                    <i class="bi bi-person-x-fill"></i> Eliminados
-                </a>
+                
             </div>
         </div>
 
         <div class="table-responsive shadow-sm rounded-3 p-3 bg-white">
-            <table id="clientes" class="table table-striped align-middle text-center mb-0">
+            <table class="table table-striped align-middle text-center mb-0" id="clientes">
                 <thead class="table-light">
                     <tr>
                         <th>ID</th>
@@ -46,18 +38,9 @@
                             <td><?php echo e($user->id); ?></td>
                             <td><?php echo e($user->name); ?></td>
                             <td><?php echo e($user->email); ?></td>
-                            <td><?php echo e($user->rol->nombre); ?></td>
+                            <td><?php echo e($user->roles->nombre  ?? 'Sin Rol'); ?></td>
                             <td>
-                                <div class="d-flex justify-content-center gap-2">
-                                    <button class="btn btn-danger btn-sm"
-                                        data-bs-target="#confirmDeleteModal-<?php echo e($user->id); ?>" data-bs-toggle="modal">
-                                        <i class="bi bi-trash"></i>
-                                    </button>
-
-                                    <a href="<?php echo e(route('admin_user.edit', $user->id)); ?>"
-                                        class="btn btn-sm btn-warning text-white shadow-sm">
-                                        <i class="bi bi-pencil-square"></i>
-                                    </a>
+                                
 
                                     <?php if (isset($component)) { $__componentOriginalb9d375e327010d368ba2916bd420fa84 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalb9d375e327010d368ba2916bd420fa84 = $attributes; } ?>
@@ -92,24 +75,8 @@
         </div>
     </div>
 
-  <?php $__env->startPush('scripts'); ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> 
-<script>
-  $(document).ready(function () {
-    $('#clientes').DataTable({
-      language: {
-        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
-      },
-      pageLength: 10,
-      responsive: true
-    });
-  });
 
-</script>
-<?php $__env->stopPush(); ?>
-    <?php $__env->stopSection(); ?>
+    
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>

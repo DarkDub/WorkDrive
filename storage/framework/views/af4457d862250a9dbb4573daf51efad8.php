@@ -1,15 +1,3 @@
-
-
-    
-
-    
-
-
-
-
-
-
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -69,7 +57,7 @@
 <?php endif; ?>
 
             <!-- Contenido principal debajo -->
-            <main class="content">
+            <main class="content p-4">
                 <?php echo $__env->yieldContent('content'); ?>
             </main>
         </div>
@@ -82,16 +70,12 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
-</html>
+</html> 
 
-            
-                
-                
 
-            
-       
-
-    <!-- Contenido Principal -->
+<!-- Barra Superior -->
     
-
-    <?php /**PATH C:\Users\Palma\Desktop\NewProject\WorkDrive-Sena (1)\WorkDrive-Sena\resources\views/components/principal.blade.php ENDPATH**/ ?>
+                
+                
+                
+                <?php /**PATH C:\Users\Palma\Desktop\NewProject\WorkDrive-Sena (1)\WorkDrive-Sena\resources\views/components/principal.blade.php ENDPATH**/ ?>

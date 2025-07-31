@@ -1,4 +1,21 @@
-<?php if (isset($component)) { $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c = $component; } ?>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="<?php echo e(asset('css/roles.css')); ?>">
+    <link rel="stylesheet" href="<?php echo e(asset('css/principal.css')); ?>">
+    <title>Configuraciones</title>
+</head>
+
+<body>
+
+
+    <?php if (isset($component)) { $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c = $attributes; } ?>
 <?php $component = App\View\Components\Principal::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('principal'); ?>
@@ -8,25 +25,14 @@
 <?php $attributes = $attributes->except(\App\View\Components\Principal::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
-    <?php $__env->startPush('styles'); ?>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="<?php echo e(asset('css/roles.css')); ?>">
-    <link rel="stylesheet" href="<?php echo e(asset('css/principal.css')); ?>">
-    <?php $__env->stopPush(); ?>
-    <title>Dashboard</title>
-    
-    <?php $__env->startSection('content'); ?>
         <div class="container py-4 text-center">
             <h2 class="mb-4">Inicio</h2>
-                <div class="alert alert-success py-4" role="alert" style="font-size: 1.25rem;">
-                    La sección de <strong>Inicio</strong> está en proceso de desarrollo.
-                    Estamos trabajando para ofrecerte una experiencia óptima muy pronto.
-                </div>
+            <div class="alert alert-success py-4" role="alert" style="font-size: 1.25rem;">
+                La sección de <strong>Inicio</strong> está en proceso de desarrollo.
+                Estamos trabajando para ofrecerte una experiencia óptima muy pronto.
             </div>
-    <?php $__env->stopSection(); ?>
- <?php echo $__env->renderComponent(); ?>
+        </div>
+     <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>
 <?php $attributes = $__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c; ?>

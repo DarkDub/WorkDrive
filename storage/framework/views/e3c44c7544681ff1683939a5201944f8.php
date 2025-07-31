@@ -57,9 +57,9 @@
 
                     </div>
                 <?php endif; ?>
-            <div class="input-group-floating">
-                <input type="email" name="email"
-                    class="form-control <?php $__errorArgs = ['email'];
+                <div class="mb-4">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" name="email" class="form-control <?php $__errorArgs = ['email'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
@@ -67,9 +67,8 @@ $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
 unset($__errorArgs, $__bag); ?>"
-                    id="email" placeholder=" " value="<?php echo e(old('email')); ?>" required autofocus />
-                <label for="email">Email address</label>
-                <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
+                        id="email" placeholder="you@example.com" value="<?php echo e(old('email')); ?>" autofocus />
+                    <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('email')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-error'); ?>
@@ -89,23 +88,27 @@ unset($__errorArgs, $__bag); ?>"
 <?php $component = $__componentOriginalf94ed9c5393ef72725d159fe01139746; ?>
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
-            </div>
+                </div>
 
-            <div class="input-group-floating">
-                <input type="password" name="password"
-                    class="form-control <?php $__errorArgs = ['password'];
+                <div class="mb-5">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <label for="password" class="form-label">Password</label>
+                        <a href="#" class="forgot-link text-secondary">Forgot password?</a>
+                    </div>
+                    <div class="password-container position-relative">
+                        <input type="password" name="password"
+                            class="form-control <?php $__errorArgs = ['password'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
 if ($__bag->has($__errorArgs[0])) :
 if (isset($message)) { $__messageOriginal = $message; }
 $message = $__bag->first($__errorArgs[0]); ?> is-invalid <?php unset($message);
 if (isset($__messageOriginal)) { $message = $__messageOriginal; }
 endif;
-unset($__errorArgs, $__bag); ?>"
-                    id="password" placeholder=" " required />
-                <label for="password">Password</label>
-                <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y me-2"
-                    id="togglePassword" style="cursor: pointer;"></i>
-                <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
+unset($__errorArgs, $__bag); ?>" id="password"
+                            placeholder="8+ characters" />
+                        <i class="bi bi-eye-slash position-absolute top-50 end-0 translate-middle-y me-2"
+                            id="togglePassword" style="cursor: pointer;"></i>
+                        <?php if (isset($component)) { $__componentOriginalf94ed9c5393ef72725d159fe01139746 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalf94ed9c5393ef72725d159fe01139746 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.input-error','data' => ['messages' => $errors->get('password')]] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
 <?php $component->withName('input-error'); ?>
@@ -125,7 +128,8 @@ unset($__errorArgs, $__bag); ?>"
 <?php $component = $__componentOriginalf94ed9c5393ef72725d159fe01139746; ?>
 <?php unset($__componentOriginalf94ed9c5393ef72725d159fe01139746); ?>
 <?php endif; ?>
-            </div>
+                    </div>
+                </div>
 
                 <button type="submit" class="btn btn-dark w-100">Sign in</button>
             </form>
@@ -137,5 +141,4 @@ unset($__errorArgs, $__bag); ?>"
 </body>
 
 </html>
-
 <?php /**PATH C:\Users\Palma\Desktop\NewProject\WorkDrive-Sena (1)\WorkDrive-Sena\resources\views/auth/login.blade.php ENDPATH**/ ?>

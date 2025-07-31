@@ -1,7 +1,7 @@
 body {
     height: 100vh;
     background-color: #f8f9fa;
-    overflow: hidden;
+    overflow: auto;
 }
 
 .topbar {
@@ -105,3 +105,5 @@ body {
 .menu-header i {
     font-size: 1.8rem;
 }
+
+ 

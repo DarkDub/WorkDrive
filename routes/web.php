@@ -18,12 +18,16 @@ use App\Http\Controllers\ConfiguracionesController;
 use App\Http\Controllers\profesion;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\chatController;
+use App\Http\Controllers\JobsController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\notificacionController;
+use App\Http\Controllers\TrabajadorController as ControllersTrabajadorController;
+use App\Http\Controllers\TrabajadoresController;
+use App\Models\Trabajador;
 
 // RUTAS PÚBLICAS
 Route::get('/test-mail', function () {
@@ -78,7 +82,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
 })->middleware(['signed'])->name('verification.verify');
 
 
-// Ruta para reenviar el correo de verificación
+// 🔁 Ruta para reenviar el correo de verificación
 Route::post('/email/verification-notification', function (Request $request) {
     $request->user()->sendEmailVerificationNotification();
 
@@ -94,9 +98,13 @@ Route::get('/registro', [RegisterController::class, 'create'])->name('register')
 Route::post('/registro', [RegisterController::class, 'registro'])->name('registro');
 Route::get('/registro/trabajador/{registro_id}', [RegisterController::class, 'formularioTrabajador'])->name('registro.trabajador');
 Route::get('/registro-trabajador', [DatosTrabajadorController::class, 'create'])->name('trabajador.create');
-Route::post('/registro-trabajador', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
+Route::post('/registro-trabajador/{registro_id}', [DatosTrabajadorController::class, 'store'])->name('trabajador.registrar');
 
-
+/* Route::get('/jobs/create/{registro}', [TrabajadorController::class, 'create'])->name('jobs.create'); */ 
+    Route::resource('jobs', ControllersTrabajadorController::class); 
+    Route::get('/trabajador/eliminados', [ControllersTrabajadorController::class, 'Eliminados'])->name('trabajador.eliminados');
+    Route::put('/trabajadorcambiarEstado/{trabajador}/{estado}', [TrabajadorController::class, 'cambiarEstado'])->name('trabajador.cambiarEstado');
+    Route::put('/trabajador/{id}/actualizar-estado', [ControllersTrabajadorController::class, 'actualizarEstado'])->name('trabajador.actualizarEstado');
 
 // RUTAS PROTEGIDAS CON AUTENTICACIÓN
 Route::middleware(['auth'])->group(function () {
@@ -118,14 +126,9 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware('Rol:SuperAdministrador')->group(function () {
         // Roles
         Route::resource('rol', RolController::class);
-        Route::get('/rolesEliminados', [RolController::class, 'show'])->name('roles.Eliminados');
+        Route::get('/rolesEliminados', [RolController::class, 'eliminados'])->name('roles.Eliminados');
         Route::put('/rolcambiarEstado/{rol}/{estado}', [RolController::class, 'CambiarEstado'])->name('rol.estado');
-        // routes/web.php
-        Route::put('/roles/{rol}/permisos', [RolController::class, 'asignarPermisos'])->name('roles.permisos.update');
-
-        //Route::put('/roles/{rol}/permisos', [RolController::class, 'asignarPermisos'])->name('roles.permisos');
-
-
+        Route::put('/rol/{id}/actualizar-estado', [RolController::class, 'actualizarEstado'])->name('rol.actualizarEstado');
 
         // Proveedores
         Route::resource('prove', ProveedorController::class);
@@ -145,7 +148,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/solicitar-servicio/{labor}', [ServiciosController::class, 'create'])->name('servicio.create');
         Route::resource('servicios', ServiciosController::class);
 
-        //Permisos
         Route::resource('permisos', PermisosController::class);
         Route::get('/Permisoseliminados', [PermisosController::class, 'show'])->name('permisos.eliminados');
         Route::put('/permisoscambiarEstado/{permisos}/{estado}', [PermisosController::class, 'cambiarEstado'])->name('permisos.cambiarEstado');
@@ -170,7 +172,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // RUTAS PARA CLIENTES
-    Route::middleware('Rol:cliente')->group(function () {
+    Route::middleware(['auth', 'verified', 'Rol:cliente'])->group(function () {
         Route::get('/principal', [ClienteController::class, 'dashboard'])->name('cliente.index');
         Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/profile-edit', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -204,7 +206,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // RUTAS PARA TRABAJADORES
-    Route::middleware('Rol:trabajador')->group(function () {
+    Route::middleware(['auth', 'verified', 'Rol:trabajador'])->group(function () {
         Route::get('/trabajador', [TrabajadorController::class, 'dashboard'])->name('trabajador.index');
 
         Route::post('/servicio/{id}/aceptar', [ServiciosController::class, 'aceptar'])->name('servicio.aceptar');
