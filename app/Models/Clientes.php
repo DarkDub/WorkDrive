@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Clientes extends Model
 {
-    protected $table = 'registros';
+    protected $table = 'clientes'; // Cambia la tabla si se llama diferente
 
     protected $guarded = ['']; // Permite asignación masiva
 
