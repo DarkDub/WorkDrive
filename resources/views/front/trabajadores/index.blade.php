@@ -5,175 +5,11 @@
 @section('styles')
     <link rel="stylesheet" href="{{ asset('css/tarjeta.css') }}">
     <link rel="stylesheet" href="{{ asset('css/trabajador-style/principal.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/notificaciones.css') }}">
+
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <style>
-        #card {
-            background-color: #fff;
-            border-radius: 16px;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-            width: 400px;
-            padding: 24px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            transition: transform 0.2s;
-        }
 
-        #card:hover {
-            transform: translateY(-4px);
-        }
-
-        .status {
-            position: absolute;
-            top: 16px;
-            right: 16px;
-            color: #2e7d32;
-            padding: 6px 12px;
-            border-radius: 12px;
-            font-size: 0.85em;
-            font-weight: 600;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-
-        .user-info img {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
-
-        .user-details .name {
-            font-size: 1.2em;
-            font-weight: bold;
-            color: #4194ff
-        }
-
-        .user-details .telefono {
-            font-size: 0.9em;
-            color: #555;
-        }
-
-        .service-info .category {
-            font-weight: 600;
-            color: #007bff;
-            margin-bottom: 6px;
-        }
-
-        .service-info .description {
-            color: #333;
-            line-height: 1.5;
-        }
-
-        .content-target {
-            display: flex;
-            gap: 16px;
-            align-items: center;
-        }
-
-        .extra-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85em;
-            color: #666;
-        }
-
-        #detalle {
-            justify-content: none !important;
-        }
-
-        .detail-panel {
-            background: #ffffff;
-            width: 400px;
-            height: 70%;
-            padding: 20px;
-            overflow-y: auto;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            margin-bottom: 24px;
-        }
-
-        .user-info h4 {
-            position: absolute;
-            top: 24px;
-            left: 32px;
-            font-size: 1.4rem;
-            color: #333;
-            margin: 0;
-        }
-
-        .user-info img {
-            width: 64px;
-            height: 64px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ddd;
-        }
-
-        .user-details {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .user-details .name {
-            font-weight: bold;
-            font-size: 1.1rem;
-            color: #222;
-        }
-
-        .estado {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-align: center;
-            width: fit-content;
-        }
-
-        .pendiente {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-
-        .Activo {
-            background-color: #61a5b9;
-            color: #ffffff;
-        }
-
-        .disponible {
-            background-color: #d4edda;
-            color: #155724;
-        }
-
-        .info-block {
-            margin-bottom: 16px;
-        }
-
-        .info-block label {
-            display: block;
-            font-weight: bold;
-            color: #444;
-            margin-bottom: 4px;
-        }
-
-        .info-block p {
-            margin: 0;
-            color: #555;
-            font-size: 0.95rem;
-            line-height: 1.4;
-        }
     </style>
 @endsection
 
@@ -186,18 +22,20 @@
 
             <section class="left-panel" aria-label="Lista de solicitudes">
                 @forelse ($servicios as $serv)
-                    <div class="solicitud-card {{ $serv->trabajador_id ? 'aceptado' : '' }}" data-id="{{ $serv->id }}"
+                    <div class="solicitud-card" data-id="{{ $serv->id }}"
                         data-trabajador="{{ $serv->trabajador_id ?? '' }}"
                         data-direccion="{{ $serv->direccion ?? 'No especificada' }}"
                         data-fecha="{{ $serv->fecha ?? '---' }}" data-hora="{{ $serv->hora ?? '---' }}"
-                        data-telefono="{{ $serv->usuario?->telefono ?? 'No disponible' }}" data-nombre="{{ $serv->nombre }}"
-                        data-descripcion="{{ $serv->descripcion }}" role="button" tabindex="0" aria-pressed="false"
-                        aria-label="Solicitud {{ $serv->nombre }} {{ $serv->trabajador_id ? '(Aceptada)' : '(Pendiente)' }}"
-                        id="card">
+                        data-telefono="{{ $serv->usuario?->telefono ?? 'No disponible' }}"
+                        data-nombre="{{ $serv->nombre }}" data-descripcion="{{ $serv->descripcion }}"
+                        data-estado="{{ strtolower($serv->estado->nombre) }}"
+                        data-avatar="{{ asset('storage/' . ($serv->usuario?->registro?->avatar ?? 'default-avatar.png')) }}"
+                        role="button" tabindex="0" aria-pressed="false"
+                        aria-label="Solicitud {{ $serv->nombre }} ({{ ucfirst($serv->estado->nombre) }})" id="card">
 
                         <div class="status">
-                            <div class="estado {{ $serv->estado->nombre }}">
-                                {{ $serv->trabajador_id ? 'Pendiente' : 'Activo' }}
+                            <div class="estado {{ strtolower($serv->estado->nombre) }}">
+                                {{ ucfirst($serv->estado->nombre) }}
                             </div>
                         </div>
 
@@ -207,14 +45,14 @@
 
                             <div class="solicitud-info">
                                 <h4>{{ $serv->nombre }}</h4>
-                                <div class="time-ago date">solicitidado {{ $serv->created_at->diffForHumans() }}</div>
+                                <div class="time-ago date">Solicitado {{ $serv->created_at->diffForHumans() }}</div>
                             </div>
                         </div>
 
                         <div class="extra-info">
                             <div class="user-details">
                                 <span class="name">Servicio:
-                                    {{ $serv->profesion->nombre ?? 'Usuario Desconocido' }}</span>
+                                    {{ $serv->profesion->nombre ?? 'Desconocido' }}</span>
                                 <p class="my-0">{{ $serv->descripcion }}</p>
                             </div>
                         </div>
@@ -227,19 +65,85 @@
 
         <section class="right-panel" id="detalle" aria-live="polite" aria-label="Detalles de solicitud">
             <div class="right-panel2">
-
                 <img src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png" alt="No hay selección" />
                 <h2>Selecciona una solicitud</h2>
                 <p>Haz clic en una tarjeta para ver más detalles aquí.</p>
             </div>
-
         </section>
     </section>
+    <!-- Modal de propuesta -->
+    <!-- Modal de Enviar Propuesta -->
+    <!-- Modal HTML -->
+    <div class="modal fade" id="modalPropuesta" tabindex="-1" aria-labelledby="modalPropuestaLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="formPropuesta" method="POST" action="{{ route('propuestas.store') }}">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalPropuestaLabel">Enviar Propuesta</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="hidden" name="servicio_id" id="modalServicioId">
+
+                        <div class="mb-3">
+                            <label for="monto" class="form-label">Monto</label>
+                            <input type="number" name="monto" id="monto" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="tiempo_estimado" class="form-label">Tiempo Estimado</label>
+                            <input type="text" name="tiempo_estimado" id="tiempo_estimado" class="form-control" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="mensaje" class="form-label">Mensaje</label>
+                            <textarea name="mensaje" id="mensaje" class="form-control" rows="3" required></textarea>
+                        </div>
+
+                        <div id="mensajePropuesta" class="text-center mt-2"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Enviar Propuesta</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 @endsection
 
 @section('scripts')
     <script src="{{ asset('js/principal-page/menuActive.js') }}"></script>
-    <script src="{{ asset('js/trabajadores-js/map-work.js') }}"></script>
     <script src="{{ asset('js/trabajadores-js/service.js') }}"></script>
+    <script src="{{ asset('js/notificacionesAjax.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+    @if ($errors->any() || session('success'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var modal = new bootstrap.Modal(document.getElementById('modalPropuesta'));
+                modal.show();
+            });
+        </script>
+    @endif
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (session('success'))
+        <script>
+            Toastify({
+                text: "{{ session('success') }}",
+                duration: 3000,
+                gravity: "top",
+                position: "right",
+                style: {
+                    background: "#ffffff"
+                }, // verde
+                close: true,
+                avatar: "https://cdn-icons-png.flaticon.com/512/845/845646.png"
+            }).showToast();
+        </script>
+    @endif
+
 @endsection

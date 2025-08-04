@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function () {
     // Configuración global para enviar el token CSRF en todas las peticiones AJAX POST
     $.ajaxSetup({
         headers: {
@@ -16,23 +16,23 @@ $(document).ready(function() {
         $.ajax({
             url: '/notificaciones',
             method: 'GET',
-            success: function(data) {
+            success: function (data) {
                 $('#notificacionesList').empty();
 
                 // Actualizar contador y mostrar u ocultar
-                if(data.length === 0) {
+                if (data.length === 0) {
                     $('#notificaciones-count').text('').hide();
                     $('#notificacionesList').append(
                         '<li class="list-group-item text-muted">No hay notificaciones nuevas.</li>'
                     );
                 } else {
                     $('#notificaciones-count').text(data.length).show();
-                    data.forEach(function(n) {
+                    data.forEach(function (n) {
                         const foto = n.user?.registro?.avatar || '/images/default-user.png';
                         const nombre = n.user?.registro?.nombre || 'Usuario desconocido';
                         const mensaje = n.message || 'Sin mensaje';
                         const fecha = new Date(n.created_at);
-                        const hora = fecha.toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'});
+                        const hora = fecha.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                         const dia = fecha.toLocaleDateString();
 
                         $('#notificacionesList').append(`
@@ -49,7 +49,7 @@ $(document).ready(function() {
                     });
                 }
             },
-            error: function() {
+            error: function () {
                 $('#notificacionesList').empty().append(
                     '<li class="list-group-item text-danger">Error al cargar las notificaciones.</li>'
                 );
@@ -58,19 +58,19 @@ $(document).ready(function() {
         });
     }
 
-    window.marcarLeida = function(id) {
+    window.marcarLeida = function (id) {
         $.ajax({
             url: '/notificaciones/marcar-leida',
             method: 'POST',
             data: { id: id },
-            success: function(response) {
+            success: function (response) {
                 if (response.success) {
                     cargarNotificaciones(); // Recargar lista después de marcar como leída
                 } else {
                     alert('Error al marcar como leída');
                 }
             },
-            error: function() {
+            error: function () {
                 alert('Error en la petición para marcar como leída');
             }
         });

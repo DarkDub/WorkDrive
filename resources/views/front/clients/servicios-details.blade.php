@@ -155,7 +155,6 @@
         .btn-chat {
             background-color: #22c55e;
             color: white;
-            border-radius: 50%;
             padding: 12px;
             width: 45px;
             height: 45px;
@@ -294,24 +293,34 @@
                 <!-- Asegúrate de tener Font Awesome incluido -->
 
                 <div class="action-buttons">
-                    <!-- Botón Contactar -->
-                    <a href="#" class="btn btn-contact" title="Enviar un mensaje al proveedor"
-                        aria-label="Contactar al proveedor">
-                        <i class="fas fa-envelope"></i> Contactar
-                    </a>
+                    @if ($servicio->estado->nombre === 'pendiente' && $servicio->trabajador)
+                        <!-- Aceptar trabajador -->
+                        <form action="{{ route('servicio.cliente.aceptar', $servicio->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-contact" title="Aceptar al trabajador"
+                                aria-label="Aceptar al proveedor">
+                                <i class="fas fa-check-circle"></i> Aceptar
+                            </button>
+                        </form>
 
-                    <!-- Botón Chat (solo ícono redondo con tooltip) -->
-                    <a href="{{ route('chat.view', ['trabajadorId' => $servicio->trabajador->id, 'clienteId' => $user->registro->id]) }}"
-                        class="btn btn-chat" title="Abrir chat con {{ $servicio->trabajador->nombre }}"
-                        aria-label="Chatear con {{ $servicio->trabajador->nombre }}">
-                        <i class="fas fa-comments"></i>
-                    </a>
+                        <!-- Rechazar trabajador -->
+                        <form action="{{ route('servicio.cliente.rechazar', $servicio->id) }}" method="POST"
+                            onsubmit="return confirm('¿Estás seguro de rechazar al trabajador? Esta acción no se puede deshacer.');">
+                            @csrf
+                            <button type="submit" class="btn btn-reject" title="Rechazar al trabajador"
+                                aria-label="Rechazar al proveedor">
+                                <i class="fas fa-times-circle"></i> Rechazar
+                            </button>
+                        </form>
+                    @endif
 
-                    <!-- Botón Rechazar con ícono -->
-                    <button type="button" class="btn btn-reject" title="Rechazar al proveedor"
-                        aria-label="Rechazar proveedor">
-                        <i class="fas fa-times-circle"></i> Rechazar
-                    </button>
+                    @if (in_array($servicio->estado->nombre, ['pendiente', 'en proceso']) && $servicio->trabajador)
+                        <a href="{{ route('chat.view', ['trabajadorId' => $servicio->trabajador->id, 'clienteId' => $user->registro->id]) }}"
+                            class="btn btn-chat" title="Abrir chat">
+                            <i class="fas fa-comments"></i>
+                        </a>
+                    @endif
+
                 </div>
             @else
                 <div class="waiting-container" aria-live="polite" aria-atomic="true">
@@ -323,12 +332,6 @@
                 </div>
             @endif
         </aside>
-
-
-
-
-        </aside>
-
     </div>
 @endsection
 

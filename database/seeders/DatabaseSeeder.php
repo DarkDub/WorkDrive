@@ -16,15 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create(
-            [
-                'name' => 'Test',
-                'email' => 'test@gmail.com',
-                'rol_id' => 1, // Assuming 1 is the ID for the admin role
-                'registro_id' => 1, // Assuming 1 is the ID for the registro
-                'password' => bcrypt('123456'),
-            ]
-        );
+
         $this->call(RolSeeder::class);
         $this->call(PaisSeeder::class);
         $this->call(DepartamentoSeeder::class);
@@ -34,5 +26,14 @@ class DatabaseSeeder extends Seeder
         $this->call(profesiones::class);
         $this->call(metodos_pago::class);
         $this->call(RegistroSeeder::class);
+        User::factory()->create(
+            [
+                'name' => 'Test',
+                'email' => 'test@gmail.com',
+                'rol_id' => 1, // Assuming 1 is the ID for the admin role
+                'registro_id' => 1, // Assuming 1 is the ID for the registro
+                'password' => bcrypt('123456'),
+            ]
+        );
     }
 }

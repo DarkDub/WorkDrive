@@ -325,3 +325,178 @@ button#btnAceptar:focus {
 .solicitud-card:focus {
   background-color: #e0e7ff5a;
 }
+
+#card {
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  width: 400px;
+  padding: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: transform 0.2s;
+}
+
+#card:hover {
+  transform: translateY(-4px);
+}
+
+.status {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  color: #2e7d32;
+  padding: 6px 12px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-details .name {
+  font-size: 1.2em;
+  font-weight: bold;
+  color: #4194ff
+}
+
+.user-details .telefono {
+  font-size: 0.9em;
+  color: #555;
+}
+
+.service-info .category {
+  font-weight: 600;
+  color: #007bff;
+  margin-bottom: 6px;
+}
+
+.service-info .description {
+  color: #333;
+  line-height: 1.5;
+}
+
+.content-target {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.extra-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85em;
+  color: #666;
+}
+
+#detalle {
+  justify-content: none !important;
+}
+
+.detail-panel {
+  background: #ffffff;
+  width: 400px;
+  height: 70%;
+  padding: 20px;
+  overflow-y: auto;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.user-info h4 {
+  position: absolute;
+  top: 24px;
+  left: 32px;
+  font-size: 1.4rem;
+  color: #333;
+  margin: 0;
+}
+
+.user-info img {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ddd;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.user-details .name {
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: #222;
+}
+
+.estado {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-align: center;
+  width: fit-content;
+  text-transform: capitalize;
+}
+
+.pendiente {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.Activo {
+  background-color: #61a5b9;
+  color: #ffffff;
+}
+
+.activo {
+  background-color: #61a5b9;
+  color: #ffffff;
+}
+
+.completado {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.info-block {
+  margin-bottom: 16px;
+}
+
+.info-block label {
+  display: block;
+  font-weight: bold;
+  color: #444;
+  margin-bottom: 4px;
+}
+
+.info-block p {
+  margin: 0;
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}

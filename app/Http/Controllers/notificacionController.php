@@ -8,22 +8,24 @@ use Illuminate\Support\Facades\Auth;
 
 class notificacionController extends Controller
 {
-    public function index() {
-    return view('pruebas.prueba');
-}
+    public function index()
+    {
+        return view('pruebas.prueba');
+    }
 
-    public function getNotificaciones() {
+    public function getNotificaciones()
+    {
 
         $notificaciones = Notificaciones::with('user.registro')->where('user_id', Auth::id())->where('read', false)->orderBy('created_at', 'desc')->get();
         // dd($notificaciones);
         return response()->json($notificaciones);
-
     }
 
-    public function markAsRead(Request $request){
+    public function markAsRead(Request $request)
+    {
         $notificaciones = Notificaciones::where('id', $request->id)->where('user_id', Auth::id())->first();
 
-        if($notificaciones){
+        if ($notificaciones) {
             $notificaciones->update(['read' => true]);
             return response()->json(['success' => true]);
         }
@@ -32,28 +34,26 @@ class notificacionController extends Controller
     }
 
     public function obtenerNoLeidas()
-{
-    $userId = Auth::id();
-    $notificaciones = Notificaciones::where('user_id', $userId)
-                                     ->where('read', 0)
-                                     ->latest()
-                                     ->get();
+    {
+        $userId = Auth::id();
+        $notificaciones = Notificaciones::where('user_id', $userId)
+            ->where('read', 0)
+            ->latest()
+            ->get();
 
-    return response()->json([
-        'count' => $notificaciones->count(),
-        'notificaciones' => $notificaciones
-    ]);
-}
+        return response()->json([
+            'count' => $notificaciones->count(),
+            'notificaciones' => $notificaciones
+        ]);
+    }
 
-public function marcarLeidas()
-{
-    $userId = Auth::id();
-    Notificaciones::where('user_id', $userId)
-                  ->where('read', 0)
-                  ->update(['read' => 1]);
+    public function marcarLeidas()
+    {
+        $userId = Auth::id();
+        Notificaciones::where('user_id', $userId)
+            ->where('read', 0)
+            ->update(['read' => 1]);
 
-    return response()->json(['message' => 'Notificaciones marcadas como leídas']);
-}
-
-
+        return response()->json(['message' => 'Notificaciones marcadas como leídas']);
+    }
 }

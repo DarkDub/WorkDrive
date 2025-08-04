@@ -24,6 +24,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\notificacionController;
+use App\Http\Controllers\PropuestasController;
 
 // RUTAS PÚBLICAS
 Route::get('/test-mail', function () {
@@ -193,7 +194,8 @@ Route::middleware(['auth'])->group(function () {
         // Route::get('/chat/mensajes', [ChatController::class, 'mensajes'])->name('chat.mensajes');
         // Route::get('/chat/{trabajador_id}', [ChatController::class, 'abrirChat'])->name('chat.abrir')->middleware('auth');
         // Route::get('/chat/mensajes/{trabajador_id}', [ChatController::class, 'mensajes'])->name('chat.mensajes');
-
+        Route::post('/servicio/{id}/cliente-aceptar', [ServiciosController::class, 'clienteAceptarTrabajador'])->name('servicio.cliente.aceptar');
+        Route::post('/servicio/{id}/cliente-rechazar', [ServiciosController::class, 'clienteRechazarTrabajador'])->name('servicio.cliente.rechazar');
     });
 
     // RUTAS PARA TRABAJADORES
@@ -204,11 +206,23 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/solicitudes', [TrabajadorController::class, 'solicitudes'])->name('solicitudes.estado');
         Route::get('/solicitudes/{id}', [TrabajadorController::class, 'solicitudDetalles'])->name('solicitudes.detalle');
+        Route::post('/servicio/{servicioId}/propuesta', [ServiciosController::class, 'enviarPropuesta'])->name('servicio.propuesta.enviar');
+        Route::post('/servicio/{id}/propuesta', [PropuestasController::class, 'store'])->name('servicio.propuesta.enviar');
 
+
+        Route::post('/propuestas', [PropuestasController::class, 'store'])->name('propuestas.store');
+        Route::post('/servicio/{id}/propuesta', [PropuestasController::class, 'store'])->name('servicio.propuesta.enviar');
 
         // Route::post('/chat/enviar', [ChatController::class, 'enviar'])->name('chat.enviar');
 
         // // Ruta para obtener mensajes (GET)
+        Route::get('/notificaciones', [NotificacionController::class, 'getNotificaciones']);
+        Route::post('/notificaciones/marcar-leida', [NotificacionController::class, 'markAsRead']);
+        Route::get('/panel-notificaciones', [NotificacionController::class, 'index']);
+
+
+        Route::get('/notificaciones/no-leidas', [NotificacionController::class, 'obtenerNoLeidas'])->name('notificaciones.noLeidas');
+        Route::post('/notificaciones/marcar-leidas', [NotificacionController::class, 'marcarLeidas'])->name('notificaciones.marcarLeidas');
 
         // Route::get('/chat/mensajes/{trabajador_id}', [ChatController::class, 'mensajes'])->name('chat.mensajes');
 
