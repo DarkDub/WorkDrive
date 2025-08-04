@@ -442,4 +442,4 @@
 <?php if (isset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>
 <?php $component = $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c; ?>
 <?php unset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c); ?>
-<?php endif; ?> <?php /**PATH C:\Users\Palma\Desktop\NewProject\WorkDrive-Sena (1)\WorkDrive-Sena\resources\views/jobs/index.blade.php ENDPATH**/ ?>
+<?php endif; ?> <?php /**PATH C:\Users\Palma\Desktop\WorkDrive-Sena\resources\views/jobs/index.blade.php ENDPATH**/ ?>

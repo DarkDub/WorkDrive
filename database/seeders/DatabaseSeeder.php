@@ -16,16 +16,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        
         $this->call(RolSeeder::class);
         $this->call(PaisSeeder::class);
         $this->call(DepartamentoSeeder::class);
         $this->call(MunicipioSeeder::class);
-        $this->call(Permisos::class);
+        $this->call(Clientes::class);
+        $this->call(AdminUserSeeder::class);
         $this->call(profesiones::class);
         $this->call(metodos_pago::class);
         $this->call(RegistroSeeder::class);
-
+        
         User::factory()->create(
             [
                 'name' => 'Test',
@@ -35,5 +35,6 @@ class DatabaseSeeder extends Seeder
                 'password' => bcrypt('123456'),
             ]
         );
+        
     }
 }

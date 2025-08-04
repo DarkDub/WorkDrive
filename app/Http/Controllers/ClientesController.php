@@ -6,16 +6,19 @@ use App\Models\Clientes;
 use Illuminate\Http\Request;
 use App\Models\Pais;
 use App\Models\Departamento;
-use App\Models\Municipio;
-use GuzzleHttp\Client;
+use App\Models\Municipio; 
 
 class ClientesController extends Controller
 {
     public function index()
     {
+        // Permitir que el usuario elija cuántos mostrar por página (opcional)
+        /* $perPage = $request->get('perPage', 5); */ // 5 es el valor por defecto 
+
         $clientes = Clientes::with(['pais', 'departamento', 'municipio'])
-             ->where('rol_id', '5')
-            ->get();
+            ->where('estado', 'A')  
+            ->get(); 
+            /* ->paginate($perPage) */
 
         return view('clientes.index', compact('clientes'));
     }
@@ -69,7 +72,6 @@ class ClientesController extends Controller
     public function edit(Clientes $cliente)
     {
         $paises = Pais::all();
-        
         $departamentos = Departamento::all();
         $municipios = Municipio::all();
 

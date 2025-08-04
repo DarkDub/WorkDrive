@@ -11,17 +11,11 @@ body {
     padding: 1rem;
 }
 
-<<<<<<< HEAD
-.header {
-    position: relative;
-    border-radius: 10px;
-=======
 #header-profile {
     position: relative;
     border-radius: 10px;
     padding: 0 !important;
     z-index: 0;
->>>>>>> 434cc21 (Hollman)
 }
 
 .cover-photo {
@@ -125,25 +119,15 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-<<<<<<< HEAD
-=======
     box-shadow: none !important;
     background: none;
     padding: 0 !important;
->>>>>>> 434cc21 (Hollman)
 }
 
 .stats {
     display: flex;
     justify-content: space-between;
-<<<<<<< HEAD
-    background: white;
-    padding: 1rem;
     border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-=======
-    border-radius: 12px;
->>>>>>> 434cc21 (Hollman)
     color: #212b36;
 }
 
@@ -160,16 +144,6 @@ body {
 .about,
 .social {
     background: white;
-<<<<<<< HEAD
-    padding: 1rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.about ul {
-    padding: 0;
-    list-style: none;
-=======
     border-radius: 12px;
     color: #212b36;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -193,21 +167,10 @@ body {
 .about ul {
     list-style: none;
     padding: 0;
->>>>>>> 434cc21 (Hollman)
 }
 
 .about li {
     margin: 5px 0;
-<<<<<<< HEAD
-    font-size: 0.9rem;
-}
-
-.social a {
-    display: block;
-    margin: 5px 0;
-    text-decoration: none;
-    color: #1976d2;
-=======
 }
 
 .about li i {
@@ -215,7 +178,6 @@ body {
     margin: 10px 7px;
     font-size: 1rem;
 
->>>>>>> 434cc21 (Hollman)
 }
 
 .content {
@@ -226,8 +188,6 @@ body {
     margin: 10px;
 }
 
-<<<<<<< HEAD
-=======
 .info-p {
     margin: 0px;
     font-size: 16px;
@@ -253,7 +213,6 @@ body {
     font-size: 1.2rem;
 }
 
->>>>>>> 434cc21 (Hollman)
 .post-box {
     background: white;
     padding: 1rem;
@@ -275,19 +234,14 @@ body {
     margin-top: 10px;
 }
 
-<<<<<<< HEAD
-=======
 .post-actions li {
     margin: 7px 0px;
 }
 
->>>>>>> 434cc21 (Hollman)
 .post-actions ul {
     list-style: none;
 }
 
-<<<<<<< HEAD
-=======
 .post-action {
     display: flex;
     justify-content: space-between;
@@ -307,7 +261,6 @@ body {
     background: #e3f2fd;
     transition: 0.5s all;
 }
->>>>>>> 434cc21 (Hollman)
 
 .image-btn,
 .stream-btn,

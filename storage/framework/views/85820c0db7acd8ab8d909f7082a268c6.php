@@ -83,4 +83,4 @@
                 
                 
                 
-                <?php /**PATH C:\Users\Palma\Desktop\NewProject\WorkDrive-Sena (1)\WorkDrive-Sena\resources\views/components/principal.blade.php ENDPATH**/ ?>
+                <?php /**PATH C:\Users\Palma\Desktop\WorkDrive-Sena\resources\views/components/principal.blade.php ENDPATH**/ ?>

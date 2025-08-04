@@ -21,20 +21,14 @@ return new class extends Migration
             $table->string('numero_documento')->unique();
             $table->text('hoja_vida')->nullable();
             $table->text('foto_documento')->nullable();
-            $table->string('estado', 20)->default('pending');
             $table->foreignId('tipo_documento')->constrained('tipo_documentos')->onDelete('cascade');
             $table->foreignId('registro_id')->constrained('registros')->onDelete('cascade');
             $table->foreignId('profesion_id')->constrained('profesiones')->onDelete('cascade');
             $table->timestamps();
 
             // Llave foránea con tabla profesiones
-
-
         });
-
-     
     }
-
     /**
      * Reverse the migrations.
      */

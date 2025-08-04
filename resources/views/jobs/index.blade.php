@@ -5,7 +5,7 @@
   @endpush
 
   @section('content')
-  <div class="container py-4">
+  <div class="container py-3">
     <h2 class="mb-4">List Workers</h2>
 
     <!-- Filtros de estado -->

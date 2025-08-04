@@ -8,6 +8,9 @@
 <?php $attributes = $attributes->except(\App\View\Components\Principal::ignoredParameterNames()); ?>
 <?php endif; ?>
 <?php $component->withAttributes([]); ?>
+    <?php $__env->startPush('styles'); ?>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
+<?php $__env->stopPush(); ?>
     <?php $__env->startSection('content'); ?>
     <div class="container py-4">
         <h2 class="mb-4">Panel de administradores</h2>
@@ -26,10 +29,14 @@
             </div>
         </div>
 
-        <div class="table-responsive shadow-sm rounded-3 p-3 bg-white">
-            <table class="table table-striped align-middle text-center mb-0" id="clientes">
+        <div class="table-responsive shadow-sm rounded-4 p-4 bg-white">
+            <div class="table-responsive">
+            <table class="table table-hover align-middle text-center mb-0" id="usuarios">
                 <thead class="table-light">
                     <tr>
+                        <th scope="col">
+                            <input type="checkbox" class="custom-checkbox" id="select-all">
+                        </th>
                         <th>ID</th>
                         <th>Nombre</th>
                         <th>Email</th>
@@ -37,10 +44,18 @@
                         <th>Acciones</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     <?php $__empty_1 = true; $__currentLoopData = $users; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $user): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
-                        <tr>    
-                            <td><?php echo e($user->id); ?></td>
+                    <tr data-id="<?php echo e($user->id); ?>">
+                                    <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
+                                    <td class="text-start d-flex align-items-center gap-2">
+                                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($user->name)); ?>&background=random" class="rounded-circle" width="32" height="32" />
+                                <div class="text-start">
+                                    <div class="fw-semibold"><?php echo e($user->name); ?></div>
+                                    <small class="text-muted"><?php echo e($user->email ?? 'no-email@example.com'); ?></small>
+                                </div>
+                            </td>   
                             <td><?php echo e($user->name); ?></td>
                             <td><?php echo e($user->email); ?></td>
                             <td><?php echo e($user->roles->nombre  ?? 'Sin Rol'); ?></td>
@@ -86,11 +101,74 @@
                     <?php endif; ?>
                 </tbody>
             </table>
-        </div>
-    </div>
-
-    <?php $__env->stopSection(); ?> 
+            </div> 
     
+         <!-- Contador de seleccionados -->
+<div class="d-flex justify-content-between align-items-center mt-3 px-3">
+    <div id="selection-counter" class="text-success fw-semibold" style="display: none;">
+        <i class="bi bi-check-circle-fill"></i>
+        <span id="selected-count">0</span> seleccionados
+    </div>
+</div>
+
+</div> <!-- fin de la tabla --> 
+</div> <!-- fin del contendedor principal --> 
+
+<?php $__env->stopSection(); ?> 
+  
+
+<?php $__env->startPush('scripts'); ?>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> 
+<script>
+    
+      $(document).ready(function () {
+    $('#usuarios').DataTable({
+      language: {
+        url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+      },
+      pageLength: 10,
+      responsive: true
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('select-all');
+    const checkboxes = document.querySelectorAll('.row-checkbox');
+    const selectionCounter = document.getElementById('selection-counter');
+    const selectedCount = document.getElementById('selected-count');
+
+    function updateCounter() {
+        const count = document.querySelectorAll('.row-checkbox:checked').length;
+        selectedCount.textContent = count;
+        selectionCounter.style.display = count > 0 ? 'block' : 'none';
+    }
+
+    function toggleRowHighlight(checkbox) {
+        checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
+    }
+
+    // Evento para los checkboxes individuales
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            toggleRowHighlight(cb);
+            updateCounter();
+            selectAll.checked = [...checkboxes].every(chk => chk.checked);
+        });
+    });
+
+    // Evento para el checkbox de seleccionar todo
+    selectAll.addEventListener('change', function () {
+        checkboxes.forEach(cb => {
+            cb.checked = this.checked;
+            toggleRowHighlight(cb);
+        });
+        updateCounter();
+    });
+});
+</script>
+<?php $__env->stopPush(); ?>
  <?php echo $__env->renderComponent(); ?>
 <?php endif; ?>
 <?php if (isset($__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>
@@ -101,4 +179,4 @@
 <?php $component = $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c; ?>
 <?php unset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c); ?>
 <?php endif; ?>
-<?php /**PATH C:\Users\Palma\Desktop\NewProject\WorkDrive-Sena (1)\WorkDrive-Sena\resources\views/usuariosAdmins/index.blade.php ENDPATH**/ ?>
+<?php /**PATH C:\Users\Palma\Desktop\WorkDrive-Sena\resources\views/usuariosAdmins/index.blade.php ENDPATH**/ ?>

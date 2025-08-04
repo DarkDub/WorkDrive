@@ -17,12 +17,6 @@ class Registro extends Model
         return $this->belongsTo(Rol::class, 'rol_id');
     }
 
-    public function tieneRol($nombreRol)
-    {
-        return $this->rol && $this->rol->nombre === $nombreRol;
-    }
-
-
     public function users()
     {
         return $this->hasMany(User::class, 'registro_id');
