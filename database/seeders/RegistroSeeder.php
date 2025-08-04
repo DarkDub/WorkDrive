@@ -9,64 +9,48 @@ use App\Models\estado;
 
 class RegistroSeeder extends Seeder
 {
-public function run()
-{
-    // Estados
-    estado::insert([
-        ['nombre' => 'Activo'],
-        ['nombre' => 'Inactivo'],
-        ['nombre' => 'pendiente'],
-        ['nombre' => 'verificado'],
-        ['nombre' => 'realizado'],
-        ['nombre' => 'en proceso'],
-    ]);
+    public function run()
 
-    $nombres = [
-        ['Carlos', 'Pérez'],
-        ['Laura', 'Gómez'],
-        ['Juan', 'Rodríguez'],
-        ['María', 'Torres'],
-        ['Luis', 'Martínez'],
-        ['Ana', 'Hernández'],
-        ['Jorge', 'García'],
-        ['Lucía', 'Ramírez'],
-        ['Andrés', 'López'],
-        ['Valentina', 'Castro'],
-        ['Mateo', 'Suárez'],
-        ['Camila', 'Morales'],
-        ['Diego', 'Vega'],
-        ['Sofía', 'Díaz'],
-        ['Esteban', 'Ortega'],
-        ['Daniela', 'Núñez'],
-        ['Sebastián', 'Reyes'],
-        ['Isabella', 'Silva'],
-        ['Tomás', 'Mendoza'],
-        ['Manuela', 'Cabrera'],
-    ];
+    {
 
-    $profesiones = [1, 2, 3, 4];
-    $tipo_documento = [1, 2, 3, 4];
-
-    foreach ($nombres as $index => [$nombre, $apellido]) {
-        $rolId = rand(4, 5);
-
-        $registro = Registro::create([
-            'nombre' => $nombre,
-            'apellido' => $apellido,
-            'telefono' => '300123' . str_pad($index, 4, '0', STR_PAD_LEFT),
-            'email' => strtolower($nombre) . $index . '@ejemplo.com',
-            'email_verified_at' => now(),
-            'password' => bcrypt('password123'),
-            'latitud' => 10.640 + ($index * 0.001),
-            'longitud' => -74.760 + ($index * 0.001),
-            'rol_id' => $rolId,
-            'pais_id' => 1,
-            'departamento_id' => rand(1, 25),
-            'municipio_id' => rand(1, 25),
-            'codigo_postal' => rand(100000, 999999),
+        estado::insert([
+            ['nombre' => 'Activo'],
+            ['nombre' => 'Inactivo'],
+            ['nombre' => 'pendiente'],
+            ['nombre' => 'verificado'],
+            ['nombre' => 'realizado'],
+            ['nombre' => 'completado'],
+            ['nombre' => 'en proceso'],
         ]);
+        $nombres = [
+            ['Carlos', 'Pérez'],
+            ['Laura', 'Gómez'],
+            ['Juan', 'Rodríguez'],
+            ['María', 'Torres'],
+            ['Luis', 'Martínez'],
+            ['Ana', 'Hernández'],
+            ['Jorge', 'García'],
+            ['Lucía', 'Ramírez'],
+            ['Andrés', 'López'],
+            ['Valentina', 'Castro'],
+        ];
 
-        if ($rolId == 4) {
+        $profesiones = [1, 2, 3, 4];
+        $tipo_documento = [1, 2, 3, 4];
+
+        foreach ($nombres as $index => [$nombre, $apellido]) {
+            $registro = Registro::create([
+                'nombre' => $nombre,
+                'apellido' => $apellido,
+                'telefono' => '30012345' . str_pad($index, 2, '0', STR_PAD_LEFT),
+                'email' => strtolower($nombre) . $index . '@ejemplo.com',
+                'email_verified_at' => now(),
+                'password' => bcrypt('password123'),
+                'latitud' => 10.640 + ($index * 0.001),
+                'longitud' => -74.760 + ($index * 0.001),
+                'rol_id' => 4, // Suponiendo que el rol_id 2 es "trabajador"
+            ]);
+
             DatosTrabajador::create([
                 'registro_id' => $registro->id,
                 'profesion_id' => $profesiones[$index % count($profesiones)],
@@ -77,5 +61,4 @@ public function run()
             ]);
         }
     }
-}
 }

@@ -1,9 +1,18 @@
-<x-principal> 
-@push('styles')
+<?php if (isset($component)) { $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c = $attributes; } ?>
+<?php $component = App\View\Components\Principal::resolve([] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('principal'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\Principal::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?> 
+<?php $__env->startPush('styles'); ?>
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-    <link rel="stylesheet" href="{{ asset('css/cliente-admin.css') }}">
-@endpush 
-@section('content')
+    <link rel="stylesheet" href="<?php echo e(asset('css/cliente-admin.css')); ?>">
+<?php $__env->stopPush(); ?> 
+<?php $__env->startSection('content'); ?>
     <div class="container py-4">
         <h2 class="mb-4">Panel de Clientes</h2>
 
@@ -13,10 +22,10 @@
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
             <h2 class="h5 m-0 fw-bold">Lista de Clientes</h2>
             <div>
-                <a href="{{ route('clientes.create')}}" class="btn btn-success me-2 ms-auto">
+                <a href="<?php echo e(route('clientes.create')); ?>" class="btn btn-success me-2 ms-auto">
                     <i class="bi bi-plus-circle"></i> Registrar Cliente
                 </a>
-                <a href="{{ route('clientes.eliminados') }}" class="btn btn-danger">
+                <a href="<?php echo e(route('clientes.eliminados')); ?>" class="btn btn-danger">
                     <i class="bi bi-person-x-fill"></i> Eliminados
                 </a>
             </div>
@@ -42,44 +51,62 @@
                 </thead>
                 
                 <tbody>
-                    @forelse($clientes as $cliente)
-                    <tr data-id="{{ $cliente->id }}">
+                    <?php $__empty_1 = true; $__currentLoopData = $clientes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $cliente): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); $__empty_1 = false; ?>
+                    <tr data-id="<?php echo e($cliente->id); ?>">
                                     <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
                                     <td class="text-start d-flex align-items-center gap-2">
-                                <img src="https://ui-avatars.com/api/?name={{ urlencode($cliente->nombre) }}&background=random" class="rounded-circle" width="32" height="32" />
+                                <img src="https://ui-avatars.com/api/?name=<?php echo e(urlencode($cliente->nombre)); ?>&background=random" class="rounded-circle" width="32" height="32" />
                                 <div class="text-start">
-                                    <div class="fw-semibold">{{ $cliente->nombre }}</div>
-                                    <small class="text-muted">{{ $cliente->email ?? 'no-email@example.com' }}</small>
+                                    <div class="fw-semibold"><?php echo e($cliente->nombre); ?></div>
+                                    <small class="text-muted"><?php echo e($cliente->email ?? 'no-email@example.com'); ?></small>
                                 </div>
                             </td> 
-                            <td>{{ $cliente->telefono }}</td>
-                            <td>{{ $cliente->direccion }}</td>
-                            <td>{{ $cliente->nit }}</td>
-                            <td>{{ $cliente->pais->nombre ?? 'Sin país' }}</td>
-                            <td>{{ $cliente->departamento->nombre ?? 'Sin departamento' }}</td>
-                            <td>{{ $cliente->codigo_postal ?? 'Sin departamento' }}</td>
+                            <td><?php echo e($cliente->telefono); ?></td>
+                            <td><?php echo e($cliente->direccion); ?></td>
+                            <td><?php echo e($cliente->nit); ?></td>
+                            <td><?php echo e($cliente->pais->nombre ?? 'Sin país'); ?></td>
+                            <td><?php echo e($cliente->departamento->nombre ?? 'Sin departamento'); ?></td>
+                            <td><?php echo e($cliente->codigo_postal ?? 'Sin departamento'); ?></td>
                             <td>
                                 <div class="d-flex justify-content-center gap-2">
                                     <button class="btn btn-danger btn-sm"
-                                        data-bs-target="#confirmDeleteModal-{{ $cliente->id }}" data-bs-toggle="modal">
+                                        data-bs-target="#confirmDeleteModal-<?php echo e($cliente->id); ?>" data-bs-toggle="modal">
                                         <i class="bi bi-trash"></i>
                                     </button>
 
-                                    <a href="{{ route('clientes.edit', $cliente->id) }}"
+                                    <a href="<?php echo e(route('clientes.edit', $cliente->id)); ?>"
                                         class="btn btn-sm btn-warning text-white shadow-sm">
                                         <i class="bi bi-pencil-square"></i>
                                     </a>
 
-                                    <x-modal-confirm-delete :id="$cliente->id" :route="route('clientes.cambiarEstado', [$cliente->id, '*'])" :name="$cliente->nombre"
-                                        :mensaje="'Eliminar'" :tipo="'el cliente:.... '" :buttonClass="'btn-danger'" />
+                                    <?php if (isset($component)) { $__componentOriginalb9d375e327010d368ba2916bd420fa84 = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginalb9d375e327010d368ba2916bd420fa84 = $attributes; } ?>
+<?php $component = App\View\Components\ModalConfirmDelete::resolve(['id' => $cliente->id,'route' => route('clientes.cambiarEstado', [$cliente->id, '*'])] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('modal-confirm-delete'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\App\View\Components\ModalConfirmDelete::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes(['name' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute($cliente->nombre),'mensaje' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('Eliminar'),'tipo' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('el cliente:.... '),'buttonClass' => \Illuminate\View\Compilers\BladeCompiler::sanitizeComponentAttribute('btn-danger')]); ?>
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginalb9d375e327010d368ba2916bd420fa84)): ?>
+<?php $attributes = $__attributesOriginalb9d375e327010d368ba2916bd420fa84; ?>
+<?php unset($__attributesOriginalb9d375e327010d368ba2916bd420fa84); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginalb9d375e327010d368ba2916bd420fa84)): ?>
+<?php $component = $__componentOriginalb9d375e327010d368ba2916bd420fa84; ?>
+<?php unset($__componentOriginalb9d375e327010d368ba2916bd420fa84); ?>
+<?php endif; ?>
                                 </div>
                             </td>
                         </tr>
-                    @empty
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?>
                         <tr>
                             <td colspan="8" class="text-center">No hay clientes registrados.</td>
                         </tr>
-                    @endforelse
+                    <?php endif; ?>
                     
                 </tbody>
             </table>
@@ -95,9 +122,9 @@
             
     </div> <!-- End table-responsive -->
         </div> <!-- End Lista de Clientes -->
-@endsection 
+<?php $__env->stopSection(); ?> 
         <!-- Selección masiva highlight JS -->
-@push('scripts')
+<?php $__env->startPush('scripts'); ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> 
@@ -192,70 +219,18 @@ const selectAllCheckbox = document.getElementById("select-all");
     });
 });
 </script>
-@endpush
-</x-principal> 
-    {{-- <div class="container">
-        <h1>Clientes</h1>
+<?php $__env->stopPush(); ?>
+ <?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>
+<?php $attributes = $__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c; ?>
+<?php unset($__attributesOriginal60bece9d0b974b0fa04e3d2961ec078c); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c)): ?>
+<?php $component = $__componentOriginal60bece9d0b974b0fa04e3d2961ec078c; ?>
+<?php unset($__componentOriginal60bece9d0b974b0fa04e3d2961ec078c); ?>
+<?php endif; ?> 
     
-        <a href="{{ route('clientes.create') }}" class="btn btn-primary mb-3">Crear Cliente</a>
-    
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Email</th>
-                    <th>Teléfono</th>
-                    <th>Dirección</th>
-                    <th>NIT</th>
-                    <th>Código Postal</th>
-                    <th>País</th>
-                    <th>Departamento</th>
-                    <th>Municipio</th>
-                    <th>Estado</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($clientes as $cliente)
-                <tr>
-                    <td>{{ $cliente->nombre }}</td>
-                    <td>{{ $cliente->email }}</td>
-                    <td>{{ $cliente->telefono }}</td>
-                    <td>{{ $cliente->direccion }}</td>
-                    <td>{{ $cliente->nit }}</td>
-                    <td>{{ $cliente->codigo_postal }}</td>
-                    <td>{{ $cliente->pais->nombre ?? 'N/A' }}</td>
-                    <td>{{ $cliente->departamento->nombre ?? 'N/A' }}</td>
-                    <td>{{ $cliente->municipio->nombre ?? 'N/A' }}</td>
-                    <td>{{ $cliente->estado == 'A' ? 'Activo' : 'Inactivo' }}</td>
-                    <td>
-                        <a href="{{ route('clientes.edit', $cliente->id) }}" class="btn btn-sm btn-warning">Editar</a>
-    
-                        <form action="{{ route('clientes.destroy', $cliente->id) }}" method="POST" style="display:inline;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro de eliminar este cliente?')">Eliminar</button>
-                        </form>
-    
-                        @if ($cliente->estado == 'A')
-                            <form action="{{ route('clientes.cambiarEstado', ['cliente' => $cliente->id, 'estado' => 'I']) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-sm btn-secondary">Desactivar</button>
-                            </form>
-                        @else
-                            <form action="{{ route('clientes.cambiarEstado', ['cliente' => $cliente->id, 'estado' => 'A']) }}" method="POST" style="display:inline;">
-                                @csrf
-                                @method('PUT')
-                                <button type="submit" class="btn btn-sm btn-success">Activar</button>
-                            </form>
-                        @endif
-                    </td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-    </div> --}}
     
 
 
@@ -264,3 +239,4 @@ const selectAllCheckbox = document.getElementById("select-all");
 
 
 
+<?php /**PATH C:\Users\Palma\Desktop\WorkDrive-Sena\resources\views/clientes/index.blade.php ENDPATH**/ ?>

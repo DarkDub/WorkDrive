@@ -1,29 +1,25 @@
-<!doctype html>
+<x-principal>
 @php
 $permisos = \App\Models\Permisos::all();
 @endphp
-<html lang="en">
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@push('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/roles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/principal.css') }}">
-    <title>Roles</title>
-</head>
+@endpush
 
-<body>
+@section('content')
 
-    <x-principal>
-        <div class="container-content">
-            <div class="table-container">
-                <div class="header d-flex justify-content-between align-items-center">
-                    <h2>Roles Agregadas</h2>
-                    <div class="d-flex align-items-center">
-                        <a class="btn btn-warning mx-4 text-white" href="{{ route('roles.Eliminados') }}">
+<div class="container py-4">
+        <h2 class="mb-4">Panel de Clientes</h2>
+
+                <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                    <h2 class="h5 m-0 fw-bold">Roles Agregadas</h2>
+                    <div>
+                        <a class="btn btn-warning mx-4 text-white me-2 ms-auto" href="{{ route('roles.Eliminados') }}">
                             roles eliminados
                         </a>
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAgregar">
@@ -31,9 +27,14 @@ $permisos = \App\Models\Permisos::all();
                         </button>
                     </div>
                 </div>
-                <table class="table table-striped">
-                    <thead>
+                <div class="table-responsive shadow-sm bg-white rounded-4 p-3">
+                <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-center">
+                    <thead class="table-light">
                         <tr>
+                            <th scope="col">
+                                <input type="checkbox" class="custom-checkbox" id="select-all">
+                            </th>
                             <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
@@ -43,34 +44,36 @@ $permisos = \App\Models\Permisos::all();
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rol as $usuario)
-                            <tr>
-                                <td>{{ $usuario->id }}</td>
-                                <td>{{ $usuario->nombre }}</td>
-                                <td>{{ $usuario->descripcion }}</td>
-                                <td>{{ $usuario->rolPadre ? $usuario->rolPadre->nombre : 'sin padre' }}</td>
+                        @foreach ($rol as $role)
+                            <tr data-id="{{ $role->id }}">
+                                <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
+                                <td>{{ $role->id }}</td>
+                                <td>{{ $role->nombre }}</td>
+                                <td>{{ $role->descripcion }}</td>
+                                <td>{{ $role->rolPadre ? $role->rolPadre->nombre : 'sin padre' }}</td>
                                 <td>
-                                    @foreach ($usuario->permisos as $permiso)
+                                    @foreach ($role->permisos as $permiso)
                                         <span class="badge bg-info text-dark">{{ $permiso->nombre }}</span>
                                     @endforeach
                                 </td>
                                 <td>
                                     {{--  boton editar roles --}}
-                                    <a class="btn btn-warning btn-sm" href="{{ route('rol.edit', $usuario['id']) }}"><i
+                                    <a class="btn btn-warning btn-sm" href="{{ route('rol.edit', $role['id']) }}"><i
                                             class="bi bi-pencil"></i></a>
-                                    <button class="btn btn-danger btn-sm" data-bs-target="#confirmDeleteModal-{{ $usuario->id }}" data-bs-toggle="modal">
+                                    <button class="btn btn-danger btn-sm" data-bs-target="#confirmDeleteModal-{{ $role->id }}" data-bs-toggle="modal">
                                         <i class="bi bi-trash"></i>
                                     </button>
                                     {{-- boton abrir agregar permiso --}}
                                     <button class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#modalAsignarPermisos"
-                                        data-rol-id="{{ $usuario->id }}" data-rol-nombre="{{ $usuario->nombre }}"
-                                        data-rol-permisos='@json($usuario->permisos->pluck("id"))'>
+                                        data-rol-id="{{ $role->id }}" data-rol-nombre="{{ $role->nombre }}"
+                                        data-rol-permisos='@json($role->permisos->pluck("id"))'>
                                         <i class="bi bi-shield-lock"></i>
                                     </button>
                                     <!-- Incluir el modal como componente -->
-                                    <x-modal-confirm-delete :id="$usuario->id" :route="route('rol.estado', [$usuario->id, '*'])" :name="$usuario->nombre"
+                                    <x-modal-confirm-delete :id="$role->id" :route="route('rol.estado', [$role->id, '*'])" :name="$role->nombre"
                                         :mensaje="'Eliminar'" :tipo="'el Rol:.... '" />
                                 </td>
+                                
                             </tr>
                            @endforeach
                     </tbody>
@@ -113,9 +116,6 @@ $permisos = \App\Models\Permisos::all();
         </div>
     </div>
 
-
-
-
         <!-- Modal Agregar Labor -->
         <div class="modal fade" id="modalAgregar" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true"
             data-bs-backdrop="static">
@@ -147,8 +147,8 @@ $permisos = \App\Models\Permisos::all();
                                 <label for="padre" class="form-label">Rol Padre</label>
                                 <select class="form-select" id="padre" name="padre">
                                     <option selected value="">Selecciona un rol padre</option>
-                                    @foreach ($rol as $usuario)
-                                        <option value="{{ $usuario->id }}">{{ $usuario->nombre }}</option>
+                                    @foreach ($rol as $role)
+                                        <option value="{{ $role->id }}">{{ $role->nombre }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -158,44 +158,41 @@ $permisos = \App\Models\Permisos::all();
                                 <button type="button" class="btn btn-danger mx-3"
                                     data-bs-dismiss="modal">cancelar</button>
                             </div>
-
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-    </x-principal>
-        <script>
-            document.addEventListener('DOMContentLoaded', () => {
-            const modal = document.getElementById('modalAsignarPermisos');
-            modal.addEventListener('show.bs.modal', event => {
-            const button = event.relatedTarget;
-            const rolId = button.getAttribute('data-rol-id');
-            const rolNombre = button.getAttribute('data-rol-nombre');
-            const permisosRol = JSON.parse(button.getAttribute('data-rol-permisos'));
+@endsection 
 
-            // Actualiza nombre del rol
-            document.getElementById('nombreRolModal').textContent = rolNombre;
+    <script>
+     document.addEventListener('DOMContentLoaded', () => {
+     const modal = document.getElementById('modalAsignarPermisos');
+     modal.addEventListener('show.bs.modal', event => {
+     const button = event.relatedTarget;
+     const rolId = button.getAttribute('data-rol-id');
+     const rolNombre = button.getAttribute('data-rol-nombre');
+     const permisosRol = JSON.parse(button.getAttribute('data-rol-permisos'));
 
-            // Cambia la acción del formulario
-            const form = document.getElementById('formAsignarPermisos');
-            form.action = `/roles/${rolId}/permisos`;
+     // Actualiza nombre del rol
+     document.getElementById('nombreRolModal').textContent = rolNombre;
 
-            // Desmarca todos los checkboxes primero
-            document.querySelectorAll('#checkboxesPermisos input[type=checkbox]').forEach(cb => {
-                cb.checked = false;
-            });
+     // Cambia la acción del formulario
+     const form = document.getElementById('formAsignarPermisos');
+     form.action = `/roles/${rolId}/permisos`;
 
-            // Marca los permisos que tiene el rol
-            permisosRol.forEach(id => {
-                const checkbox = document.getElementById('permiso_' + id);
-                if (checkbox) checkbox.checked = true;
-            });
-                });
-                    });
-            </script>
+     // Desmarca todos los checkboxes primero
+     document.querySelectorAll('#checkboxesPermisos input[type=checkbox]').forEach(cb => {
+     cb.checked = false;
+     });
 
+     // Marca los permisos que tiene el rol
+     permisosRol.forEach(id => {
+    const checkbox = document.getElementById('permiso_' + id);
+    if (checkbox) checkbox.checked = true;
+     });
+  });
+      });
 
-</body>
-
-</html>
+    </script>
+</x-principal>
