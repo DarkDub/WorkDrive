@@ -26,3 +26,7 @@ yarn-error.log
 /node_modules
 /vendor
 /node_modules
+/123
+/123.pub
+/storage/*
+!/storage/app/public
