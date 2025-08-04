@@ -7,6 +7,8 @@
 /storage/pail
 /vendor
 .env
+.env.example
+storage/logs/laravel.log
 .env.backup
 .env.production
 .phpactor.json
