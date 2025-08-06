@@ -6,6 +6,7 @@ use App\Models\AdminUser;
 use App\Models\Registro;
 use App\Models\User;
 use Illuminate\Database\Seeder;
+// use Database\Seeders\PermisosSeeder; // Remove this line if PermisosSeeder is in the same namespace or already autoloaded
 
 class DatabaseSeeder extends Seeder
 {
@@ -25,6 +26,7 @@ class DatabaseSeeder extends Seeder
         $this->call(profesiones::class);
         $this->call(metodos_pago::class);
         $this->call(RegistroSeeder::class);
+        $this->call(Permisos::class); // Make sure PermisosSeeder.php exists in database/seeders and class name is PermisosSeeder
         
         User::factory()->create(
             [
