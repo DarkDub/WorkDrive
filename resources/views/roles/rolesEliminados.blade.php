@@ -1,30 +1,27 @@
-<!doctype html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<x-principal>
+@push('styles')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="{{ asset('css/roles.css') }}">
     <link rel="stylesheet" href="{{ asset('css/principal.css') }}">
-    <title>Roles</title>
-</head>
+@endpush 
 
-<body>
-    <x-principal>
-        <div class="container-content">
-            <div class="table-container">
-                <div class="header d-flex justify-content-between align-items-center">
-                    <h2>Labores Eliminadas</h2>
+    @section('content')
+    <div class="container py-4">
+        <h2 class="mb-4">Panel de Eliminados</h2>
+
+        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                <h2 class="h5 m-0 fw-bold">Roles Agregadas</h2>
                     <a href="{{ route('rol.index') }}" class="btn btn-primary">
                         <i class="bi bi-arrow-left-short"></i>
                         Regresar
                     </a>
                 </div>
-                <table class="table table-striped">
-                    <thead>
+                <div class="table-responsive shadow-sm bg-white rounded-4 p-3">
+                <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-center">
+                    <thead class="table-light">
                         <tr>
                             <th>ID</th>
                             <th>Nombre</th>
@@ -34,24 +31,24 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rol as $usuario)
+                        @foreach ($roles as $role)
                             <tr>
-                                <td>{{ $usuario->id }}</td>
-                                <td>{{ $usuario->nombre }}</td>
-                                <td>{{ $usuario->descripcion }}</td>
-                                <td>{{ $usuario->rolPadre ? $usuario->rolPadre->nombre : 'sin padre' }}</td>
+                                <td>{{ $role->id }}</td>
+                                <td>{{ $role->nombre }}</td>
+                                <td>{{ $role->descripcion }}</td>
+                                <td>{{ $role->rolPadre ? $role->rolPadre->nombre : 'sin padre' }}</td>
                                 <td>
-                                    {{-- <a class="btn btn-warning btn-sm" href="rolEditar/{{ $usuario['id'] }}"><i
+                                    {{-- <a class="btn btn-warning btn-sm" href="rolEditar/{{ $role['id'] }}"><i
                                             class="bi bi-pencil"></i></a> --}}
                                     <button class="btn btn-danger btn-sm"
-                                        data-bs-target="#confirmRestaurarModal-{{ $usuario->id }}"
+                                        data-bs-target="#confirmRestaurarModal-{{ $role->id }}"
                                         data-bs-toggle="modal">
                                         <i class="bi bi-arrow-clockwise"></i>
                                     </button>
 
 
                                     <!-- Incluir el modal como componente -->
-                                    <x-modal-confirm-restaurar :id="$usuario->id" :route="route('rol.estado', [$usuario->id, 'A'])" :name="$usuario->nombre"
+                                    <x-modal-confirm-restaurar :id="$role->id" :route="route('rol.estado', [$role->id, 'A'])" :name="$role->nombre"
                                         :mensaje="'restaurar'" :tipo="'el Rol:.... '" />
 
                                 </td>
@@ -60,12 +57,9 @@
                     </tbody>
                 </table>
             </div>
+          </div>
         </div>
 
         <!-- Modal Agregar Labor -->
-
-    </x-principal>
-
-</body>
-
-</html>
+@endsection
+    </x-principal> 

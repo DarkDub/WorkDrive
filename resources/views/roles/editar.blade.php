@@ -14,7 +14,6 @@
 </head>
 
 <body>
-
     <x-principal>
         <!-- Modal editar roles -->
         <div class="formEdit">
@@ -53,8 +52,9 @@
                                         {{ $role->nombre }}
                                     </option>
                                 @endforeach
+                                </select>
                         </div>
-                        </select>
+                        
                         <div class="footer d-flex pt-2 w-100 mt-3">
                             <button type="submit" class="btn btn-primary">Guardar</button>
                             <a href="{{ route('rol.index') }}" class="btn btn-danger mx-3">Cancelar</a>

@@ -11,11 +11,18 @@ class RolController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-{
-    $rol = Rol::with(['rolPadre', 'permisos'])->where('estado', 'A')->get();
-    return view('roles.roles', compact('rol'));
-}
+    {
+    $roles = Rol::with(['rolPadre', 'permisos'])->where('estado', 'A')->get();
+    return view('roles.roles', compact('roles'));
+    }
 
+    public function Eliminados()
+    {
+        session(['mensaje' => 'Eliminar']);
+        $roles = Rol::with(['rolPadre', 'permisos'])->where('estado', '*')->get();
+        return view('roles.rolesEliminados', compact('roles'));
+        //
+    }
     // public function index()
     // {
     //     $rol = Rol::with('rolPadre')->where('estado', 'A')->get();

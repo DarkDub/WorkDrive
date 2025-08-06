@@ -13,8 +13,9 @@ $permisos = \App\Models\Permisos::all();
 
 @section('content')
 
+
 <div class="container py-4">
-        <h2 class="mb-4">Panel de Clientes</h2>
+        <h2 class="mb-4">Panel de Roles</h2>
 
                 <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                     <h2 class="h5 m-0 fw-bold">Roles Agregadas</h2>
@@ -27,15 +28,13 @@ $permisos = \App\Models\Permisos::all();
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive shadow-sm bg-white rounded-4 p-3">
-                <div class="table-responsive">
-                <table class="table table-hover align-middle mb-0 text-center">
+        <div class="shadow-sm bg-white rounded-4 p-3">
+                    <x-datatable id="tabla-roles">
                     <thead class="table-light">
                         <tr>
-                            <th scope="col">
+                            <th scope="col"> 
                                 <input type="checkbox" class="custom-checkbox" id="select-all">
                             </th>
-                            <th>ID</th>
                             <th>Nombre</th>
                             <th>Descripción</th>
                             <th>Nombre del Padre</th>
@@ -44,22 +43,33 @@ $permisos = \App\Models\Permisos::all();
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($rol as $role)
+                        @foreach ($roles as $role)
                             <tr data-id="{{ $role->id }}">
                                 <td><input type="checkbox" class="custom-checkbox row-checkbox"></td>
-                                <td>{{ $role->id }}</td>
+                                <td class="text-start d-flex align-items-center gap-2">
+                                <img src="https://ui-avatars.com/api/?name={{ urlencode($role->nombre) }}&background=random"
+                                    class="rounded-circle" width="32" height="32" />
+                                <div class="text-start">
+                                    <div class="fw-semibold">{{ $role->nombre }}</div>
+                                    <small
+                                        class="text-muted">{{ $role->registro->email ?? 'no-email@example.com' }}</small>
+                                </div>
+                                </td>
                                 <td>{{ $role->nombre }}</td>
                                 <td>{{ $role->descripcion }}</td>
                                 <td>{{ $role->rolPadre ? $role->rolPadre->nombre : 'sin padre' }}</td>
                                 <td>
                                     @foreach ($role->permisos as $permiso)
                                         <span class="badge bg-info text-dark">{{ $permiso->nombre }}</span>
-                                    @endforeach
-                                </td>
-                                <td>
+                                    @endforeach 
                                     {{--  boton editar roles --}}
-                                    <a class="btn btn-warning btn-sm" href="{{ route('rol.edit', $role['id']) }}"><i
-                                            class="bi bi-pencil"></i></a>
+                                    <button class="btn btn-warning btn-sm" data-bs-toggle="modal"
+                                        data-bs-target="#editRolModal" data-id="{{ $role->id }}"
+                                        data-nombre="{{ $role->nombre }}" data-descripcion="{{ $role->descripcion }}"
+                                        data-padre="{{ $role->padre }}">
+                                        <i class="bi bi-pencil"></i>
+                                    </button> 
+                                    {{-- boton eliminar roles --}}
                                     <button class="btn btn-danger btn-sm" data-bs-target="#confirmDeleteModal-{{ $role->id }}" data-bs-toggle="modal">
                                         <i class="bi bi-trash"></i>
                                     </button>
@@ -72,13 +82,71 @@ $permisos = \App\Models\Permisos::all();
                                     <!-- Incluir el modal como componente -->
                                     <x-modal-confirm-delete :id="$role->id" :route="route('rol.estado', [$role->id, '*'])" :name="$role->nombre"
                                         :mensaje="'Eliminar'" :tipo="'el Rol:.... '" />
+
+                                        
                                 </td>
                                 
                             </tr>
                            @endforeach
-                    </tbody>
+                        </tbody>
+                    </x-datatable>
                 </table>
+
+                <!-- Modal para editar -->
+        <div class="modal fade" id="editRolModal" tabindex="-1" aria-labelledby="editRolModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editRolModalLabel">Editar Rol</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="editRolForm" method="POST" action="">
+                            @csrf
+                            @method('PUT')
+                            <div class="mb-3">
+                                <label for="nombre" class="form-label">Nombre de la Labor</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre"> 
+                                
+                                @error('nombre')
+                                    <div class="alert alert-danger">*{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="descripcion" class="form-label">Descripción</label>
+                                <textarea class="form-control" id="descripcion" name="descripcion"></textarea>
+                                @error('descripcion')
+                                    <div class="alert alert-danger">*{{ $message }}</div>
+                                @enderror
+                            </div>
+                            <div class="mb-3">
+                                <label for="padre" class="form-label">Rol Padre</label>
+                                <select class="form-select" id="padre" name="padre">
+                                    <option value="">Sin Padre</option>
+                                    @foreach ($roles as $role)
+                                        <option value="{{ $role->id }}">{{ $role->nombre }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="d-flex pt-2 w-100 mt-3">
+                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                <button type="button" class="btn btn-danger mx-3" data-bs-dismiss="modal">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </div>
+            </div>
+
+            <!-- Contador de seleccionados -->
+<div class="d-flex justify-content-between align-items-center mt-3 px-3">
+    <div id="selection-counter" class="text-success fw-semibold" style="display: none;">
+        <i class="bi bi-check-circle-fill"></i>
+        <span id="selected-count">0</span> seleccionados
+    </div>
+</div>
+    </div>
         </div>
 
         <!-- Modal Agregar permisos -->
@@ -147,7 +215,7 @@ $permisos = \App\Models\Permisos::all();
                                 <label for="padre" class="form-label">Rol Padre</label>
                                 <select class="form-select" id="padre" name="padre">
                                     <option selected value="">Selecciona un rol padre</option>
-                                    @foreach ($rol as $role)
+                                    @foreach ($roles as $role)
                                         <option value="{{ $role->id }}">{{ $role->nombre }}</option>
                                     @endforeach
                                 </select>
@@ -165,7 +233,45 @@ $permisos = \App\Models\Permisos::all();
         </div>
 @endsection 
 
-    <script>
+@push('scripts') 
+<script>
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const selectAll = document.getElementById('select-all');
+    const checkboxes = document.querySelectorAll('.row-checkbox');
+    const selectionCounter = document.getElementById('selection-counter');
+    const selectedCount = document.getElementById('selected-count');
+
+    function updateCounter() {
+        const count = document.querySelectorAll('.row-checkbox:checked').length;
+        selectedCount.textContent = count;
+        selectionCounter.style.display = count > 0 ? 'block' : 'none';
+    }
+
+    function toggleRowHighlight(checkbox) {
+        checkbox.closest('tr').classList.toggle('table-success', checkbox.checked);
+    }
+
+    // Evento para los checkboxes individuales
+    checkboxes.forEach(cb => {
+        cb.addEventListener('change', () => {
+            toggleRowHighlight(cb);
+            updateCounter();
+            selectAll.checked = [...checkboxes].every(chk => chk.checked);
+        });
+    });
+
+    // Evento para el checkbox de seleccionar todo
+    selectAll.addEventListener('change', function () {
+        checkboxes.forEach(cb => {
+            cb.checked = this.checked;
+            toggleRowHighlight(cb);
+        });
+        updateCounter();
+    });
+});
+
+
      document.addEventListener('DOMContentLoaded', () => {
      const modal = document.getElementById('modalAsignarPermisos');
      modal.addEventListener('show.bs.modal', event => {
@@ -192,7 +298,33 @@ $permisos = \App\Models\Permisos::all();
     if (checkbox) checkbox.checked = true;
      });
   });
-      });
+      }); 
 
-    </script>
+document.addEventListener('DOMContentLoaded', () => {
+    const editModal = document.getElementById('editRolModal');
+    editModal.addEventListener('show.bs.modal', event => {
+        const button = event.relatedTarget;
+
+        const rolId = button.getAttribute('data-id');
+        const nombre = button.getAttribute('data-nombre');
+        const descripcion = button.getAttribute('data-descripcion');
+        const padre = button.getAttribute('data-padre');
+
+        // Asignar los valores a los campos del formulario
+        const form = editModal.querySelector('form');
+        form.action = `/rol/${rolId}`; // Asegúrate que esta ruta coincide con la de tu update
+
+        form.querySelector('[name="nombre"]').value = nombre;
+        form.querySelector('[name="descripcion"]').value = descripcion;
+
+        const padreSelect = form.querySelector('[name="padre"]');
+        for (let option of padreSelect.options) {
+            option.selected = option.value == padre;
+        }
+    });
+});
+
+
+</script>
+@endpush
 </x-principal>
