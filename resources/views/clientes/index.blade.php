@@ -8,7 +8,6 @@
         <h2 class="mb-4">Panel de Clientes</h2>
 
         <!-- Dashboard -->
-
         <!-- Lista de Clientes -->
         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
             <h2 class="h5 m-0 fw-bold">Lista de Clientes</h2>
@@ -23,8 +22,7 @@
         </div>
 
         <div class="table-responsive shadow-sm bg-white rounded-4 p-3">
-            <div class="table-responsive">
-            <table id="tabla-clientes" class="table table-hover align-middle mb-0 text-center">
+            <x-datatable id="tabla-clientes">
                 <thead class="table-light">
                     <tr>
                         <th scope="col">
@@ -82,6 +80,7 @@
                     @endforelse
                     
                 </tbody>
+            </x-datatable>
             </table>
             </div> 
 
@@ -94,14 +93,16 @@
 </div>
             
     </div> <!-- End table-responsive -->
-        </div> <!-- End Lista de Clientes -->
 @endsection 
         <!-- Selección masiva highlight JS -->
 @push('scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script> 
 <script>
+/*     $(document).ready(function () {
+   if ($.fn.dataTable.isDataTable('#tabla-clientes')) {
+             $('#tabla-clientes').DataTable().clear().destroy();
+            }
+}); */
+/* <script>
     
       $(document).ready(function () {
     $('#tabla-clientes').DataTable({
@@ -109,9 +110,8 @@
         url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
       },
       pageLength: 10,
-      responsive: true
-    });
-  });
+      responsive: true */
+    
 
 /* document.addEventListener('DOMContentLoaded', function () {
     const selectAll = document.getElementById('select-all');

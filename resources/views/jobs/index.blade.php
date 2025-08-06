@@ -43,7 +43,7 @@
 
     <!-- Tabla de usuarios -->
     <div class="table-responsive shadow-sm bg-white rounded-4 p-3">
-        <table id="tabla-trabajadores" class="table table-hover align-middle text-center">
+      <x-datatable id="tabla-workers">
             <thead class="table-light">
                 <tr>
                     <th scope="col">
@@ -117,6 +117,7 @@
                       @endif
                 @endforeach
             </tbody>
+      </x-datatable>
         </table>
     </div>
 </div>

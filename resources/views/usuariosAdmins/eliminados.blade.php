@@ -1,4 +1,5 @@
 <x-principal>
+    @section('content') 
     <div class="container py-4">
         <h2 class="mb-4">Clientes Eliminados</h2>
 
@@ -57,6 +58,6 @@
         </div>
     </div>
 
-
+@endsection 
 
 </x-principal>

@@ -1,7 +1,4 @@
 <x-principal>
-    @push('styles')
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-@endpush
     @section('content')
     <div class="container py-4">
         <h2 class="mb-4">Panel de administradores</h2>
@@ -21,8 +18,7 @@
         </div>
 
         <div class="table-responsive shadow-sm rounded-4 p-4 bg-white">
-            <div class="table-responsive">
-            <table class="table table-hover align-middle text-center mb-0" id="usuarios">
+            <x-datatable id="tabla-usuarios">
                 <thead class="table-light">
                     <tr>
                         <th scope="col">
@@ -73,6 +69,7 @@
                         </tr>
                     @endforelse
                 </tbody>
+            </x-datatable> 
             </table>
             </div> 
     
