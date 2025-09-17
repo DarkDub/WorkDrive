@@ -32,6 +32,12 @@ class ClientesController extends Controller
         return view('clientes.create', compact('paises', 'departamentos', 'municipios'));
     }
 
+     public function Eliminados()
+    {
+        $clientes = Clientes::with(['pais', 'departamento', 'municipio'])->where('estado', '*')->get();
+        return view('clientes.eliminados', compact('clientes'));
+    }
+ 
     public function store(Request $request)
     {
         // $request->validate([
@@ -129,21 +135,16 @@ class ClientesController extends Controller
         return redirect()->route('clientes.index')->with('toast_success', 'Proveedor actualizado correctamente');
         //
     }
-    public function destroy(Clientes $cliente)
+    /* public function destroy(Clientes $cliente)
     {
         $cliente->update([
             'estado' => '*',
         ]);
 
         return redirect()->route('clientes.index')->with('success', 'Cliente eliminado exitosamente.');
-    }
+    } */
 
-    public function Eliminados()
-    {
-        $clientes = Clientes::with(['pais', 'departamento', 'municipio'])->where('estado', '*')->get();
-        return view('clientes.eliminados', compact('clientes'));
-    }
-
+   
     public function cambiarEstado(Request $request, Clientes $cliente, $estado)
     {
         $cliente->update([

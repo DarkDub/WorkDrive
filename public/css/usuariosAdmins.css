@@ -1,0 +1,33 @@
+.badge-status {
+      display: inline-block;
+      padding: 0.35em 0.75em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      line-height: 1;
+      border-radius: 0.65rem;
+  }
+
+  .status-active {
+      background-color: #dcfce7;
+      color: #15803d;
+  }
+
+  .status-pending {
+      background-color: #fef9c3;
+      color: #92400e;
+  }
+
+  .status-banned {
+      background-color: #fee2e2;
+      color: #b91c1c;
+  }
+
+  .status-rejected {
+      background-color: #e0e7ff;
+      color: #3730a3;
+  }
+
+  .status-unknown {
+      background-color: #f3f4f6;
+      color: #4b5563;
+  }

@@ -1,4 +1,4 @@
-<x-principal>
+{{-- <x-principal>
     <div class="content-create-prove">
         <div class="text-title-form">
             <h1>Registrar Cliente</h1>
@@ -165,3 +165,4 @@
         </script>
     @endsection
 </x-principal>
+ --}}

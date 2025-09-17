@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('datos_trabajador', function (Blueprint $table) {
-            $table->string('estado', 20)->default('Active')->after('tipo_documento'); // A: activo, I: inactivo 
+            $table->string('estado', 20)->default('Unknown')->after('tipo_documento'); // A: activo, I: inactivo 
             //
         });
     }

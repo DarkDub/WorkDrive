@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('rol_id')->references('id')->on('roles')->onDelete('cascade');
             $table->foreign('registro_id')->references('id')->on('registros');
 
-            $table->string('estado', 1)->default('A');
+            $table->string('estado', 20)->default('pending');
 
             $table->rememberToken();
             $table->timestamps();

@@ -13,13 +13,13 @@ class AdminUserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('admin_users')->insert([
+        DB::table('users')->insert([
             [
                 'name' => 'Administrado Principal',
                 'email' => 'Admin@example.com',
                 'password' => Hash::make('Admin123'),
                 'estado' => 'A',
-                'role_id' => 1,
+                'rol_id' => 1,
                 'remember_token' => Str::random(60),
                 'created_at' => now(),
                 'updated_at' => now(),

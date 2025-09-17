@@ -1,104 +1,52 @@
 <x-principal>
     <div class="container">
-        <h2>Editar Cliente</h2>
+        <h2>Editar Usuario</h2>
 
-        <form action="{{ route('clientes.update', $cliente->id) }}" method="POST">
+        <form action="{{ route('usuariosAdmins.update', $users->id) }}" method="POST">
             @csrf
             @method('PUT')
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label for="nombre">Nombre:</label>
-                    <input type="text" id="nombre" name="nombre" class="form-control"
-                        value="{{ old('nombre', $cliente->nombre) }}" required>
-                    @error('nombre')
+                    <label for="name">name:</label>
+                    <input type="text" id="name" name="name" class="form-control"
+                        value="{{ old('name', $users->name) }}" required>
+                    @error('name')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label for="nit">NIT:</label>
-                    <input type="text" id="nit" name="nit" class="form-control"
-                        value="{{ old('nit', $cliente->nit) }}" required>
-                    @error('nit')
+                    <label for="email">Correo:</label>
+                    <input type="email" id="email" name="email" class="form-control"
+                        value="{{ old('email', $users->email) }}" required>
+                    @error('email')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
 
                 <div class="col-md-6 mb-3">
-                    <label for="telefono">Teléfono:</label>
-                    <input type="text" id="telefono" name="telefono" class="form-control"
-                        value="{{ old('telefono', $cliente->telefono) }}" required>
-                    @error('telefono')
+                    <label for="rol">Rol</label>
+                    <input type="text" id="rol" name="rol" class="form-control"
+                        value="{{ old('rol', $users->rol) }}" required>
+                    @error('rol')
                         <div class="text-danger">{{ $message }}</div>
                     @enderror
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="direccion">Dirección:</label>
-                    <input type="text" id="direccion" name="direccion" class="form-control"
-                        value="{{ old('direccion', $cliente->direccion) }}" required>
-                    @error('direccion')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="correo">Correo:</label>
-                    <input type="email" id="correo" name="email" class="form-control"
-                        value="{{ old('correo', $cliente->email) }}" required>
-                    @error('correo')
-                        <div class="text-danger">{{ $message }}</div>
-                    @enderror
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="pais_id">País:</label>
-                    <select id="pais_id" name="pais_id" class="form-control" required>
-                        @foreach ($paises as $pais)
-                            <option value="{{ $pais->id }}"
-                                {{ old('pais_id', $cliente->pais_id) == $pais->id ? 'selected' : '' }}>
-                                {{ $pais->nombre }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="departamento_id">Departamento:</label>
-                    <select id="departamento_id" name="departamento_id" class="form-control" required>
-                        @foreach ($departamentos as $departamento)
-                            <option value="{{ $departamento->id }}"
-                                {{ old('departamento_id', $cliente->departamento_id) == $departamento->id ? 'selected' : '' }}>
-                                {{ $departamento->nombre }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div class="col-md-6 mb-3">
-                    <label for="municipio_id">Municipio:</label>
-                    <select id="municipio_id" name="municipio_id" class="form-control" required>
-                        @foreach ($municipios as $municipio)
-                            <option value="{{ $municipio->id }}"
-                                {{ old('municipio_id', $cliente->municipio_id) == $municipio->id ? 'selected' : '' }}>
-                                {{ $municipio->nombre }}
-                            </option>
-                        @endforeach
-                    </select>
                 </div>
 
                 <div class="modal-footer d-flex justify-content-between">
-                    <a href="{{ route('clientes.index') }}" class="btn btn-warning">Regresar</a>
+                    <a href="{{ route('usuariosAdmins.index') }}" class="btn btn-warning">Regresar</a>
 
                     <div>
                         <button type="submit" class="btn btn-success me-2">Guardar Cambios</button>
                         <button type="button" class="btn btn-danger me-2"
-                            onclick="window.location.href='{{ route('clientes.index') }}'">Cancelar</button>
+                            onclick="window.location.href='{{ route('usuariosAdmins.index') }}'">Cancelar</button>
                     </div>
                 </div>
             </div>
         </form>
     </div>
+</x-principal> 
+
 {{-- 
 <div class="container">
     <h1>Editar Cliente</h1>
@@ -168,5 +116,3 @@
         <a href="{{ route('clientes.index') }}" class="btn btn-secondary">Cancelar</a>
     </form>
 </div> --}}
-
-</x-principal>

@@ -9,11 +9,20 @@ use App\Models\Registro;
 use Illuminate\Database\Eloquent\Model;
 
 class Trabajador extends Model
-{
-     protected $table = 'datos_trabajador'; // Especifica la tabla explícitamente 
+{ 
+    protected $table = 'datos_trabajador';
 
     protected $guarded = [''];
 
+    protected $fillable = [
+        'nombre',
+        'tipo_documento',
+        'numero_documento',
+        'hoja_vida',
+        'document_foto',
+        'registro_id',
+        'profesion_id',
+    ];
     public function Pais()
     {
         return $this->belongsTo(Pais::class, 'pais_id');

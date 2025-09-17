@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href='<?php echo e(route('admin_user.index')); ?>' class="nav-link text-white d-flex align-items-center">  
+                <a href='<?php echo e(route('usuariosAdmins.index')); ?>' class="nav-link text-white d-flex align-items-center">  
                      <i class="bi bi-person-lock"></i>
 
                     <span class="menu-text">usuarios</span>

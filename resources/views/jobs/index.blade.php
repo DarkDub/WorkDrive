@@ -84,7 +84,7 @@
                           @if ($job->estado == 'Active') status-active
                           @elseif($job->estado == 'Pending') status-pending
                           @elseif($job->estado == 'Banned') status-banned
-                          @elseif($job->estado == 'Rejected') status-rejected
+                          @elseif($job->estado == 'Rejected') status-rejected 
                           @else status-unknown @endif">
                                     {{ $job->estado ?? 'Unknown' }}
                                 </span>
@@ -97,11 +97,11 @@
                                         data-id="{{ $job->id }}" data-registro_id="{{ $job->registro_id }}"
                                         data-estado="{{ ucfirst(strtolower($job->estado)) }}"
                                         data-numero_documento="{{ $job->numero_documento }}"
-                                        data-nombre="{{ $job->nombre }}" data-email="{{ $job->email }}"
-                                        data-telefono="{{ $job->telefono }}" data-ciudad="{{ $job->ciudad }}"
+                                        data-nombre="{{ $job->nombre }}" data-email="{{ $job->registro->email }}"
+                                        data-telefono="{{ $job->registro->telefono }}" data-ciudad="{{ $job->ciudad }}"
                                         data-pais="{{ $job->pais }}" data-region="{{ $job->region }}"
                                         data-zip="{{ $job->codigo_postal }}" data-direccion="{{ $job->direccion }}"
-                                        data-empresa="{{ $job->empresa }}" data-rol="{{ $job->rol }}">
+                                        data-empresa="{{ $job->empresa }}" data-rol="{{ $job->registro->rol->nombre ?? 'Sin Rol' }}">
 
                                         <i class="bi bi-pencil-square"></i>
                                     </button>
@@ -149,6 +149,7 @@
                 <option value="Pending">Pending</option>
                 <option value="Banned">Banned</option>
                 <option value="Rejected">Rejected</option>
+                <option value="Unknown">Unknown</option>
               </select>
             </div>
 
