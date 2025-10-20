@@ -49,10 +49,7 @@ class DatosTrabajadorController extends Controller
         $path = $request->file('hoja_vida')->store('hojas_vida', 'public');
         $path = $request->file('foto_documento')->store('fotos_documento', 'public');
 
-        // Para registro_id, aquí debes adaptarlo según cómo lo obtienes o si el usuario está autenticado.
-        // Por ejemplo, si el trabajador tiene un registro relacionado:
-        // $registroId = auth()->user()->registro->id ?? null;
-
+       
         // Crear nuevo registro en datos_trabajador
         DatosTrabajador::create([
             'nombre' => $request->nombre,
