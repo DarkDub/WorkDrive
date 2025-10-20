@@ -35,7 +35,7 @@ class DatosTrabajadorController extends Controller
             'foto_documento' => 'required|file|mimes:pdf,doc,docx|max:2048',
         ]);
 
-        // Si eligió "Otro" y especificó una labor nueva, podemos crearla y usar su ID
+       
         if ($request->profesion_id === 'otro') {
             $nuevaProfesion = Profesion::create([
                 'nombre' => $request->otra_labor,
