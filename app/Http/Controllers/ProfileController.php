@@ -43,7 +43,6 @@ class ProfileController extends Controller
         $request->validate([
             'nombres' => 'required|string|max:255',
             'apellidos' => 'required|string|max:255',
-            //'email' => 'required|email|max:255|unique:users,email,' . $user->id, // El email está deshabilitado en el form
             'telefono' => 'required|string|max:15',
             'pais_id' => 'required|integer',
             'departamento_id' => 'required|integer',
